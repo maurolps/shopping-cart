@@ -1,6 +1,5 @@
-import { Autocomplete, TextField, Chip } from "@mui/material";
-import FaceIcon from "@mui/icons-material/Face";
 import { GitHub, LightMode, ShoppingCartOutlined } from "@mui/icons-material";
+import SearchBar from "./SearchBar";
 
 export function Header() {
   return (
@@ -14,24 +13,7 @@ export function Header() {
         <div className="flex flex-grow bg-white shadow-zinc-300 shadow-sm p-1">
           <div className="flex flex-grow justify-center items-center gap-3 text-sm text-[#c0c6cc] ">
             <div className="flex-grow">
-              {/* <input
-                type="text"
-                placeholder="Search..."
-                className="text-center w-full bg-white h-full appearance-none outline-none placeholder-[#c0c6cc]"
-              /> */}
-              <Autocomplete
-                options={["Apple", "Banana", "Orange"]}
-                autoComplete={true}
-                // filterOptions={(x) => x}
-                noOptionsText="No products found..."
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    // variant="outlined"
-                    placeholder="Search..."
-                  />
-                )}
-              />
+              <SearchBar />
             </div>
             <div className="border-l-2 border-[#c7c9ce] h-1/2"></div>
             <div className="flex justify-center items-center px-4 cursor-pointer w-1/4">
