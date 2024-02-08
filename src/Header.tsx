@@ -1,3 +1,7 @@
+import { Autocomplete, TextField, Chip } from "@mui/material";
+import FaceIcon from "@mui/icons-material/Face";
+import { GitHub, LightMode, ShoppingCartOutlined } from "@mui/icons-material";
+
 export function Header() {
   return (
     <header className="bg-[#f9f9f9] shadow-sm">
@@ -8,12 +12,25 @@ export function Header() {
           </h1>
         </div>
         <div className="flex flex-grow bg-white shadow-zinc-300 shadow-sm p-1">
-          <div className="flex flex-grow  ml-10 justify-center items-center gap-3 text-sm text-[#c0c6cc] ">
+          <div className="flex flex-grow justify-center items-center gap-3 text-sm text-[#c0c6cc] ">
             <div className="flex-grow">
-              <input
+              {/* <input
                 type="text"
                 placeholder="Search..."
                 className="text-center w-full bg-white h-full appearance-none outline-none placeholder-[#c0c6cc]"
+              /> */}
+              <Autocomplete
+                options={["Apple", "Banana", "Orange"]}
+                autoComplete={true}
+                // filterOptions={(x) => x}
+                noOptionsText="No products found..."
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    // variant="outlined"
+                    placeholder="Search..."
+                  />
+                )}
               />
             </div>
             <div className="border-l-2 border-[#c7c9ce] h-1/2"></div>
@@ -24,9 +41,15 @@ export function Header() {
           <button className="bg-[#60d4d4] p-2 text-white">GO</button>
         </div>
         <div className="flex justify-end items-center w-1/5 gap-3 text-base">
-          <a href="#">🛒</a>
-          <a href="#">🔔</a>
-          <a href="#">☀</a>
+          <a href="#">
+            <GitHub sx={{ color: "#c0c6cc" }} />
+          </a>
+          <a href="#">
+            <ShoppingCartOutlined sx={{ color: "#c0c6cc" }} />
+          </a>
+          <a href="#">
+            <LightMode sx={{ color: "#c0c6cc" }} />
+          </a>
         </div>
       </div>
     </header>
