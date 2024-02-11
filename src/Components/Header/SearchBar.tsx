@@ -66,6 +66,7 @@ export default function SearchBar() {
         <TextField
           {...params}
           variant="outlined"
+          size="small"
           placeholder="Search..."
           onChange={(e) => setInputValue(e.target.value)}
         />

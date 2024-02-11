@@ -1,4 +1,9 @@
-import { GitHub, LightMode, ShoppingCartOutlined } from "@mui/icons-material";
+import {
+  GitHub,
+  LightMode,
+  ShoppingCartOutlined,
+  Search,
+} from "@mui/icons-material";
 import SearchBar from "./SearchBar";
 
 export function Header() {
@@ -20,7 +25,9 @@ export function Header() {
               All &#x21B4;
             </div>
           </div>
-          <button className="bg-[#60d4d4] p-2 text-white">GO</button>
+          <button className="bg-[#60d4d4] aspect-square text-white">
+            <Search />
+          </button>
         </div>
         <div className="flex justify-end items-center w-1/5 gap-3 text-base">
           <a href="#">
