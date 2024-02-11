@@ -74,7 +74,7 @@ export default function SearchBar() {
       renderOption={(_, option) => (
         <>
           <p
-            className="text-slate-500 text-md cursor-pointer hover:font-bold px-4"
+            className="text-text bg-background text-md cursor-pointer hover:font-bold px-4"
             key={option.product_id}
           >
             {option.name}

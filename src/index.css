@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary-color: 96, 212, 212;
+  --background-color: 255, 255, 255;
+  --foreground-color: 249, 249, 249;
+  --text-color: 49, 49, 49;
+  --text-variant-color: 192, 198, 204;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: 96, 212, 212;
+    --background-color: 49, 49, 49;
+    --foreground-color: 139, 139, 139;
+    --text-color: 255, 255, 255;
+    --text-variant-color: 192, 198, 204;
+  }
+} */
+
+body {
+  background-color: rgb(var(--background-color));
+  color: rgb(var(--text-color));
+}
