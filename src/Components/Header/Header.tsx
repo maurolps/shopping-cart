@@ -8,11 +8,13 @@ import SearchBar from "./SearchBar";
 
 export function Header() {
   return (
-    <header className="bg-foreground shadow-sm">
+    <>
       <div className="flex justify-center py-6 max-w-screen-lg mx-auto">
         <div className="flex justify-start w-1/5 items-center">
-          <h1 className="text-3xl font-bold text-text">
-            <a href="/">SCart</a>
+          <h1 className="text-2xl font-bold text-text">
+            <a href="/">
+              S<span className="text-white bg-text px-1">C</span>art
+            </a>
           </h1>
         </div>
         <div className="flex flex-grow bg-background shadow-text-variant shadow-sm p-1">
@@ -43,6 +45,6 @@ export function Header() {
           </a>
         </div>
       </div>
-    </header>
+    </>
   );
 }
