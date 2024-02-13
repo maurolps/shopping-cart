@@ -4,6 +4,7 @@
 
 :root {
   --primary-color: 96, 212, 212;
+  --call-to-action-color: 255, 102, 102;
   --background-color: 255, 255, 255;
   --foreground-color: 249, 249, 249;
   --text-color: 49, 49, 49;
@@ -23,4 +24,5 @@
 body {
   background-color: rgb(var(--background-color));
   color: rgb(var(--text-color));
+  width: 100%;
 }

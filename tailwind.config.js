@@ -7,6 +7,7 @@ export default {
     extend: {
       colors: {
         primary: "rgba(var(--primary-color))",
+        call: "rgba(var(--call-to-action-color))",
         background: "rgba(var(--background-color))",
         foreground: "rgba(var(--foreground-color))",
         text: "rgba(var(--text-color))",

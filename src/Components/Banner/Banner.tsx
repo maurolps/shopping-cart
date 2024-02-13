@@ -1,18 +1,18 @@
 export default function Banner() {
   return (
     <>
-      <div className="grid grid-cols-2 gap-4  my-10   p-4 ">
-        <div className=" flex flex-col gap-6 max-w-md ">
+      <div className="grid grid-cols-2 gap-4  p-10 bg-foreground ">
+        <div className=" flex flex-col gap-6 max-w-lg ">
           <span className="font-revans text-7xl text-start">
-            Fashion, <br /> Meets Comfort.
+            Fitness, <br /> Meets Comfort.
           </span>
           <hr />
           <span className="text-start text-sm max-w-sm text-text-variant">
             Our mission is to elevate your every step, offering an extensive
-            selection of footwear that merges fashion-forward trends with
+            selection of footwear that merges fitness-forward trends with
             unparalleled comfort and quality.
           </span>
-          <button className="bg-primary text-white font-bold w-fit p-2">
+          <button className="bg-call text-white font-bold w-fit p-2">
             SHOP NOW
           </button>
         </div>

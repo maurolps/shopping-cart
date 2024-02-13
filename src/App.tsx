@@ -4,10 +4,10 @@ import { Header } from "./Components/Header/Header";
 export default function App() {
   return (
     <>
-      <header className="bg-foreground shadow-sm">
+      <header className="bg-background shadow-sm">
         <Header />
       </header>
-      <main className="flex justify-center">
+      <main className="flex justify-center w-full px-4">
         <section>
           <Banner />
         </section>

@@ -9,7 +9,7 @@ import SearchBar from "./SearchBar";
 export function Header() {
   return (
     <>
-      <div className="flex justify-center py-6 max-w-screen-lg mx-auto">
+      <div className="flex justify-center py-6 px-4 max-w-screen-lg mx-auto">
         <div className="flex justify-start w-1/5 items-center">
           <h1 className="text-2xl font-bold text-text">
             <a href="/">
@@ -17,14 +17,14 @@ export function Header() {
             </a>
           </h1>
         </div>
-        <div className="flex flex-grow bg-background shadow-text-variant shadow-sm p-1">
+        <div className="flex flex-grow bg-background shadow-text-variant  ">
           <div className="flex flex-grow justify-center items-center gap-3 text-sm text-text-variant ">
             <div className="flex-grow">
               <SearchBar />
             </div>
             <div className="border-l-2 border-text-variant h-1/2"></div>
             <div className="flex justify-center items-center px-4 cursor-pointer w-1/4">
-              All &#x21B4;
+              All Categories &#x21B4;
             </div>
           </div>
           <button className="bg-primary aspect-square text-white">
