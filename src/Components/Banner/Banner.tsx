@@ -1,3 +1,7 @@
+import { Canvas } from "@react-three/fiber";
+import { Shoe3d } from "../Shoe3d";
+import { Environment, OrbitControls } from "@react-three/drei";
+
 export default function Banner() {
   return (
     <>
@@ -17,7 +21,11 @@ export default function Banner() {
           </button>
         </div>
         <div className="max-w-sm">
-          <span className="">Lorem ipsum dolor sit amet.</span>
+          <Canvas>
+            <Shoe3d />
+            <Environment preset="city" />
+            <OrbitControls />
+          </Canvas>
         </div>
       </div>
     </>
