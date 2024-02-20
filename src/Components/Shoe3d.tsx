@@ -1,18 +1,29 @@
-import { useGLTF, useTexture } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 
 export function Shoe3d() {
-  const { nodes } = useGLTF("/shoe3d.glb");
-  // const beauty = useTexture("/nike_beauty.png");
-  // const emission = useTexture("/nike_emission.png");
+  const { nodes } = useGLTF("/nike.glb");
+
   return (
     <>
-      {/* {console.log(nodes.Nike)} */}
+      {console.log(nodes)}
+
       <mesh
-        geometry={nodes.Nike.geometry}
-        scale={[0.2, 0.2, 0.2]}
-        // material={nodes["Nike-primary"].material}
+        geometry={nodes["Shoe-Shoe"].geometry}
+        position={[0, 0, 0]}
+        scale={[5, 5, 5]}
       >
-        {/* <meshStandardMaterial map={beauty} emissiveMap={emission} /> */}
+        <meshPhongMaterial
+          color={"#f2f2f2"}
+          specular={"#71ff3d"}
+          shininess={30}
+        />
+      </mesh>
+      <mesh
+        geometry={nodes["Shoe-Base"].geometry}
+        position={[0, 0, 0]}
+        scale={[5, 5, 5]}
+      >
+        <meshPhongMaterial color={"black"} specular={"black"} shininess={30} />
       </mesh>
     </>
   );

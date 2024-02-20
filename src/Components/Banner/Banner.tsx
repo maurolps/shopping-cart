@@ -21,9 +21,11 @@ export default function Banner() {
           </button>
         </div>
         <div className="max-w-sm">
-          <Canvas>
+          <Canvas dpr={2}>
+            <Environment preset="studio" />
+            <directionalLight position={[1, 10, 2]} />
+
             <Shoe3d />
-            <Environment preset="city" />
             <OrbitControls />
           </Canvas>
         </div>
