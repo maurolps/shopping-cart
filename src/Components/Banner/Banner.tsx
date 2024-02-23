@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { Shoe3d } from "../Shoe3d";
+import { Shoe3d } from "./Shoe3d";
 import { OrbitControls } from "@react-three/drei";
 
 export default function Banner() {

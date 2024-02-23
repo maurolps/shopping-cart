@@ -4,8 +4,6 @@ export function Shoe3d() {
   const { nodes } = useGLTF("/nike.glb");
   const base = nodes["Shoe-Base"];
   const shoe = nodes["Shoe-Shoe"];
-  // base.material.side = 1;
-  console.log(shoe.material);
 
   return (
     <>
