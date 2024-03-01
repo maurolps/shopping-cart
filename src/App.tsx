@@ -1,18 +1,8 @@
 import Banner from "./Components/Banner/Banner";
 import { Header } from "./Components/Header/Header";
-import ProductCard from "./Components/ProductCard";
+import { Trending } from "./Components/Trending";
 
 export default function App() {
-  const mockData = [
-    {
-      id: 1,
-      name: "Nike Air Max 320 EVO Inspire",
-      price: 210,
-      sale: 0.35,
-      stars: 4.5,
-    },
-    { id: 2, name: "Adidas Ultraboost", price: 139.22, sale: 0, stars: 4 },
-  ] as const;
   return (
     <>
       <header className="bg-background shadow-sm">
@@ -22,9 +12,8 @@ export default function App() {
         <section>
           <Banner />
         </section>
-        <section className="flex flex-row gap-3">
-          <ProductCard product={mockData[0]} />
-          <ProductCard product={mockData[1]} />
+        <section>
+          <Trending />
         </section>
       </main>
     </>

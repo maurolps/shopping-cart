@@ -1,0 +1,9 @@
+/* .image-slider-container {
+  margin: 0 auto;
+  width: 400px;
+} */
+
+.trending-slider .slick-prev:before,
+.trending-slider .slick-next:before {
+  color: #c7c7c7;
+}
