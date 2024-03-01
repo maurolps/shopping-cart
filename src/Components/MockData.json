@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Nike Air Max 320 EVO Inspire",
+    "price": 210,
+    "sale": 0.35,
+    "stars": 4.7
+  },
+  {
+    "id": 2,
+    "name": "Adidas Ultraboost",
+    "price": 139.22,
+    "sale": 0,
+    "stars": 4
+  },
+  {
+    "id": 3,
+    "name": "New Balance Fresh Foam",
+    "price": 99.99,
+    "sale": 0.2,
+    "stars": 4.2
+  },
+  {
+    "id": 4,
+    "name": "Puma Ignite Limitless",
+    "price": 119.95,
+    "sale": 0,
+    "stars": 4.3
+  },
+  {
+    "id": 5,
+    "name": "Reebok Nano X1",
+    "price": 129.99,
+    "sale": 0.15,
+    "stars": 4.4
+  },
+  {
+    "id": 6,
+    "name": "Under Armour HOVR Phantom 2",
+    "price": 149.99,
+    "sale": 0.25,
+    "stars": 4.6
+  },
+  {
+    "id": 7,
+    "name": "Asics Gel-Nimbus",
+    "price": 159.99,
+    "sale": 0.1,
+    "stars": 4.5
+  },
+  {
+    "id": 8,
+    "name": "Saucony Kinvara 12",
+    "price": 119.99,
+    "sale": 0,
+    "stars": 4.2
+  },
+  {
+    "id": 9,
+    "name": "Brooks Ghost 14",
+    "price": 129.95,
+    "sale": 0.3,
+    "stars": 4.7
+  },
+  {
+    "id": 10,
+    "name": "Mizuno Wave Rider 25",
+    "price": 139.99,
+    "sale": 0.2,
+    "stars": 4.4
+  }
+]
