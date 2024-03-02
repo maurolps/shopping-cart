@@ -5,7 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 export default function Banner() {
   return (
     <>
-      <div className="grid grid-cols-2 gap-20  p-10 bg-slate-500 relative min-w-[900px]">
+      <div className="grid grid-cols-2 gap-20  p-10  relative min-w-[900px] max-w-screen-lg mx-auto bg-gradient-to-r from-primary via-slate-500 to-slate-500">
         <div className=" flex flex-col gap-6 max-w-lg justify-self-end ">
           <span className="font-revans text-7xl text-end z-10 text-white pointer-events-none select-none pr-6">
             Fitness, <br /> Meets Comfort.

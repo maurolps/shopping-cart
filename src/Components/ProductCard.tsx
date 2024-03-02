@@ -14,9 +14,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
   return (
     <>
-      <div className="  border-2 border-foreground p-3 w-fit flex flex-col">
+      <div className="  border-2 border-foreground p-3 w-fit flex flex-col min-h-[320px] ">
         <div className="bg-foreground w-36 h-36"></div>
-        <div className="text-text text-sm text-start font-bold max-w-36 min-h-10">
+        <div className="text-text text-sm text-start font-bold max-w-36">
           {product.name}
         </div>
         <div>
@@ -28,7 +28,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             size="small"
           />
         </div>
-        <div className="text-primary text-md text-start font-extrabold max-w-36">
+        <div className="text-text font-bold text-md text-start  max-w-36">
           ${product.sale === 0 ? product.price : salePrice()}
         </div>
         {product.sale !== 0 && (
@@ -41,6 +41,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           </div>
         )}
+        <div className="w-full my-2  flex-grow flex flex-col justify-end">
+          <button className="bg-white text-primary text-xs px-2  border-primary border">
+            Add to cart
+          </button>
+        </div>
       </div>
     </>
   );
