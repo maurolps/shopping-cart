@@ -1,5 +1,6 @@
 import AllShoes from "./Components/AllShoes";
 import Banner from "./Components/Banner/Banner";
+import Discount from "./Components/Discount";
 import { Header } from "./Components/Header/Header";
 import { SpecialOffer } from "./Components/SpecialOffer";
 import { Trending } from "./Components/Trending";
@@ -23,6 +24,10 @@ export default function App() {
         <section>
           <SpecialOffer />
         </section>
+        <section>
+          <Discount />
+        </section>
+        <section>footer</section>
       </main>
     </>
   );
