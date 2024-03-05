@@ -9,10 +9,10 @@ import { Trending } from "./Components/Trending";
 export default function App() {
   return (
     <>
-      <header className="bg-background shadow-sm max-w-screen-lg mx-auto">
+      <header className="bg-background shadow-sm min-w-[900px] max-w-screen-lg mx-auto px-4">
         <Header />
       </header>
-      <main className="flex justify-center w-full px-4 flex-col gap-10">
+      <main className="flex justify-center min-w-[900px] max-w-screen-lg mx-auto px-4 flex-col gap-10">
         <section>
           <Banner />
         </section>
