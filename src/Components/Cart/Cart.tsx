@@ -1,4 +1,4 @@
-import mockData from "./mockData.json";
+import mockData from "../mockData.json";
 
 function CounterInput() {
   return (
@@ -96,7 +96,7 @@ function Summary() {
           <span>$327.98</span>
         </div>
         <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
-          Checkout
+          Proceed to checkout
         </button>
       </div>
     </div>
