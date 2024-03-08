@@ -4,9 +4,10 @@ import StepLabel from "@mui/material/StepLabel";
 import { useState } from "react";
 import { StepContent } from "@mui/material";
 import Shipping from "./Shipping";
+import Payment from "./Payment";
+import Review from "./Review";
 export default function Checkout() {
   const steps = ["Shipping address", "Payment details", "Review"];
-  const stepDescription = ["Shipping", "Payment", "Review"];
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -40,6 +41,8 @@ export default function Checkout() {
                     <StepContent>
                       <div className="min-h-60 p-2 mb-4">
                         {index === 0 && <Shipping />}
+                        {index === 1 && <Payment />}
+                        {index === 2 && <Review />}
                       </div>
 
                       <div className="flex gap-2 justify-end w-full">
