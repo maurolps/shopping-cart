@@ -3,6 +3,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { useState } from "react";
 import { StepContent } from "@mui/material";
+import Shipping from "./Shipping";
 export default function Checkout() {
   const steps = ["Shipping address", "Payment details", "Review"];
   const stepDescription = ["Shipping", "Payment", "Review"];
@@ -37,10 +38,8 @@ export default function Checkout() {
                       <span className="text-text">{step}</span>
                     </StepLabel>
                     <StepContent>
-                      <div className="min-h-60 bg-foreground p-2 mb-4">
-                        <span className="text-text-variant">
-                          {stepDescription[index]}
-                        </span>
+                      <div className="min-h-60 p-2 mb-4">
+                        {index === 0 && <Shipping />}
                       </div>
 
                       <div className="flex gap-2 justify-end w-full">
