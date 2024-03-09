@@ -1,4 +1,4 @@
-import mockData from "../mockData.json";
+import { running } from "../mockData.json";
 
 function CounterInput() {
   return (
@@ -109,7 +109,7 @@ export default function Cart() {
       <div className="w-80 p-3 shadow">
         <div className="flex flex-col gap-2">
           <span className="text-lg text-text font-bold">Cart</span>
-          {mockData.slice(0, 3).map((data) => (
+          {running.slice(0, 3).map((data) => (
             <>
               <hr />
               <LoadProduct product={data} />

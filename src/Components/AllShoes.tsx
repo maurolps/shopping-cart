@@ -1,5 +1,5 @@
 import ProductCard from "./ProductCard";
-import mockData from "./mockData.json";
+import { running } from "./mockData.json";
 
 export default function AllShoes() {
   return (
@@ -13,7 +13,7 @@ export default function AllShoes() {
         <button className="bg-foreground text-text p-1 px-2">Top Review</button>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-        {mockData.map((data) => (
+        {running.map((data) => (
           <ProductCard product={data} />
         ))}
       </div>

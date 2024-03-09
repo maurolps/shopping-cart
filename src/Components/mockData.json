@@ -1,72 +1,330 @@
-[
-  {
-    "id": 1,
-    "name": "Nike Air Max 320 EVO Inspire",
-    "price": 210,
-    "sale": 0.35,
-    "stars": 4.7
-  },
-  {
-    "id": 2,
-    "name": "Adidas Ultraboost",
-    "price": 139.22,
-    "sale": 0,
-    "stars": 4
-  },
-  {
-    "id": 3,
-    "name": "New Balance Fresh Foam",
-    "price": 99.99,
-    "sale": 0.2,
-    "stars": 4.2
-  },
-  {
-    "id": 4,
-    "name": "Puma Ignite Limitless",
-    "price": 119.95,
-    "sale": 0,
-    "stars": 4.3
-  },
-  {
-    "id": 5,
-    "name": "Reebok Nano X1",
-    "price": 129.99,
-    "sale": 0.15,
-    "stars": 4.4
-  },
-  {
-    "id": 6,
-    "name": "Under Armour HOVR Phantom 2",
-    "price": 149.99,
-    "sale": 0.25,
-    "stars": 4.6
-  },
-  {
-    "id": 7,
-    "name": "Asics Gel-Nimbus",
-    "price": 159.99,
-    "sale": 0.1,
-    "stars": 4.5
-  },
-  {
-    "id": 8,
-    "name": "Saucony Kinvara 12",
-    "price": 119.99,
-    "sale": 0,
-    "stars": 4.2
-  },
-  {
-    "id": 9,
-    "name": "Brooks Ghost 14",
-    "price": 129.95,
-    "sale": 0.3,
-    "stars": 4.7
-  },
-  {
-    "id": 10,
-    "name": "Mizuno Wave Rider 25",
-    "price": 139.99,
-    "sale": 0.2,
-    "stars": 4.4
-  }
-]
+{
+  "running": [
+    {
+      "id": 1,
+      "name": "Nike Air Zoom Pegasus 38",
+      "price": 120.55,
+      "type": "for men",
+      "sale": 0.2,
+      "stars": 4.5
+    },
+    {
+      "id": 2,
+      "name": "Adidas Ultraboost 21",
+      "price": 180.45,
+      "type": "for women",
+      "sale": 0.15,
+      "stars": 4.3
+    },
+    {
+      "id": 3,
+      "name": "New Balance Fresh Foam 1080v11",
+      "price": 150.65,
+      "type": "for men",
+      "sale": 0,
+      "stars": 4.6
+    },
+    {
+      "id": 4,
+      "name": "Asics Gel-Nimbus 23",
+      "price": 160.75,
+      "type": "for women",
+      "sale": 0,
+      "stars": 4.2
+    },
+    {
+      "id": 5,
+      "name": "Brooks Ghost 14",
+      "price": 130.8,
+      "type": "for men",
+      "sale": 0.25,
+      "stars": 4.4
+    },
+    {
+      "id": 6,
+      "name": "Saucony Ride 14",
+      "price": 120.95,
+      "type": "for women",
+      "sale": 0.3,
+      "stars": 4.7
+    },
+    {
+      "id": 7,
+      "name": "Mizuno Wave Rider 25",
+      "price": 140.2,
+      "type": "for men",
+      "sale": 0.1,
+      "stars": 4.8
+    },
+    {
+      "id": 8,
+      "name": "Hoka One One Clifton 8",
+      "price": 150.35,
+      "type": "for women",
+      "sale": 0.05,
+      "stars": 4.6
+    },
+    {
+      "id": 9,
+      "name": "Under Armour HOVR Machina 2",
+      "price": 150.45,
+      "type": "for men",
+      "sale": 0.2,
+      "stars": 4.4
+    },
+    {
+      "id": 10,
+      "name": "Reebok Floatride Energy 3",
+      "price": 100.7,
+      "type": "for women",
+      "sale": 0.3,
+      "stars": 4.3
+    }
+  ],
+  "walking": [
+    {
+      "id": 11,
+      "name": "Nike Air Zoom Pegasus 38",
+      "price": 120.25,
+      "type": "for men",
+      "sale": 0.15,
+      "stars": 4.3
+    },
+    {
+      "id": 12,
+      "name": "New Balance Fresh Foam 1080v11",
+      "price": 150.6,
+      "type": "for women",
+      "sale": 0.2,
+      "stars": 4.5
+    },
+    {
+      "id": 13,
+      "name": "Asics Gel-Contend 7",
+      "price": 65.85,
+      "type": "for men",
+      "sale": 0.1,
+      "stars": 4.2
+    },
+    {
+      "id": 14,
+      "name": "Skechers Go Walk 6",
+      "price": 65.75,
+      "type": "for women",
+      "sale": 0.05,
+      "stars": 4.4
+    },
+    {
+      "id": 15,
+      "name": "Brooks Addiction Walker 2",
+      "price": 130.9,
+      "type": "for men",
+      "sale": 0,
+      "stars": 4.6
+    },
+    {
+      "id": 16,
+      "name": "Hoka One One Bondi 7",
+      "price": 150.4,
+      "type": "for women",
+      "sale": 0.1,
+      "stars": 4.3
+    },
+    {
+      "id": 17,
+      "name": "Adidas Ultraboost 21",
+      "price": 180.55,
+      "type": "for men",
+      "sale": 0.25,
+      "stars": 4.7
+    },
+    {
+      "id": 18,
+      "name": "Saucony Grid Omni Walker",
+      "price": 120.75,
+      "type": "for women",
+      "sale": 0,
+      "stars": 4.5
+    },
+    {
+      "id": 19,
+      "name": "Merrell Moab 2 Vent",
+      "price": 100.95,
+      "type": "for men",
+      "sale": 0.3,
+      "stars": 4.4
+    },
+    {
+      "id": 20,
+      "name": "Reebok Ever Road DMX 3.0",
+      "price": 80.6,
+      "type": "for women",
+      "sale": 0.15,
+      "stars": 4.6
+    }
+  ],
+  "training": [
+    {
+      "id": 21,
+      "name": "Nike Metcon 6",
+      "price": 130.35,
+      "type": "for men",
+      "sale": 0.2,
+      "stars": 4.4
+    },
+    {
+      "id": 22,
+      "name": "Under Armour TriBase Reign 3",
+      "price": 120.75,
+      "type": "for women",
+      "sale": 0,
+      "stars": 4.5
+    },
+    {
+      "id": 23,
+      "name": "Reebok Nano X1",
+      "price": 130.5,
+      "type": "for men",
+      "sale": 0.1,
+      "stars": 4.6
+    },
+    {
+      "id": 24,
+      "name": "New Balance Fresh Foam Roav Knit",
+      "price": 80.2,
+      "type": "for women",
+      "sale": 0.05,
+      "stars": 4.3
+    },
+    {
+      "id": 25,
+      "name": "Adidas Adipower Weightlifting II",
+      "price": 200.3,
+      "type": "for men",
+      "sale": 0,
+      "stars": 4.7
+    },
+    {
+      "id": 26,
+      "name": "Asics Gel-Craze TR 4",
+      "price": 85.65,
+      "type": "for women",
+      "sale": 0.3,
+      "stars": 4.2
+    },
+    {
+      "id": 27,
+      "name": "Puma Jaab XT",
+      "price": 80.95,
+      "type": "for men",
+      "sale": 0.2,
+      "stars": 4.1
+    },
+    {
+      "id": 28,
+      "name": "Nike Air Zoom SuperRep 2",
+      "price": 120.4,
+      "type": "for women",
+      "sale": 0.1,
+      "stars": 4.8
+    },
+    {
+      "id": 29,
+      "name": "Reebok Speed TR Flexweave",
+      "price": 100.55,
+      "type": "for men",
+      "sale": 0,
+      "stars": 4.3
+    },
+    {
+      "id": 30,
+      "name": "Under Armour HOVR Rise 2",
+      "price": 100.7,
+      "type": "for women",
+      "sale": 0.25,
+      "stars": 4.5
+    }
+  ],
+  "trending": [
+    {
+      "id": 7,
+      "name": "Mizuno Wave Rider 25",
+      "price": 140.2,
+      "type": "for men",
+      "sale": 0.1,
+      "stars": 4.8
+    },
+    {
+      "id": 28,
+      "name": "Nike Air Zoom SuperRep 2",
+      "price": 120.4,
+      "type": "for women",
+      "sale": 0.1,
+      "stars": 4.8
+    },
+    {
+      "id": 3,
+      "name": "New Balance Fresh Foam 1080v11",
+      "price": 150.65,
+      "type": "for men",
+      "sale": 0,
+      "stars": 4.6
+    },
+    {
+      "id": 6,
+      "name": "Saucony Ride 14",
+      "price": 120.95,
+      "type": "for women",
+      "sale": 0.3,
+      "stars": 4.7
+    },
+    {
+      "id": 23,
+      "name": "Reebok Nano X1",
+      "price": 130.5,
+      "type": "for men",
+      "sale": 0.1,
+      "stars": 4.6
+    },
+    {
+      "id": 12,
+      "name": "New Balance Fresh Foam 1080v11",
+      "price": 150.6,
+      "type": "for women",
+      "sale": 0,
+      "stars": 4.5
+    },
+    {
+      "id": 22,
+      "name": "Under Armour TriBase Reign 3",
+      "price": 120.75,
+      "type": "for women",
+      "sale": 0.15,
+      "stars": 4.5
+    },
+    {
+      "id": 5,
+      "name": "Brooks Ghost 14",
+      "price": 130.8,
+      "type": "for men",
+      "sale": 0.25,
+      "stars": 4.4
+    },
+    {
+      "id": 9,
+      "name": "Under Armour HOVR Machina 2",
+      "price": 150.45,
+      "type": "for men",
+      "sale": 0.2,
+      "stars": 4.4
+    },
+    {
+      "id": 10,
+      "name": "Reebok Floatride Energy 3",
+      "price": 100.7,
+      "type": "for women",
+      "sale": 0.3,
+      "stars": 4.3
+    }
+  ]
+}
