@@ -8,9 +8,6 @@ const theme = createTheme({
     primary: {
       main: `rgb(var(--primary-color))`,
     },
-    secondary: {
-      main: `rgb(var(--call-to-action-color))`,
-    },
   },
 });
 

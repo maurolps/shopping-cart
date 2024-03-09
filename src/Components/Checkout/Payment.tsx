@@ -3,15 +3,11 @@ import { CustomTextField } from "./CustomTextField";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import KeyIcon from "@mui/icons-material/Key";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: `rgb(var(--primary-color))`,
-    },
-    secondary: {
-      main: `rgb(var(--call-to-action-color))`,
     },
   },
 });

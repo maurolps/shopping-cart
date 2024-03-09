@@ -1,7 +1,7 @@
-import TextField from "@mui/material/TextField/TextField";
+import TextField, { TextFieldProps } from "@mui/material/TextField/TextField";
 import styled from "@mui/material/styles/styled";
 
-export const CustomTextField = styled((props) => (
+export const CustomTextField = styled((props: TextFieldProps) => (
   <TextField InputProps={{ disableUnderline: true }} {...props} />
 ))(({ theme }) => ({
   "& .MuiFilledInput-root": {
