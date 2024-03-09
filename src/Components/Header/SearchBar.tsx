@@ -2,35 +2,25 @@ import throttle from "lodash.throttle";
 import Autocomplete from "@mui/material/Autocomplete/Autocomplete";
 import TextField from "@mui/material/TextField/TextField";
 import { useCallback, useEffect, useState } from "react";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import createTheme from "@mui/material/styles/createTheme";
+import { running, training, walking } from "../../Components/mockData.json";
 
 export default function SearchBar() {
   type Options = {
     name: string;
-    product_id: string;
+    id: string;
   };
 
-  const fetchedData = [
-    { name: "Air Jordan 1", product_id: "aj1" },
-    { name: "Converse Chuck Taylor All Star", product_id: "ctas" },
-    { name: "Adidas Stan Smith", product_id: "ss" },
-    { name: "Nike Air Force 1", product_id: "af1" },
-    { name: "Vans Old Skool", product_id: "os" },
-    { name: "Puma Suede", product_id: "ps" },
-    { name: "Reebok Classic Leather", product_id: "cl" },
-    { name: "New Balance 574", product_id: "nb574" },
-    { name: "Under Armour Curry 7", product_id: "c7" },
-    { name: "Asics Gel-Kayano 27", product_id: "gk27" },
-    { name: "Brooks Adrenaline GTS 21", product_id: "agts21" },
-    { name: "Saucony Jazz Original", product_id: "jo" },
-    { name: "Mizuno Wave Rider 24", product_id: "wr24" },
-    { name: "Fila Disruptor II", product_id: "d2" },
-    { name: "Lacoste Carnaby Evo", product_id: "ce" },
-    { name: "Timberland 6-Inch Premium Waterproof Boots", product_id: "6pb" },
-    { name: "Dr. Martens 1460", product_id: "1460" },
-    { name: "UGG Classic Short", product_id: "cs" },
-    { name: "Merrell Jungle Moc", product_id: "jm" },
-    { name: "Salomon Speedcross 5", product_id: "s5" },
-  ];
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: `rgb(var(--primary-color))`,
+      },
+    },
+  });
+
+  const fetchedData = [...running, ...training, ...walking];
 
   const [options, setOptions] = useState<Options[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -54,33 +44,35 @@ export default function SearchBar() {
   }, [inputValue, fetchData]);
 
   return (
-    <Autocomplete
-      id="search-bar"
-      options={options}
-      autoComplete={true}
-      getOptionLabel={(option: Options) => option.name}
-      filterOptions={(x) => x}
-      includeInputInList
-      noOptionsText="No shoes..."
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="outlined"
-          size="small"
-          placeholder="Search..."
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-      )}
-      renderOption={(_, option) => (
-        <>
-          <p
-            className="text-text bg-background text-md cursor-pointer hover:font-bold px-4"
-            key={option.product_id}
-          >
-            {option.name}
-          </p>
-        </>
-      )}
-    />
+    <ThemeProvider theme={theme}>
+      <Autocomplete
+        id="search-bar"
+        options={options}
+        autoComplete={true}
+        getOptionLabel={(option: Options) => option.name}
+        filterOptions={(x) => x}
+        includeInputInList
+        noOptionsText="No shoes..."
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            size="small"
+            placeholder="Search..."
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+        )}
+        renderOption={(_, option) => (
+          <>
+            <p
+              className="text-text bg-background text-md cursor-pointer hover:font-bold px-4"
+              key={option.id}
+            >
+              {option.name}
+            </p>
+          </>
+        )}
+      />
+    </ThemeProvider>
   );
 }
