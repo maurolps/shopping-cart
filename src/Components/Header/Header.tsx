@@ -5,6 +5,7 @@ import {
   Search,
 } from "@mui/icons-material";
 import SearchBar from "./SearchBar";
+import SearchCategories from "./SearchCategories";
 
 export function Header() {
   return (
@@ -24,7 +25,7 @@ export function Header() {
             </div>
             <div className="border-l-2 border-text-variant h-1/2"></div>
             <div className="flex justify-center items-center px-4 cursor-pointer w-1/4">
-              All Categories &#x21B4;
+              <SearchCategories />
             </div>
           </div>
           <button className="bg-primary aspect-square text-white">
