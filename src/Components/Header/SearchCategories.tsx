@@ -1,9 +1,9 @@
-import { Input, MenuItem, Select } from "@mui/material";
+import { Input, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 
 export default function SearchCategories() {
   const [categorie, setCategorie] = useState(" ");
-  const handleCategorieChange = (e) => {
+  const handleCategorieChange = (e: SelectChangeEvent<string>) => {
     setCategorie(e.target.value);
   };
   return (
