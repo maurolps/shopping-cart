@@ -1,5 +1,5 @@
 import ProductCard from "../ProductCard";
-import { Input, MenuItem, Select } from "@mui/material";
+import { Input, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 import { running, training, walking } from "../mockData.json";
 import Siderbar from "./Siderbar";
@@ -8,7 +8,7 @@ export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
 
   const [sort, setSort] = useState(" ");
-  const handleCategorieChange = (e) => {
+  const handleCategorieChange = (e: SelectChangeEvent<string>) => {
     setSort(e.target.value);
   };
 

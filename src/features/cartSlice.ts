@@ -4,7 +4,6 @@ type Products = {
   id: number;
   name: string;
   price: number;
-  type: string;
   sale: number;
   stars: number;
 };

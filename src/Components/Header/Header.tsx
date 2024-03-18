@@ -1,14 +1,11 @@
-import {
-  GitHub,
-  LightMode,
-  ShoppingCartOutlined,
-  Search,
-} from "@mui/icons-material";
+import { GitHub, ShoppingCartOutlined, Search } from "@mui/icons-material";
 import SearchBar from "./SearchBar";
 import SearchCategories from "./SearchCategories";
 import { Badge } from "@mui/material";
+import { useAppSelector } from "../../features/hooks";
 
 export function Header({ toggleCart }: { toggleCart: () => void }) {
+  const productsCount = useAppSelector((store) => store.cart.items.length);
   return (
     <>
       <div className="flex justify-center py-6 px-4 max-w-screen-lg mx-auto">
@@ -38,7 +35,11 @@ export function Header({ toggleCart }: { toggleCart: () => void }) {
             <GitHub sx={{ color: "rgba(var(--text-variant-color))" }} />
           </a>
           <div className="cursor-pointer">
-            <Badge badgeContent={4} color="error" onClick={toggleCart}>
+            <Badge
+              badgeContent={productsCount}
+              color="error"
+              onClick={toggleCart}
+            >
               <ShoppingCartOutlined
                 sx={{ color: "rgba(var(--text-variant-color))" }}
               />

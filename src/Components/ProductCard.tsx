@@ -1,4 +1,6 @@
 import Rating from "@mui/material/Rating";
+import { useAppDispatch } from "../features/hooks";
+import { addProduct } from "../features/cartSlice";
 
 type ProductCardProps = {
   product: {
@@ -12,6 +14,7 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
+  const dispatch = useAppDispatch();
   return (
     <>
       <div className="  border-2 border-foreground p-3 w-fit flex flex-col min-h-[320px] ">
@@ -42,7 +45,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
         <div className="w-full my-2  flex-grow flex flex-col justify-end">
-          <button className="bg-white text-primary text-xs px-2  border-primary border">
+          <button
+            onClick={() => dispatch(addProduct(product))}
+            className="bg-white text-primary text-xs px-2  border-primary border"
+          >
             Add to cart
           </button>
         </div>

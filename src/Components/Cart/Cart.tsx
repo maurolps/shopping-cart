@@ -1,4 +1,4 @@
-import { running } from "../mockData.json";
+import { useAppSelector } from "../../features/hooks";
 
 function CounterInput() {
   return (
@@ -104,20 +104,28 @@ function Summary() {
 }
 
 export default function Cart() {
+  const products = useAppSelector((store) => store.cart.items);
   return (
     <div className="flex gap-2 flex-col">
       <div className="w-80 p-3 shadow">
         <div className="flex flex-col gap-2">
-          <span className="text-lg text-text font-bold">Cart</span>
-          {running.slice(0, 3).map((data) => (
-            <>
-              <hr />
-              <LoadProduct product={data} />
-            </>
-          ))}
+          <div className="div">
+            <span className="text-lg text-text font-bold">Cart</span>
+            {products.length === 0 && <hr />}
+          </div>
+          {products.length === 0 ? (
+            <span className="text-text-variant py-4">No items in cart</span>
+          ) : (
+            products.map((data) => (
+              <>
+                <hr />
+                <LoadProduct product={data} />
+              </>
+            ))
+          )}
         </div>
       </div>
-      <Summary />
+      {products.length !== 0 && <Summary />}
     </div>
   );
 }
