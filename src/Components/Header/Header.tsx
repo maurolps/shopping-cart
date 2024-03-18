@@ -6,8 +6,9 @@ import {
 } from "@mui/icons-material";
 import SearchBar from "./SearchBar";
 import SearchCategories from "./SearchCategories";
+import { Badge } from "@mui/material";
 
-export function Header() {
+export function Header({ toggleCart }: { toggleCart: () => void }) {
   return (
     <>
       <div className="flex justify-center py-6 px-4 max-w-screen-lg mx-auto">
@@ -36,14 +37,13 @@ export function Header() {
           <a href="#">
             <GitHub sx={{ color: "rgba(var(--text-variant-color))" }} />
           </a>
-          <a href="#">
-            <ShoppingCartOutlined
-              sx={{ color: "rgba(var(--text-variant-color))" }}
-            />
-          </a>
-          <a href="#">
-            <LightMode sx={{ color: "rgba(var(--text-variant-color))" }} />
-          </a>
+          <div className="cursor-pointer">
+            <Badge badgeContent={4} color="error" onClick={toggleCart}>
+              <ShoppingCartOutlined
+                sx={{ color: "rgba(var(--text-variant-color))" }}
+              />
+            </Badge>
+          </div>
         </div>
       </div>
     </>
