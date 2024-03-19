@@ -1,5 +1,6 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import { useAppSelector } from "../../features/hooks";
+import { useAppDispatch, useAppSelector } from "../../features/hooks";
+import { toggleCart } from "../../features/cartSlice";
 
 function CounterInput() {
   return (
@@ -104,7 +105,7 @@ function Summary() {
   );
 }
 
-function EmptyCart({ toggleCart }: { toggleCart: () => void }) {
+function EmptyCart() {
   return (
     <div className="flex justify-center my-10 ">
       <div className="flex flex-col justify-center items-center w-10/12 gap-6">
@@ -120,19 +121,14 @@ function EmptyCart({ toggleCart }: { toggleCart: () => void }) {
             Looks like you haven't added anything to your cart yet.
           </span>
         </div>
-        <button
-          onClick={toggleCart}
-          className="bg-primary text-white font-bold text-sm w-full p-2  "
-        >
-          Continue shopping
-        </button>
       </div>
     </div>
   );
 }
 
-export default function Cart({ toggleCart }: { toggleCart: () => void }) {
+export default function Cart() {
   const products = useAppSelector((store) => store.cart.items);
+  const dispatch = useAppDispatch();
   return (
     <div className="flex gap-2 flex-col">
       <div className="w-80 p-3 ">
@@ -142,7 +138,7 @@ export default function Cart({ toggleCart }: { toggleCart: () => void }) {
             {products.length === 0 && <hr />}
           </div>
           {products.length === 0 ? (
-            <EmptyCart toggleCart={toggleCart} />
+            <EmptyCart />
           ) : (
             products.map((data) => (
               <>
@@ -154,6 +150,24 @@ export default function Cart({ toggleCart }: { toggleCart: () => void }) {
         </div>
       </div>
       {products.length !== 0 && <Summary />}
+      <div className="flex justify-center">
+        <div
+          className="flex justify-center cursor-pointer w-fit"
+          onClick={() => {
+            dispatch(toggleCart());
+          }}
+        >
+          {products.length === 0 ? (
+            <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
+              Continue shopping
+            </button>
+          ) : (
+            <span className="text-sm text-text-variant text-center hover:text-text ">
+              Continue Shopping
+            </span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

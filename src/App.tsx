@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AllShoes from "./Components/AllShoes";
 import Banner from "./Components/Banner/Banner";
 import Discount from "./Components/Discount";
@@ -8,18 +7,17 @@ import { SpecialOffer } from "./Components/SpecialOffer";
 import { Trending } from "./Components/Trending";
 import { Drawer } from "@mui/material";
 import Cart from "./Components/Cart/Cart";
+import { useAppSelector, useAppDispatch } from "./features/hooks";
+import { toggleCart } from "./features/cartSlice";
 
 export default function App() {
-  const [openCart, setOpenCart] = useState(false);
-
-  const toggleCart = () => {
-    setOpenCart(!openCart);
-  };
+  const openCart = useAppSelector((store) => store.cart.toggleCart);
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <header className="bg-background shadow-sm min-w-[900px] max-w-screen-lg mx-auto px-4">
-        <Header toggleCart={toggleCart} />
+        <Header />
       </header>
       <main className="flex justify-center min-w-[900px] max-w-screen-lg mx-auto px-4 flex-col gap-10">
         <section>
@@ -27,11 +25,11 @@ export default function App() {
             anchor="right"
             open={openCart}
             onClose={() => {
-              toggleCart();
+              dispatch(toggleCart());
             }}
           >
             <div className="p-2">
-              <Cart toggleCart={toggleCart} />
+              <Cart />
             </div>
           </Drawer>
         </section>
