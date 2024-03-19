@@ -31,7 +31,7 @@ export default function App() {
             }}
           >
             <div className="p-2">
-              <Cart />
+              <Cart toggleCart={toggleCart} />
             </div>
           </Drawer>
         </section>

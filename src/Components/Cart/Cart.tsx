@@ -1,3 +1,4 @@
+import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppSelector } from "../../features/hooks";
 
 function CounterInput() {
@@ -74,7 +75,7 @@ function LoadProduct({ product }: LoadProductProps) {
 
 function Summary() {
   return (
-    <div className="w-80 p-3 shadow">
+    <div className="w-80 p-3">
       <div className="flex flex-col gap-2 text-xs">
         <span className="text-base text-text-variant ">Summary</span>
         <hr />
@@ -103,18 +104,45 @@ function Summary() {
   );
 }
 
-export default function Cart() {
+function EmptyCart({ toggleCart }: { toggleCart: () => void }) {
+  return (
+    <div className="flex justify-center my-10 ">
+      <div className="flex flex-col justify-center items-center w-10/12 gap-6">
+        <ShoppingCartOutlined
+          sx={{
+            color: "rgba(var(--text-variant-color))",
+            fontSize: "100px",
+          }}
+        />
+        <div className="flex flex-col justify-center items-center">
+          <span className="text-base text-text ">Your cart is empty</span>
+          <span className="text-xs text-text-variant">
+            Looks like you haven't added anything to your cart yet.
+          </span>
+        </div>
+        <button
+          onClick={toggleCart}
+          className="bg-primary text-white font-bold text-sm w-full p-2  "
+        >
+          Continue shopping
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default function Cart({ toggleCart }: { toggleCart: () => void }) {
   const products = useAppSelector((store) => store.cart.items);
   return (
     <div className="flex gap-2 flex-col">
-      <div className="w-80 p-3 shadow">
+      <div className="w-80 p-3 ">
         <div className="flex flex-col gap-2">
           <div className="div">
             <span className="text-lg text-text font-bold">Cart</span>
             {products.length === 0 && <hr />}
           </div>
           {products.length === 0 ? (
-            <span className="text-text-variant py-4">No items in cart</span>
+            <EmptyCart toggleCart={toggleCart} />
           ) : (
             products.map((data) => (
               <>
