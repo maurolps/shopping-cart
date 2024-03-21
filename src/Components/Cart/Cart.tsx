@@ -74,7 +74,23 @@ function LoadProduct({ product }: LoadProductProps) {
   );
 }
 
-function Summary() {
+type Products = {
+  id: number;
+  name: string;
+  price: number;
+  sale: number;
+  stars: number;
+};
+
+function Summary({ products }: { products: Products[] }) {
+  const subTotal = products.reduce(
+    (acc, { sale, price }) =>
+      sale === 0 ? acc + price : acc + price * (1 - sale),
+    0
+  );
+  const discount = subTotal * 0.1;
+  const total = subTotal - discount;
+
   return (
     <div className="w-80 p-3">
       <div className="flex flex-col gap-2 text-xs">
@@ -82,7 +98,7 @@ function Summary() {
         <hr />
         <div className="flex justify-between text-text my-2">
           <span>Subtotal</span>
-          <span>$364.43</span>
+          <span>${subTotal.toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-text-variant">
           <span>Shipping</span>
@@ -90,12 +106,12 @@ function Summary() {
         </div>
         <div className="flex justify-between text-text-variant">
           <span>Discount</span>
-          <span>(10%) $36.44</span>
+          <span>(10%) ${discount.toFixed(2)}</span>
         </div>
         <hr />
         <div className="flex justify-between font-bold text-base my-2">
           <span>Total</span>
-          <span>$327.98</span>
+          <span>${total.toFixed(2)}</span>
         </div>
         <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
           Proceed to checkout
@@ -149,7 +165,7 @@ export default function Cart() {
           )}
         </div>
       </div>
-      {products.length !== 0 && <Summary />}
+      {products.length > 0 && <Summary products={products} />}
       <div className="flex justify-center">
         <div
           className="flex justify-center cursor-pointer w-fit"
