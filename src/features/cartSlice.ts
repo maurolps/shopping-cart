@@ -6,6 +6,7 @@ type Products = {
   price: number;
   sale: number;
   stars: number;
+  quantity?: number;
 };
 
 export const cartSlice = createSlice({
@@ -16,7 +17,14 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action: PayloadAction<Products>) => {
-      state.items.push(action.payload);
+      const product = action.payload;
+      const index = state.items.findIndex((item) => item.id === product.id);
+      if (index !== -1) {
+        state.items[index].quantity = (state.items[index].quantity || 1) + 1;
+      } else {
+        product.quantity = 1;
+        state.items.push(product);
+      }
     },
     removeProduct: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);

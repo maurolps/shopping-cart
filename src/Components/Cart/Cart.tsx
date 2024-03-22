@@ -4,7 +4,7 @@ import { toggleCart } from "../../features/cartSlice";
 
 function CounterInput() {
   return (
-    <div className="w-fit rounded border border-text-variant text-sm">
+    <div className="w-fit rounded border border-slate-200 text-sm">
       <div className="flex flex-row w-full rounded relative  ">
         <button
           data-action="decrement"
@@ -34,11 +34,12 @@ type LoadProductProps = {
     name: string;
     sale: number;
     price: number;
+    quantity?: number;
   };
 };
 
 function LoadProduct({ product }: LoadProductProps) {
-  const salePrice = (sale: number) => (150 * (1 - sale)).toFixed(2);
+  const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
   return (
     <>
       <div className="flex gap-2">
@@ -48,7 +49,7 @@ function LoadProduct({ product }: LoadProductProps) {
             <div className="flex justify-between">
               <span>{product.name}</span>
               <span className="font-bold text-sm">
-                ${product.sale === 0 ? product.price : salePrice(product.sale)}
+                ${product.sale === 0 ? product.price : salePrice()}
               </span>
             </div>
             <div>
@@ -64,7 +65,7 @@ function LoadProduct({ product }: LoadProductProps) {
           </div>
           <div className="flex justify-between">
             <CounterInput />
-            <span className="text-text-variant hover:text-text hover:bg-foreground  cursor-pointer px-1 flex items-center">
+            <span className="text-text-variant hover:text-text hover:bg-foreground  cursor-pointer px-1 flex items-center shadow-sm">
               X
             </span>
           </div>

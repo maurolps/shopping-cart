@@ -9,6 +9,7 @@ type ProductCardProps = {
     price: number;
     sale: number;
     stars: number;
+    quantity?: number;
   };
 };
 
