@@ -9,6 +9,7 @@ import { Drawer } from "@mui/material";
 import Cart from "./Components/Cart/Cart";
 import { useAppSelector, useAppDispatch } from "./features/hooks";
 import { toggleCart } from "./features/cartSlice";
+import { Toaster } from "sonner";
 
 export default function App() {
   const openCart = useAppSelector((store) => store.cart.toggleCart);
@@ -16,6 +17,14 @@ export default function App() {
 
   return (
     <>
+      <Toaster
+        toastOptions={{
+          duration: 2500,
+          classNames: {
+            icon: "text-primary",
+          },
+        }}
+      />
       <header className="bg-background shadow-sm min-w-[900px] max-w-screen-lg mx-auto px-4">
         <Header />
       </header>

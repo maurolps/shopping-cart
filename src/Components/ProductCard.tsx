@@ -1,6 +1,7 @@
 import Rating from "@mui/material/Rating";
 import { useAppDispatch } from "../features/hooks";
 import { addProduct } from "../features/cartSlice";
+import { toast } from "sonner";
 
 type ProductCardProps = {
   product: {
@@ -16,6 +17,14 @@ type ProductCardProps = {
 export default function ProductCard({ product }: ProductCardProps) {
   const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
   const dispatch = useAppDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addProduct(product));
+    const productNameParts = product.name.split(" ");
+    const productName = productNameParts.slice(0, 2).join(" ");
+    toast.success(productName + " successfully added to cart.");
+  };
+
   return (
     <>
       <div className="  border-2 border-foreground p-3 w-fit flex flex-col min-h-[320px] ">
@@ -47,7 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
         <div className="w-full my-2  flex-grow flex flex-col justify-end">
           <button
-            onClick={() => dispatch(addProduct(product))}
+            onClick={() => handleAddToCart()}
             className="bg-white text-primary text-xs px-2  border-primary border"
           >
             Add to cart
