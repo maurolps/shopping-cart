@@ -1,13 +1,36 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
-import { toggleCart } from "../../features/cartSlice";
+import { toggleCart, updateQuantity } from "../../features/cartSlice";
 
-function CounterInput() {
+type LoadProductProps = {
+  product: {
+    name: string;
+    sale: number;
+    price: number;
+    stars: number;
+    id: number;
+    quantity: number;
+  };
+};
+
+function CounterInput({ product }: LoadProductProps) {
+  const dispatch = useAppDispatch();
+  const handleQuantityChange = (subtract = false) => {
+    const newProduct = Object.assign({}, product);
+    subtract ? (newProduct.quantity -= 1) : (newProduct.quantity += 1);
+    if (newProduct.quantity <= 0) {
+      newProduct.quantity = 1;
+    }
+    if (newProduct.quantity > 10) {
+      newProduct.quantity = 10;
+    }
+    dispatch(updateQuantity(newProduct));
+  };
   return (
     <div className="w-fit rounded border border-slate-200 text-sm">
       <div className="flex flex-row w-full rounded relative  ">
         <button
-          data-action="decrement"
+          onClick={() => handleQuantityChange(true)}
           className="text-text-variant hover:text-text hover:bg-foreground h-full w-5 rounded-l-[3px] cursor-pointer outline-none"
         >
           <span className="m-auto ">-</span>
@@ -15,11 +38,12 @@ function CounterInput() {
         <input
           type="number"
           className="outline-none focus:outline-none text-center w-5   hover:text-black focus:text-black   flex items-center  "
-          name="custom-input-number"
-          value="1"
+          name="quantity-input"
+          value={product.quantity}
+          readOnly
         ></input>
         <button
-          data-action="increment"
+          onClick={() => handleQuantityChange()}
           className="text-text-variant hover:text-text h-full w-5 rounded-r-[3px] cursor-pointer hover:bg-foreground"
         >
           <span className="m-auto ">+</span>
@@ -29,17 +53,9 @@ function CounterInput() {
   );
 }
 
-type LoadProductProps = {
-  product: {
-    name: string;
-    sale: number;
-    price: number;
-    quantity?: number;
-  };
-};
-
 function LoadProduct({ product }: LoadProductProps) {
-  const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
+  const salePrice = () =>
+    (product.price * (1 - product.sale) * product.quantity).toFixed(2);
   return (
     <>
       <div className="flex gap-2">
@@ -49,7 +65,10 @@ function LoadProduct({ product }: LoadProductProps) {
             <div className="flex justify-between">
               <span>{product.name}</span>
               <span className="font-bold text-sm">
-                ${product.sale === 0 ? product.price : salePrice()}
+                $
+                {product.sale === 0
+                  ? (product.price * product.quantity).toFixed(2)
+                  : salePrice()}
               </span>
             </div>
             <div>
@@ -64,7 +83,7 @@ function LoadProduct({ product }: LoadProductProps) {
             </div>
           </div>
           <div className="flex justify-between">
-            <CounterInput />
+            <CounterInput product={product} />
             <span className="text-text-variant hover:text-text hover:bg-foreground  cursor-pointer px-1 flex items-center shadow-sm">
               X
             </span>
@@ -81,12 +100,13 @@ type Products = {
   price: number;
   sale: number;
   stars: number;
+  quantity: number;
 };
 
 function Summary({ products }: { products: Products[] }) {
   const subTotal = products.reduce(
-    (acc, { sale, price }) =>
-      sale === 0 ? acc + price : acc + price * (1 - sale),
+    (acc, { sale, price, quantity }) =>
+      sale === 0 ? acc + price * quantity : acc + price * (1 - sale) * quantity,
     0
   );
   const discount = subTotal * 0.1;
