@@ -1,6 +1,6 @@
 import Rating from "@mui/material/Rating";
 import { useAppDispatch } from "../features/hooks";
-import { addProduct } from "../features/cartSlice";
+import { addProduct, toggleCart } from "../features/cartSlice";
 import { toast } from "sonner";
 
 type ProductCardProps = {
@@ -22,7 +22,14 @@ export default function ProductCard({ product }: ProductCardProps) {
     dispatch(addProduct(product));
     const productNameParts = product.name.split(" ");
     const productName = productNameParts.slice(0, 2).join(" ");
-    toast.success(productName + " successfully added to cart.");
+    toast.success(productName + " successfully added to cart.", {
+      action: {
+        label: "View cart",
+        onClick: () => {
+          dispatch(toggleCart());
+        },
+      },
+    });
   };
 
   return (
