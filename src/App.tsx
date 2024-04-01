@@ -10,6 +10,7 @@ import Cart from "./Components/Cart/Cart";
 import { useAppSelector, useAppDispatch } from "./features/hooks";
 import { toggleCart } from "./features/cartSlice";
 import { Toaster } from "sonner";
+import { Product } from "./Components/Product";
 
 export default function App() {
   const openCart = useAppSelector((store) => store.cart.toggleCart);
@@ -42,7 +43,7 @@ export default function App() {
             </div>
           </Drawer>
         </section>
-        <section>
+        {/* <section>
           <Banner />
         </section>
         <section>
@@ -56,6 +57,9 @@ export default function App() {
         </section>
         <section>
           <Discount />
+        </section> */}
+        <section>
+          <Product />
         </section>
       </main>
 

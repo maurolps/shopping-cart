@@ -84,7 +84,7 @@
   "walking": [
     {
       "id": 11,
-      "name": "Nike Air Zoom Pegasus 38",
+      "name": "Nike Air Zoom Pegasus 39 Shield",
       "price": 120.25,
       "type": "for men",
       "sale": 0.15,
@@ -92,7 +92,7 @@
     },
     {
       "id": 12,
-      "name": "New Balance Fresh Foam 1080v11",
+      "name": "New Balance Fresh Foam 1080",
       "price": 150.6,
       "type": "for women",
       "sale": 0.2,
@@ -132,7 +132,7 @@
     },
     {
       "id": 17,
-      "name": "Adidas Ultraboost 21",
+      "name": "Adidas Ultraboost 21 Walk",
       "price": 180.55,
       "type": "for men",
       "sale": 0.25,
@@ -214,7 +214,7 @@
     },
     {
       "id": 27,
-      "name": "Puma Jaab XT",
+      "name": "Puma Smash V2 BDP",
       "price": 80.95,
       "type": "for men",
       "sale": 0.2,
@@ -232,7 +232,7 @@
       "id": 29,
       "name": "Reebok Speed TR Flexweave",
       "price": 100.55,
-      "type": "for men",
+      "type": "for women",
       "sale": 0,
       "stars": 4.3
     },
@@ -288,7 +288,7 @@
     },
     {
       "id": 12,
-      "name": "New Balance Fresh Foam 1080v11",
+      "name": "New Balance Fresh Foam 1080",
       "price": 150.6,
       "type": "for women",
       "sale": 0,
