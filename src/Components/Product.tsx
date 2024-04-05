@@ -27,6 +27,48 @@ const ImageContainer = ({ imgUrl }: { imgUrl: string }) => {
   );
 };
 
+function SizeContainer({
+  size,
+  selected,
+  handleClick,
+}: {
+  size: number;
+  selected: boolean;
+  handleClick: () => void;
+}): JSX.Element {
+  return (
+    <button
+      className={`flex justify-center h-8 w-8 bg-foreground border border-text-variant ${
+        selected ? "bg-primary text-white" : ""
+      }`}
+      onClick={() => handleClick()}
+    >
+      <span className="text-xs">{size}</span>
+    </button>
+  );
+}
+
+function SizeSelector({ sizes }: { sizes: number[] }) {
+  const [selectedSize, setSelectedSize] = useState<number>(41);
+
+  const handleSizeClick = (size: number) => {
+    setSelectedSize(size === selectedSize ? 0 : size);
+  };
+
+  return (
+    <div>
+      {sizes.map((size: number) => (
+        <SizeContainer
+          key={size}
+          size={size}
+          selected={size === selectedSize}
+          handleClick={() => handleSizeClick(size)}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Product() {
   const { name, price, sale, stars } = mockShoe;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
@@ -110,14 +152,7 @@ export function Product() {
           <div className="div">
             <span className="text-text font-bold text-sm">Size</span>
             <div className="flex flex-row gap-1 ">
-              <div className="p-2 px-3 border border-text-variant">40</div>
-              <div className="p-2 px-3 border border-text-variant bg-primary text-white">
-                41
-              </div>
-              <div className="p-2 px-3 border border-text-variant">42</div>
-              <div className="p-2 px-3 border border-text-variant">43</div>
-              <div className="p-2 px-3 border border-text-variant">44</div>
-              <div className="p-2 px-3 border border-text-variant">45</div>
+              <SizeSelector sizes={[41, 42, 43, 44, 45]} />
             </div>
           </div>
 
