@@ -1,17 +1,10 @@
 import Rating from "@mui/material/Rating";
 import { useAppDispatch } from "../features/hooks";
-import { addProduct, toggleCart } from "../features/cartSlice";
+import { addProduct, toggleCart, TProducts } from "../features/cartSlice";
 import { toast } from "sonner";
 
 type ProductCardProps = {
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    sale: number;
-    stars: number;
-    quantity?: number;
-  };
+  product: TProducts;
 };
 
 export default function ProductCard({ product }: ProductCardProps) {

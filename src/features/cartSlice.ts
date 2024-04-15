@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type Products = {
+export type TProducts = {
   id: number;
   name: string;
   price: number;
@@ -12,11 +12,11 @@ type Products = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [] as Products[],
+    items: [] as TProducts[],
     toggleCart: false,
   },
   reducers: {
-    addProduct: (state, action: PayloadAction<Products>) => {
+    addProduct: (state, action: PayloadAction<TProducts>) => {
       const product = action.payload;
       const index = state.items.findIndex((item) => item.id === product.id);
       if (index !== -1) {

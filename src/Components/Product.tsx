@@ -3,15 +3,7 @@ import { Trending } from "./Trending";
 import { storage } from "../features/firebase";
 import { useEffect, useState } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
-
-const mockShoe = {
-  id: 11,
-  name: "Nike Air Zoom Pegasus 39 Shield",
-  price: 120.25,
-  type: "for men",
-  sale: 0.15,
-  stars: 4.3,
-};
+import { TProducts } from "../features/cartSlice";
 
 const ImageContainer = ({ imgUrl }: { imgUrl: string }) => {
   return (
@@ -69,8 +61,12 @@ function SizeSelector({ sizes }: { sizes: number[] }) {
   );
 }
 
-export function Product() {
-  const { name, price, sale, stars } = mockShoe;
+type ProductProps = {
+  product: TProducts;
+};
+
+export function Product({ product }: ProductProps) {
+  const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const salePrice = () => (150 * (1 - sale)).toFixed(2);
 
