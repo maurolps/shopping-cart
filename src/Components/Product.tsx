@@ -38,8 +38,8 @@ function SizeContainer({
 }): JSX.Element {
   return (
     <button
-      className={`flex justify-center h-8 w-8 bg-foreground border border-text-variant ${
-        selected ? "bg-primary text-white" : ""
+      className={`flex justify-center items-center h-8 w-8 bg-foreground border border-text-variant ${
+        selected ? "bg-primary text-white border-none" : ""
       }`}
       onClick={() => handleClick()}
     >
@@ -56,7 +56,7 @@ function SizeSelector({ sizes }: { sizes: number[] }) {
   };
 
   return (
-    <div>
+    <div className="flex flex-row gap-1 ">
       {sizes.map((size: number) => (
         <SizeContainer
           key={size}
@@ -151,9 +151,8 @@ export function Product() {
 
           <div className="div">
             <span className="text-text font-bold text-sm">Size</span>
-            <div className="flex flex-row gap-1 ">
-              <SizeSelector sizes={[41, 42, 43, 44, 45]} />
-            </div>
+
+            <SizeSelector sizes={[41, 42, 43, 44, 45]} />
           </div>
 
           <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
