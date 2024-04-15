@@ -3,7 +3,9 @@ import { Trending } from "./Trending";
 import { storage } from "../features/firebase";
 import { useEffect, useState } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
-import { TProducts } from "../features/cartSlice";
+import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
+import { useAppDispatch } from "../features/hooks";
+import { toast } from "sonner";
 
 const ImageContainer = ({ imgUrl }: { imgUrl: string }) => {
   return (
@@ -69,6 +71,21 @@ export function Product({ product }: ProductProps) {
   const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const salePrice = () => (150 * (1 - sale)).toFixed(2);
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addProduct(product));
+    const productNameParts = product.name.split(" ");
+    const productName = productNameParts.slice(0, 2).join(" ");
+    toast.success(productName + " successfully added to cart.", {
+      action: {
+        label: "View cart",
+        onClick: () => {
+          dispatch(toggleCart());
+        },
+      },
+    });
+  };
 
   useEffect(() => {
     // const urls: string[] = [];
@@ -151,7 +168,10 @@ export function Product({ product }: ProductProps) {
             <SizeSelector sizes={[41, 42, 43, 44, 45]} />
           </div>
 
-          <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
+          <button
+            onClick={() => handleAddToCart()}
+            className="bg-primary text-white font-bold text-sm w-full p-2  "
+          >
             Add to cart
           </button>
         </div>
