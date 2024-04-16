@@ -7,15 +7,23 @@ import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
 import { useAppDispatch } from "../features/hooks";
 import { toast } from "sonner";
 
-const ImageContainer = ({ imgUrl }: { imgUrl: string }) => {
+const ImageContainer = ({
+  imgUrl,
+  handleClick,
+}: {
+  imgUrl: string;
+  handleClick: () => void;
+}) => {
   return (
-    <div className="flex justify-center h-24 w-24 bg-foreground border border-text-variant">
+    <div className="flex justify-center h-24 w-24 bg-foreground border border-text-variant cursor-pointer">
       <img
+        loading="lazy"
         src={imgUrl}
         className="object-contain"
         alt=""
         width="95px"
         height="95px"
+        onClick={() => handleClick()}
       />
     </div>
   );
@@ -70,8 +78,14 @@ type ProductProps = {
 export function Product({ product }: ProductProps) {
   const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
+  const [loadedImg, setLoadedImg] = useState(false);
+  const [imgIndex, setImgIndex] = useState(0);
   const salePrice = () => (150 * (1 - sale)).toFixed(2);
   const dispatch = useAppDispatch();
+
+  const handleImgClick = (index: number) => {
+    setImgIndex(index);
+  };
 
   const handleAddToCart = () => {
     dispatch(addProduct(product));
@@ -88,19 +102,14 @@ export function Product({ product }: ProductProps) {
   };
 
   useEffect(() => {
-    // const urls: string[] = [];
     const promises: Promise<string>[] = [];
 
     for (let i = 1; i <= 3; i++) {
       const productRef = ref(storage, `${name} - ${i}.png`);
-      const promise = getDownloadURL(productRef)
-        // .then((url: string) => {
-        //   urls.push(url);
-        // })
-        .catch((error) => {
-          console.error("Error getting Image URL: ", error);
-          return "";
-        });
+      const promise = getDownloadURL(productRef).catch((error) => {
+        console.error("Error getting Image URL: ", error);
+        return "";
+      });
 
       promises.push(promise);
     }
@@ -118,17 +127,29 @@ export function Product({ product }: ProductProps) {
         <div className="flex flex-col gap-2">
           <div className="flex justify-center h-96 bg-foreground border border-text-variant">
             <img
-              src={imgUrls[0]}
+              loading="lazy"
+              src={imgUrls[imgIndex]}
               className="object-contain"
               alt=""
               width="400px"
               height="400px"
+              style={{ display: loadedImg ? "block" : "none" }}
+              onLoad={() => setLoadedImg(true)}
             />
           </div>
           <div className="flex gap-2">
-            <ImageContainer imgUrl={imgUrls[0]} />
-            <ImageContainer imgUrl={imgUrls[1]} />
-            <ImageContainer imgUrl={imgUrls[2]} />
+            <ImageContainer
+              imgUrl={imgUrls[0]}
+              handleClick={() => handleImgClick(0)}
+            />
+            <ImageContainer
+              imgUrl={imgUrls[1]}
+              handleClick={() => handleImgClick(1)}
+            />
+            <ImageContainer
+              imgUrl={imgUrls[2]}
+              handleClick={() => handleImgClick(2)}
+            />
           </div>
         </div>
 
