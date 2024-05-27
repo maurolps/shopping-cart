@@ -6,19 +6,17 @@ type TImageUrl = {
   url: string;
 };
 
-export function fetchImageUrls() {
+export function fetchImageUrls(): Promise<TImageUrl[]> {
   const imageUrls = [] as TImageUrl[];
   const storageRef = ref(storage);
   const imgList = listAll(storageRef);
 
-  imgList
-    .then((res) => {
-      res.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          imageUrls.push({ name: item.name, url: url });
-          console.log(imageUrls);
-        });
-      });
-    })
-    .catch((err) => console.log(err));
+  return imgList.then((res) => {
+    const urlPromises = res.items.map((item) =>
+      getDownloadURL(item).then((url) => {
+        imageUrls.push({ name: item.name, url: url });
+      })
+    );
+    return Promise.all(urlPromises).then(() => imageUrls);
+  });
 }
