@@ -5,9 +5,10 @@ import { toast } from "sonner";
 
 type ProductCardProps = {
   product: TProducts;
+  imgUrl?: string;
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, imgUrl }: ProductCardProps) {
   const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
   const dispatch = useAppDispatch();
 
@@ -28,7 +29,17 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <>
       <div className="  border-2 border-foreground p-3 w-fit flex flex-col min-h-[320px] ">
-        <div className="bg-foreground w-36 h-36"></div>
+        <div className="flex justify-center bg-foreground w-36 h-36">
+          {imgUrl && (
+            <img
+              src={imgUrl}
+              alt=""
+              loading="lazy"
+              width={"90%"}
+              className="object-contain"
+            />
+          )}
+        </div>
         <div className="text-text text-sm text-start font-bold max-w-36">
           {product.name}
         </div>

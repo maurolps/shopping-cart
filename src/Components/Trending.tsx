@@ -5,13 +5,24 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "../Styles/trending.css";
 
-export function Trending() {
+type TImageUrl = {
+  name: string;
+  url: string;
+};
+
+export function Trending({ imgUrls }: { imgUrls: TImageUrl[] }) {
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 3,
+  };
+  const loadImgUrl = (productName: string) => {
+    if (imgUrls[0] !== undefined) {
+      return imgUrls.find((item) => item.name.includes(productName + " - 1"))
+        ?.url;
+    }
   };
   return (
     <>
@@ -20,9 +31,12 @@ export function Trending() {
           Trending
         </div>
         <Slider {...settings}>
-          {trending.map((data) => (
-            <ProductCard product={data} />
-          ))}
+          {trending.map((data) => {
+            // console.log(loadImgUrl(data.name));
+            return (
+              <ProductCard product={data} imgUrl={loadImgUrl(data.name)} />
+            );
+          })}
         </Slider>
       </div>
     </>
