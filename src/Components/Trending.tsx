@@ -4,13 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "../Styles/trending.css";
+import { useAppSelector } from "../features/hooks";
+import { findImgUrl } from "../features/findImgUrl";
 
-type TImageUrl = {
-  name: string;
-  url: string;
-};
-
-export function Trending({ imgUrls }: { imgUrls: TImageUrl[] }) {
+export function Trending() {
+  const imgUrls = useAppSelector((state) => state.products.imageUrls);
   const settings = {
     dots: false,
     infinite: false,
@@ -18,12 +16,9 @@ export function Trending({ imgUrls }: { imgUrls: TImageUrl[] }) {
     slidesToShow: 5,
     slidesToScroll: 3,
   };
-  const loadImgUrl = (productName: string) => {
-    if (imgUrls[0] !== undefined) {
-      return imgUrls.find((item) => item.name.includes(productName + " - 1"))
-        ?.url;
-    }
-  };
+
+  const findUrl = (productName: string) => findImgUrl(imgUrls, productName);
+
   return (
     <>
       <div className="trending-slider w-[900px] m-auto">
@@ -32,10 +27,7 @@ export function Trending({ imgUrls }: { imgUrls: TImageUrl[] }) {
         </div>
         <Slider {...settings}>
           {trending.map((data) => {
-            // console.log(loadImgUrl(data.name));
-            return (
-              <ProductCard product={data} imgUrl={loadImgUrl(data.name)} />
-            );
+            return <ProductCard product={data} imgUrl={findUrl(data.name)} />;
           })}
         </Slider>
       </div>

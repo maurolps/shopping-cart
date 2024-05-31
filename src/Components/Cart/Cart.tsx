@@ -1,6 +1,7 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
 import { toggleCart, updateQuantity } from "../../features/cartSlice";
+import { findImgUrl } from "../../features/findImgUrl";
 
 type LoadProductProps = {
   product: {
@@ -11,6 +12,7 @@ type LoadProductProps = {
     id: number;
     quantity: number;
   };
+  imgUrl?: string;
 };
 
 function CounterInput({ product }: LoadProductProps) {
@@ -53,13 +55,23 @@ function CounterInput({ product }: LoadProductProps) {
   );
 }
 
-function LoadProduct({ product }: LoadProductProps) {
+function LoadProduct({ product, imgUrl }: LoadProductProps) {
   const salePrice = () =>
     (product.price * (1 - product.sale) * product.quantity).toFixed(2);
   return (
     <>
       <div className="flex gap-2">
-        <div className="w-16 h-16 bg-foreground "></div>
+        <div className="flex justify-center w-16 h-16 bg-foreground ">
+          {imgUrl && (
+            <img
+              src={imgUrl}
+              alt=""
+              loading="lazy"
+              width={"90%"}
+              className="object-contain"
+            />
+          )}
+        </div>
         <div className="w-full flex flex-col justify-between text-xs">
           <div>
             <div className="flex justify-between">
@@ -74,7 +86,9 @@ function LoadProduct({ product }: LoadProductProps) {
             <div>
               {product.sale !== 0 && (
                 <div className="flex gap-2">
-                  <span className="text-text-variant line-through">${150}</span>
+                  <span className="text-text-variant line-through">
+                    ${product.price}
+                  </span>
                   <span className="text-call text-[10px] bg-red-50 flex items-center">
                     {product.sale * 100}% off
                   </span>
@@ -165,7 +179,11 @@ function EmptyCart() {
 
 export default function Cart() {
   const products = useAppSelector((store) => store.cart.items);
+  const imgUrls = useAppSelector((state) => state.products.imageUrls);
   const dispatch = useAppDispatch();
+
+  const findUrl = (productName: string) => findImgUrl(imgUrls, productName);
+
   return (
     <div className="flex gap-2 flex-col">
       <div className="w-80 p-3 ">
@@ -180,7 +198,7 @@ export default function Cart() {
             products.map((data) => (
               <>
                 <hr />
-                <LoadProduct product={data} />
+                <LoadProduct product={data} imgUrl={findUrl(data.name)} />
               </>
             ))
           )}
