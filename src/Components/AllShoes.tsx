@@ -3,6 +3,15 @@ import ProductCard from "./ProductCard";
 import { running, training, walking } from "./mockData.json";
 import { AnimatePresence, motion } from "framer-motion";
 
+function Underline(): JSX.Element {
+  return (
+    <motion.div
+      layoutId="underline"
+      className="absolute bottom-[-1px] left-0 right-0 h-[1px] bg-primary"
+    ></motion.div>
+  );
+}
+
 export default function AllShoes() {
   const [displayShoes, setDisplayShoes] = useState(training);
   return (
@@ -10,31 +19,38 @@ export default function AllShoes() {
       <div className="text-text text-lg px-4 font-bold  uppercase">
         All Shoes
       </div>
-      <div className="flex gap-3">
-        <button
-          className={`bg-foreground text-text p-1 px-2 ${
-            displayShoes === walking ? "bg-primary text-white" : ""
-          }`}
-          onClick={() => setDisplayShoes(walking)}
-        >
-          Walking
-        </button>
-        <button
-          className={`bg-foreground text-text p-1 px-2 ${
-            displayShoes === training ? "bg-primary text-white" : ""
-          }`}
-          onClick={() => setDisplayShoes(training)}
-        >
-          Training
-        </button>
-        <button
-          className={`bg-foreground text-text p-1 px-2 ${
-            displayShoes === running ? "bg-primary text-white" : ""
-          }`}
-          onClick={() => setDisplayShoes(running)}
-        >
-          Running
-        </button>
+      <div className="flex">
+        <div className=" relative">
+          <button
+            className="text-text p-1 px-4 border-b-[1px]"
+            onClick={() => setDisplayShoes(walking)}
+          >
+            Walking
+          </button>
+          {displayShoes === walking && <Underline />}
+        </div>
+
+        <div className="relative">
+          <button
+            className={"border-b-[1px] text-text p-1 px-2"}
+            onClick={() => setDisplayShoes(training)}
+          >
+            Training
+          </button>
+
+          {displayShoes === training && <Underline />}
+        </div>
+
+        <div className="relative">
+          <button
+            className={"border-b-[1px] text-text p-1 px-2"}
+            onClick={() => setDisplayShoes(running)}
+          >
+            Running
+          </button>
+
+          {displayShoes === running && <Underline />}
+        </div>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
         <AnimatePresence>
