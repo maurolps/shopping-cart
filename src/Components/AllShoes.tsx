@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProductCard from "./ProductCard";
 import { running, training, walking } from "./mockData.json";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function AllShoes() {
   const [displayShoes, setDisplayShoes] = useState(training);
@@ -36,9 +37,11 @@ export default function AllShoes() {
         </button>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-        {displayShoes.map((data) => (
-          <ProductCard product={data} />
-        ))}
+        <AnimatePresence>
+          {displayShoes.map((data) => (
+            <ProductCard product={data} />
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
