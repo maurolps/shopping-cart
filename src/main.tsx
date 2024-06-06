@@ -5,11 +5,19 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { PageNotFound } from "./Components/PageNotFound.tsx";
+import { HomePage } from "./Components/HomePage.tsx";
+import MarketPlace from "./Components/MarketPlace/MarketPlace.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <PageNotFound />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "/marketplace", element: <MarketPlace /> },
+    ],
   },
 ]);
 
