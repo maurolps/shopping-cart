@@ -2,7 +2,8 @@ import Rating from "@mui/material/Rating";
 import { useAppDispatch } from "../features/hooks";
 import { addProduct, toggleCart, TProducts } from "../features/cartSlice";
 import { toast } from "sonner";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 type ProductCardProps = {
   product: TProducts;
@@ -36,20 +37,24 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
       transition={{ duration: 0.5 }}
       className="  border-2 border-foreground p-3 w-fit flex flex-col min-h-[320px] "
     >
-      <div className="flex justify-center bg-foreground w-36 h-36">
-        {imgUrl && (
-          <img
-            src={imgUrl}
-            alt=""
-            loading="lazy"
-            width={"90%"}
-            className="object-contain"
-          />
-        )}
-      </div>
-      <div className="text-text text-sm text-start font-bold max-w-36">
-        {product.name}
-      </div>
+      <Link to={`/product/${product.id}`}>
+        <div className="flex flex-col ">
+          <div className="flex justify-center bg-foreground w-36 h-36">
+            {imgUrl && (
+              <img
+                src={imgUrl}
+                alt=""
+                loading="lazy"
+                width={"90%"}
+                className="object-contain"
+              />
+            )}
+          </div>
+          <div className="text-text text-sm text-start font-bold max-w-36">
+            {product.name}
+          </div>
+        </div>
+      </Link>
       <div>
         <Rating
           name="Shoe Stars"
