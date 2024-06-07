@@ -6,6 +6,8 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
 import { useAppDispatch } from "../features/hooks";
 import { toast } from "sonner";
+import { running, training, walking } from "../Components/mockData.json";
+import { useParams } from "react-router-dom";
 
 const ImageContainer = ({
   imgUrl,
@@ -70,12 +72,17 @@ function SizeSelector({ sizes }: { sizes: number[] }) {
     </div>
   );
 }
+function getProductById(id: number) {
+  const products = [...running, ...training, ...walking];
+  const product = products.find((product) => product.id === id);
+  if (product) return product;
+  else throw new Error("Product not found");
+}
 
-type ProductProps = {
-  product: TProducts;
-};
-
-export function Product({ product }: ProductProps) {
+export function Product() {
+  const { id } = useParams();
+  if (!id) throw new Error("Unexpected product id");
+  const product = getProductById(parseInt(id));
   const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const [loadedImg, setLoadedImg] = useState(false);

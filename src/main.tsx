@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PageNotFound } from "./Components/PageNotFound.tsx";
 import { HomePage } from "./Components/HomePage.tsx";
 import MarketPlace from "./Components/MarketPlace/MarketPlace.tsx";
+import { Product } from "./Components/Product.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "/marketplace", element: <MarketPlace /> },
+      { path: "/product/:id", element: <Product /> },
     ],
   },
 ]);
