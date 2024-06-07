@@ -1,10 +1,8 @@
 import Rating from "@mui/material/Rating/Rating";
 import { Trending } from "./Trending";
-import { storage } from "../features/firebase";
 import { useEffect, useState } from "react";
-import { getDownloadURL, ref } from "firebase/storage";
-import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
-import { useAppDispatch } from "../features/hooks";
+import { addProduct, toggleCart } from "../features/cartSlice";
+import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { toast } from "sonner";
 import { running, training, walking } from "../Components/mockData.json";
 import { useParams } from "react-router-dom";
@@ -79,6 +77,17 @@ function getProductById(id: number) {
   else throw new Error("Product not found");
 }
 
+type TImageUrl = {
+  name: string;
+  url: string;
+};
+
+const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
+  if (imgUrls !== undefined) {
+    return imgUrls.find((item) => item.name.includes(productName))?.url;
+  }
+};
+
 export function Product() {
   const { id } = useParams();
   if (!id) throw new Error("Unexpected product id");
@@ -89,6 +98,7 @@ export function Product() {
   const [imgIndex, setImgIndex] = useState(0);
   const salePrice = () => (150 * (1 - sale)).toFixed(2);
   const dispatch = useAppDispatch();
+  const storedImgUrls = useAppSelector((state) => state.products.imageUrls);
 
   const handleImgClick = (index: number) => {
     setImgIndex(index);
@@ -109,21 +119,15 @@ export function Product() {
   };
 
   useEffect(() => {
-    const promises: Promise<string>[] = [];
-
+    const urls: string[] = [];
     for (let i = 1; i <= 3; i++) {
-      const productRef = ref(storage, `${name} - ${i}.png`);
-      const promise = getDownloadURL(productRef).catch((error) => {
-        console.error("Error getting Image URL: ", error);
-        return "";
-      });
-
-      promises.push(promise);
+      const url = findImgUrl(storedImgUrls, `${name} - ${i}.png`);
+      if (url) {
+        urls.push(url);
+      }
     }
-    Promise.all(promises).then((urls) => {
-      setImgUrls(urls);
-    });
-  }, [name]);
+    setImgUrls(urls);
+  }, [name, storedImgUrls]);
 
   return (
     <div className="flex flex-col gap-1 my-10 ">
