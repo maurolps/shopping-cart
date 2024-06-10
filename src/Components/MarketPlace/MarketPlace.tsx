@@ -7,13 +7,33 @@ import Siderbar from "./Siderbar";
 export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
 
+  const [sortedProducts, setSortedProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
-  const handleCategorieChange = (e: SelectChangeEvent<string>) => {
+  const handleSortChange = (e: SelectChangeEvent<string>) => {
+    const salePrice = (price: number, sale: number) => price * (1 - sale);
     setSort(e.target.value);
+    switch (e.target.value) {
+      case "Lowest":
+        allProducts.sort(
+          (a, b) => salePrice(a.price, a.sale) - salePrice(b.price, b.sale)
+        );
+        setSortedProducts(allProducts);
+        break;
+      case "Highest":
+        allProducts.sort(
+          (a, b) => salePrice(b.price, b.sale) - salePrice(a.price, a.sale)
+        );
+        setSortedProducts(allProducts);
+        break;
+      case "Rating":
+        allProducts.sort((a, b) => b.stars - a.stars);
+        setSortedProducts(allProducts);
+        break;
+    }
   };
 
   return (
-    <>
+    <div className="flex gap-4">
       <div className="flex justify-center min-w-[200px] ">
         <Siderbar />
       </div>
@@ -25,7 +45,7 @@ export default function MarketPlace() {
               <Select
                 input={<Input disableUnderline={true} />}
                 value={sort}
-                onChange={handleCategorieChange}
+                onChange={handleSortChange}
                 size="small"
                 sx={{ fontSize: "12px" }}
               >
@@ -42,11 +62,11 @@ export default function MarketPlace() {
         </div>
 
         <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-          {allProducts.map((data) => (
+          {sortedProducts.map((data) => (
             <ProductCard product={data} />
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
