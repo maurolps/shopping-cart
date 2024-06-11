@@ -1,6 +1,31 @@
 import Slider from "@mui/material/Slider";
+import { running, training, walking } from "../mockData.json";
+import { useState } from "react";
 
-export default function Siderbar() {
+type TSidebarProps = {
+  setProducts: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        name: string;
+        price: number;
+        type: string;
+        sale: number;
+        stars: number;
+      }[]
+    >
+  >;
+};
+
+export default function Siderbar({ setProducts }: TSidebarProps) {
+  const allProducts = [...running, ...training, ...walking];
+  const [category, setCategory] = useState("All");
+
+  const handleClick = (category: string, products: typeof allProducts) => {
+    setCategory(category);
+    setProducts(products);
+  };
+
   return (
     <>
       <div className="flex flex-col w-full gap-10 mt-[40px]">
@@ -11,23 +36,45 @@ export default function Siderbar() {
             </span>
             <hr />
           </div>
-          <div className="flex flex-col text-sm gap-1 cursor-pointer ">
-            <div className="flex justify-between">
-              <span>All</span>
-              <span className="text-text-variant">30</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Running</span>
-              <span className="text-text-variant">10</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Trainning</span>
-              <span className="text-text-variant">10</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Walking</span>
-              <span className="text-text-variant">10</span>
-            </div>
+          <div className="flex flex-col text-sm gap-1 ">
+            <ul>
+              <li
+                className={`flex justify-between cursor-pointer ${
+                  category === "All" ? "font-bold" : ""
+                }`}
+                onClick={() => handleClick("All", allProducts)}
+              >
+                <span>All</span>
+                <span className="text-text-variant">30</span>
+              </li>
+              <li
+                className={`flex justify-between cursor-pointer ${
+                  category === "Running" ? "font-bold" : ""
+                }`}
+                onClick={() => handleClick("Running", running)}
+              >
+                <span>Running</span>
+                <span className="text-text-variant">10</span>
+              </li>
+              <li
+                className={`flex justify-between cursor-pointer ${
+                  category === "Training" ? "font-bold" : ""
+                }`}
+                onClick={() => handleClick("Training", training)}
+              >
+                <span>Trainning</span>
+                <span className="text-text-variant">10</span>
+              </li>
+              <li
+                className={`flex justify-between cursor-pointer ${
+                  category === "Walking" ? "font-bold" : ""
+                }`}
+                onClick={() => handleClick("Walking", walking)}
+              >
+                <span>Walking</span>
+                <span className="text-text-variant">10</span>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="flex flex-col gap-2">

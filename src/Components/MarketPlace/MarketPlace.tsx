@@ -7,28 +7,29 @@ import Siderbar from "./Siderbar";
 
 export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
-  const [sortedProducts, setSortedProducts] = useState(allProducts);
+  const [products, setProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
+    const sortedProducts = [...products];
     const salePrice = (price: number, sale: number) => price * (1 - sale);
     setSort(e.target.value);
     switch (e.target.value) {
       case "Lowest":
-        allProducts.sort(
+        sortedProducts.sort(
           (a, b) => salePrice(a.price, a.sale) - salePrice(b.price, b.sale)
         );
-        setSortedProducts(allProducts);
+        setProducts(sortedProducts);
         break;
       case "Highest":
-        allProducts.sort(
+        sortedProducts.sort(
           (a, b) => salePrice(b.price, b.sale) - salePrice(a.price, a.sale)
         );
-        setSortedProducts(allProducts);
+        setProducts(sortedProducts);
         break;
       case "Rating":
-        allProducts.sort((a, b) => b.stars - a.stars);
-        setSortedProducts(allProducts);
+        sortedProducts.sort((a, b) => b.stars - a.stars);
+        setProducts(sortedProducts);
         break;
     }
   };
@@ -36,7 +37,7 @@ export default function MarketPlace() {
   return (
     <div className="flex gap-4">
       <div className="flex justify-center min-w-[200px] ">
-        <Siderbar />
+        <Siderbar setProducts={setProducts} />
       </div>
       <div className="flex flex-col gap-4 min-w-[700px]">
         <div className="div">
@@ -63,7 +64,7 @@ export default function MarketPlace() {
         </div>
 
         <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-          {sortedProducts.map((data) => (
+          {products.map((data) => (
             <motion.div
               key={"sorted -" + data.name}
               layout
