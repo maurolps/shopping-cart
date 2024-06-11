@@ -2,13 +2,14 @@ import ProductCard from "../ProductCard";
 import { Input, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 import { running, training, walking } from "../mockData.json";
+import { motion } from "framer-motion";
 import Siderbar from "./Siderbar";
 
 export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
-
   const [sortedProducts, setSortedProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
+
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     const salePrice = (price: number, sale: number) => price * (1 - sale);
     setSort(e.target.value);
@@ -63,7 +64,13 @@ export default function MarketPlace() {
 
         <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
           {sortedProducts.map((data) => (
-            <ProductCard product={data} />
+            <motion.div
+              key={"sorted -" + data.name}
+              layout
+              transition={{ duration: 0.5 }}
+            >
+              <ProductCard product={data} />
+            </motion.div>
           ))}
         </div>
       </div>
