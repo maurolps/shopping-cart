@@ -4,6 +4,7 @@ import { useState } from "react";
 import { running, training, walking } from "../mockData.json";
 import { motion } from "framer-motion";
 import Siderbar from "./Siderbar";
+import sortProducts from "./sortProducts";
 
 export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
@@ -11,33 +12,15 @@ export default function MarketPlace() {
   const [sort, setSort] = useState(" ");
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
-    const sortedProducts = [...products];
-    const salePrice = (price: number, sale: number) => price * (1 - sale);
     setSort(e.target.value);
-    switch (e.target.value) {
-      case "Lowest":
-        sortedProducts.sort(
-          (a, b) => salePrice(a.price, a.sale) - salePrice(b.price, b.sale)
-        );
-        setProducts(sortedProducts);
-        break;
-      case "Highest":
-        sortedProducts.sort(
-          (a, b) => salePrice(b.price, b.sale) - salePrice(a.price, a.sale)
-        );
-        setProducts(sortedProducts);
-        break;
-      case "Rating":
-        sortedProducts.sort((a, b) => b.stars - a.stars);
-        setProducts(sortedProducts);
-        break;
-    }
+    const sortedProducts = sortProducts(products, e.target.value);
+    setProducts(sortedProducts);
   };
 
   return (
     <div className="flex gap-4">
       <div className="flex justify-center min-w-[200px] ">
-        <Siderbar setProducts={setProducts} />
+        <Siderbar setProducts={setProducts} sort={sort} />
       </div>
       <div className="flex flex-col gap-4 min-w-[700px]">
         <div className="div">

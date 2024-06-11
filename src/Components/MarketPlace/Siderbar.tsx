@@ -1,6 +1,7 @@
 import Slider from "@mui/material/Slider";
 import { running, training, walking } from "../mockData.json";
 import { useState } from "react";
+import sortProducts from "./sortProducts";
 
 type TProducts = {
   id: number;
@@ -13,6 +14,7 @@ type TProducts = {
 
 type TSidebarProps = {
   setProducts: React.Dispatch<React.SetStateAction<TProducts>>;
+  sort: string;
 };
 
 function getCategoryProducts(category: string): TProducts {
@@ -28,7 +30,7 @@ function getCategoryProducts(category: string): TProducts {
   }
 }
 
-export default function Siderbar({ setProducts }: TSidebarProps) {
+export default function Siderbar({ setProducts, sort }: TSidebarProps) {
   const [priceRange, setPriceRange] = useState<number[]>([100, 300]);
   const [category, setCategory] = useState("All");
   const salePrice = (price: number, sale: number) => price * (1 - sale);
@@ -39,7 +41,8 @@ export default function Siderbar({ setProducts }: TSidebarProps) {
       const price = salePrice(product.price, product.sale);
       return price >= range[0] && price <= range[1];
     });
-    setProducts(filteredProducts);
+    const sortedProducts = sortProducts(filteredProducts, sort);
+    setProducts(sortedProducts);
   };
 
   const handlePriceSelected = (
