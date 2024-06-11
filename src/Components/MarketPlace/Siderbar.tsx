@@ -2,28 +2,63 @@ import Slider from "@mui/material/Slider";
 import { running, training, walking } from "../mockData.json";
 import { useState } from "react";
 
+type TProducts = {
+  id: number;
+  name: string;
+  price: number;
+  type: string;
+  sale: number;
+  stars: number;
+}[];
+
 type TSidebarProps = {
-  setProducts: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        name: string;
-        price: number;
-        type: string;
-        sale: number;
-        stars: number;
-      }[]
-    >
-  >;
+  setProducts: React.Dispatch<React.SetStateAction<TProducts>>;
 };
 
-export default function Siderbar({ setProducts }: TSidebarProps) {
-  const allProducts = [...running, ...training, ...walking];
-  const [category, setCategory] = useState("All");
+function getCategoryProducts(category: string): TProducts {
+  switch (category) {
+    case "Running":
+      return running;
+    case "Training":
+      return training;
+    case "Walking":
+      return walking;
+    default:
+      return [...running, ...training, ...walking];
+  }
+}
 
-  const handleClick = (category: string, products: typeof allProducts) => {
+export default function Siderbar({ setProducts }: TSidebarProps) {
+  const [priceRange, setPriceRange] = useState<number[]>([100, 300]);
+  const [category, setCategory] = useState("All");
+  const salePrice = (price: number, sale: number) => price * (1 - sale);
+
+  const filterByPrice = (range: number[], category: string) => {
+    const products = getCategoryProducts(category);
+    const filteredProducts = products.filter((product) => {
+      const price = salePrice(product.price, product.sale);
+      return price >= range[0] && price <= range[1];
+    });
+    setProducts(filteredProducts);
+  };
+
+  const handlePriceSelected = (
+    e: React.SyntheticEvent | Event,
+    newValue: number | number[]
+  ) => {
+    if (!Array.isArray(newValue)) return;
+    filterByPrice(newValue, category);
+    e.preventDefault();
+  };
+
+  const handlePriceChange = (e: Event, newValue: number | number[]) => {
+    setPriceRange(newValue as number[]);
+    e.preventDefault();
+  };
+
+  const handleCategoryClick = (category: string) => {
     setCategory(category);
-    setProducts(products);
+    filterByPrice(priceRange, category);
   };
 
   return (
@@ -42,7 +77,7 @@ export default function Siderbar({ setProducts }: TSidebarProps) {
                 className={`flex justify-between cursor-pointer ${
                   category === "All" ? "font-bold" : ""
                 }`}
-                onClick={() => handleClick("All", allProducts)}
+                onClick={() => handleCategoryClick("All")}
               >
                 <span>All</span>
                 <span className="text-text-variant">30</span>
@@ -51,7 +86,7 @@ export default function Siderbar({ setProducts }: TSidebarProps) {
                 className={`flex justify-between cursor-pointer ${
                   category === "Running" ? "font-bold" : ""
                 }`}
-                onClick={() => handleClick("Running", running)}
+                onClick={() => handleCategoryClick("Running")}
               >
                 <span>Running</span>
                 <span className="text-text-variant">10</span>
@@ -60,7 +95,7 @@ export default function Siderbar({ setProducts }: TSidebarProps) {
                 className={`flex justify-between cursor-pointer ${
                   category === "Training" ? "font-bold" : ""
                 }`}
-                onClick={() => handleClick("Training", training)}
+                onClick={() => handleCategoryClick("Training")}
               >
                 <span>Trainning</span>
                 <span className="text-text-variant">10</span>
@@ -69,7 +104,7 @@ export default function Siderbar({ setProducts }: TSidebarProps) {
                 className={`flex justify-between cursor-pointer ${
                   category === "Walking" ? "font-bold" : ""
                 }`}
-                onClick={() => handleClick("Walking", walking)}
+                onClick={() => handleCategoryClick("Walking")}
               >
                 <span>Walking</span>
                 <span className="text-text-variant">10</span>
@@ -86,8 +121,10 @@ export default function Siderbar({ setProducts }: TSidebarProps) {
           </div>
           <div className="flex justify-center">
             <Slider
-              value={[100, 300]}
+              value={priceRange}
               size="small"
+              onChange={handlePriceChange}
+              onChangeCommitted={handlePriceSelected}
               sx={{ width: "80%" }}
               valueLabelDisplay="auto"
               min={0}
