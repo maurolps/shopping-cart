@@ -2,6 +2,8 @@ import Slider from "@mui/material/Slider";
 import { running, training, walking } from "../mockData.json";
 import { useState } from "react";
 import sortProducts from "./sortProducts";
+import createTheme from "@mui/material/styles/createTheme";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
 type TProducts = {
   id: number;
@@ -17,6 +19,14 @@ type TSidebarProps = {
   sort: string;
 };
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: `rgb(var(--primary-color))`,
+    },
+  },
+});
+
 function getCategoryProducts(category: string): TProducts {
   switch (category) {
     case "Running":
@@ -31,7 +41,7 @@ function getCategoryProducts(category: string): TProducts {
 }
 
 export default function Siderbar({ setProducts, sort }: TSidebarProps) {
-  const [priceRange, setPriceRange] = useState<number[]>([100, 300]);
+  const [priceRange, setPriceRange] = useState<number[]>([100, 400]);
   const [category, setCategory] = useState("All");
   const salePrice = (price: number, sale: number) => price * (1 - sale);
 
@@ -122,17 +132,26 @@ export default function Siderbar({ setProducts, sort }: TSidebarProps) {
             </span>
             <hr />
           </div>
-          <div className="flex justify-center">
-            <Slider
-              value={priceRange}
-              size="small"
-              onChange={handlePriceChange}
-              onChangeCommitted={handlePriceSelected}
-              sx={{ width: "80%" }}
-              valueLabelDisplay="auto"
-              min={0}
-              max={400}
-            />
+          <div className="flex flex-col">
+            <div className="flex justify-center">
+              <ThemeProvider theme={theme}>
+                <Slider
+                  value={priceRange}
+                  size="small"
+                  onChange={handlePriceChange}
+                  onChangeCommitted={handlePriceSelected}
+                  sx={{ width: "80%" }}
+                  color="primary"
+                  valueLabelDisplay="auto"
+                  min={0}
+                  max={500}
+                />
+              </ThemeProvider>
+            </div>
+            <div className="flex justify-between self-center w-[90%] text-sm ">
+              <span>0</span>
+              <span>500</span>
+            </div>
           </div>
         </div>
       </div>
