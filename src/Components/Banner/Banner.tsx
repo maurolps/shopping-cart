@@ -1,6 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import { Shoe3d } from "./Shoe3d";
 import { OrbitControls } from "@react-three/drei";
+import { Link } from "react-router-dom";
+import { svgRotate } from "../../assets/svgs";
 
 export default function Banner() {
   return (
@@ -17,9 +19,11 @@ export default function Banner() {
               Our mission is to elevate your every step, offering an extensive
               selection of footwear that merges fitness-forward trends with
               unparalleled comfort and quality.{" "}
-              <button className="bg-call text-white text-[10px] font-bold w-fit px-1 pointer-events-auto">
-                TAKE A LOOK
-              </button>
+              <Link to="marketplace">
+                <button className="bg-call text-white text-[10px] font-bold w-fit px-1 pointer-events-auto">
+                  TAKE A LOOK
+                </button>
+              </Link>
             </span>
           </div>
           <div className="w-full h-full absolute aspect-square">
@@ -43,6 +47,9 @@ export default function Banner() {
                 minAzimuthAngle={-Math.PI / 1}
               />
             </Canvas>
+          </div>
+          <div className="pointer-events-none top-1 right-10 absolute aspect-square">
+            {svgRotate}
           </div>
         </div>
       </div>
