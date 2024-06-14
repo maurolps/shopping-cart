@@ -3,6 +3,7 @@ import { Shoe3d } from "./Shoe3d";
 import { OrbitControls } from "@react-three/drei";
 import { Link } from "react-router-dom";
 import { svgRotate } from "../../assets/svgs";
+import { Suspense } from "react";
 
 export default function Banner() {
   return (
@@ -27,26 +28,28 @@ export default function Banner() {
             </span>
           </div>
           <div className="w-full h-full absolute aspect-square">
-            <Canvas dpr={2} camera={{ position: [10, 5, 30], fov: 10 }}>
-              <directionalLight
-                position={[1, 10, 2]}
-                color={"#00ccff"}
-                intensity={1.5}
-              />
+            <Suspense fallback={""}>
+              <Canvas dpr={2} camera={{ position: [10, 5, 30], fov: 10 }}>
+                <directionalLight
+                  position={[1, 10, 2]}
+                  color={"#00ccff"}
+                  intensity={1.5}
+                />
 
-              <Shoe3d />
+                <Shoe3d />
 
-              <OrbitControls
-                enableZoom={false}
-                enablePan={false}
-                autoRotate={true}
-                autoRotateSpeed={0.5}
-                maxPolarAngle={Math.PI / 2.2}
-                minPolarAngle={0}
-                maxAzimuthAngle={Math.PI / 1}
-                minAzimuthAngle={-Math.PI / 1}
-              />
-            </Canvas>
+                <OrbitControls
+                  enableZoom={false}
+                  enablePan={false}
+                  autoRotate={true}
+                  autoRotateSpeed={0.5}
+                  maxPolarAngle={Math.PI / 2.2}
+                  minPolarAngle={0}
+                  maxAzimuthAngle={Math.PI / 1}
+                  minAzimuthAngle={-Math.PI / 1}
+                />
+              </Canvas>
+            </Suspense>
           </div>
           <div className="pointer-events-none top-1 right-10 absolute aspect-square">
             {svgRotate}
