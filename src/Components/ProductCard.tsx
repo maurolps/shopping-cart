@@ -4,15 +4,21 @@ import { addProduct, toggleCart, TProducts } from "../features/cartSlice";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 type ProductCardProps = {
   product: TProducts;
   imgUrl?: string;
 };
 
+function Skeleton(): JSX.Element {
+  return <div className="w-full h-4 bg-foreground animate-pulse my-1"></div>;
+}
+
 export default function ProductCard({ product, imgUrl }: ProductCardProps) {
   const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
   const dispatch = useAppDispatch();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleAddToCart = () => {
     dispatch(addProduct(product));
@@ -39,35 +45,54 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
     >
       <Link to={`/product/${product.id}`}>
         <div className="flex flex-col ">
-          <div className="flex justify-center bg-foreground w-36 h-36">
+          <div
+            className={`flex justify-center bg-foreground w-36 h-36 ${
+              imageLoaded ? "" : "animate-pulse"
+            }`}
+          >
             {imgUrl && (
               <img
                 src={imgUrl}
                 alt=""
                 loading="lazy"
+                style={{ opacity: imageLoaded ? 1 : 0 }}
                 width={"90%"}
-                className="object-contain"
+                className="object-contain transition-opacity duration-500"
+                onLoad={() => setImageLoaded(true)}
               />
             )}
           </div>
           <div className="text-text text-sm text-start font-bold max-w-36">
-            {product.name}
+            {imageLoaded ? product.name : <Skeleton />}
           </div>
         </div>
       </Link>
       <div>
-        <Rating
-          name="Shoe Stars"
-          value={product.stars}
-          precision={0.5}
-          readOnly
-          size="small"
-        />
+        {imageLoaded ? (
+          <Rating
+            name="Shoe Stars"
+            value={product.stars}
+            precision={0.5}
+            readOnly
+            size="small"
+          />
+        ) : (
+          <Skeleton />
+        )}
       </div>
       <div className="text-text font-bold text-md text-start  max-w-36">
-        ${product.sale === 0 ? product.price : salePrice()}
+        {imageLoaded ? (
+          product.sale === 0 ? (
+            product.price
+          ) : (
+            salePrice()
+          )
+        ) : (
+          <Skeleton />
+        )}
       </div>
-      {product.sale !== 0 && (
+      {}
+      {imageLoaded && product.sale !== 0 && (
         <div className="flex gap-2 text-sm">
           <span className="text-text-variant line-through">
             ${product.price}
@@ -78,12 +103,16 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
         </div>
       )}
       <div className="w-full my-2  flex-grow flex flex-col justify-end">
-        <button
-          onClick={() => handleAddToCart()}
-          className="bg-white text-primary text-xs px-2  border-primary border"
-        >
-          Add to cart
-        </button>
+        {imageLoaded ? (
+          <button
+            onClick={() => handleAddToCart()}
+            className="bg-white text-primary text-xs px-2  border-primary border"
+          >
+            Add to cart
+          </button>
+        ) : (
+          <Skeleton />
+        )}
       </div>
     </motion.div>
   );
