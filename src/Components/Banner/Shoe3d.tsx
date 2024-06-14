@@ -1,7 +1,18 @@
 import { Grid, useGLTF } from "@react-three/drei";
+import { GLTF } from "three-stdlib";
+
+type GLTFResult = GLTF & {
+  nodes: {
+    ["Shoe-Base"]: THREE.Mesh;
+    ["Shoe-Shoe"]: THREE.Mesh;
+  };
+  materials: {
+    [name: string]: THREE.MeshStandardMaterial;
+  };
+};
 
 export function Shoe3d() {
-  const { nodes } = useGLTF("/nike.glb");
+  const { nodes } = useGLTF("/nike.glb") as GLTFResult;
   const base = nodes["Shoe-Base"];
   const shoe = nodes["Shoe-Shoe"];
 
