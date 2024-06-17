@@ -1,14 +1,15 @@
 import Footer from "./Components/Footer";
-import { Header } from "./Components/Header/Header";
-import { Drawer } from "@mui/material";
-import Cart from "./Components/Cart/Cart";
+import Drawer from "@mui/material/Drawer";
 import { useAppSelector, useAppDispatch } from "./features/hooks";
 import { toggleCart } from "./features/cartSlice";
 import { setImageUrls } from "./features/productSlice";
 import { Toaster } from "sonner";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { fetchImageUrls } from "./features/fetchImageUrls";
 import { Outlet } from "react-router-dom";
+
+const Cart = lazy(() => import("./Components/Cart/Cart"));
+const Header = lazy(() => import("./Components/Header/Header"));
 
 export default function App() {
   const openCart = useAppSelector((store) => store.cart.toggleCart);
@@ -47,12 +48,13 @@ export default function App() {
             }}
           >
             <div className="p-2">
-              <Cart />
+              <Suspense fallback={""}>
+                <Cart />
+              </Suspense>
             </div>
           </Drawer>
         </section>
       </header>
-      {/* <main className="flex justify-center min-w-[900px] max-w-screen-lg mx-auto px-4  gap-10"> */}
       <main className="flex justify-center min-w-[900px] max-w-screen-lg mx-auto my-10">
         <Outlet />
       </main>

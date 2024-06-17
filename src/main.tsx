@@ -1,24 +1,43 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { PageNotFound } from "./Components/PageNotFound.tsx";
-import { HomePage } from "./Components/HomePage.tsx";
-import MarketPlace from "./Components/MarketPlace/MarketPlace.tsx";
-import { Product } from "./Components/Product.tsx";
+
+const PageNotFound = lazy(() => import("./Components/PageNotFound"));
+const HomePage = lazy(() => import("./Components/HomePage"));
+const MarketPlace = lazy(() => import("./Components/MarketPlace/MarketPlace"));
+const Product = lazy(() => import("./Components/Product"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <PageNotFound />,
+    errorElement: (
+      <Suspense>
+        <PageNotFound />
+      </Suspense>
+    ),
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/marketplace", element: <MarketPlace /> },
-      { path: "/product/:id", element: <Product /> },
+      {
+        path: "/marketplace",
+        element: (
+          <Suspense>
+            <MarketPlace />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/product/:id",
+        element: (
+          <Suspense>
+            <Product />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);
