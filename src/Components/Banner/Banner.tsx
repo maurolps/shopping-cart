@@ -1,9 +1,8 @@
-import { Canvas } from "@react-three/fiber";
-import { Shoe3d } from "./Shoe3d";
-import { OrbitControls } from "@react-three/drei";
 import { Link } from "react-router-dom";
 import { svgRotate } from "../../assets/svgs";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
+
+const Shoe3d = lazy(() => import("./Shoe3d"));
 
 export default function Banner() {
   return (
@@ -29,26 +28,7 @@ export default function Banner() {
           </div>
           <div className="w-full h-full absolute aspect-square">
             <Suspense fallback={""}>
-              <Canvas dpr={2} camera={{ position: [10, 5, 30], fov: 10 }}>
-                <directionalLight
-                  position={[1, 10, 2]}
-                  color={"#00ccff"}
-                  intensity={1.5}
-                />
-
-                <Shoe3d />
-
-                <OrbitControls
-                  enableZoom={false}
-                  enablePan={false}
-                  autoRotate={true}
-                  autoRotateSpeed={0.5}
-                  maxPolarAngle={Math.PI / 2.2}
-                  minPolarAngle={0}
-                  maxAzimuthAngle={Math.PI / 1}
-                  minAzimuthAngle={-Math.PI / 1}
-                />
-              </Canvas>
+              <Shoe3d />
             </Suspense>
           </div>
           <div className="pointer-events-none top-1 right-10 absolute aspect-square">
