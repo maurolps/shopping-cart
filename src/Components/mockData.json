@@ -326,5 +326,13 @@
       "sale": 0.3,
       "stars": 4.3
     }
-  ]
+  ],
+  "specialOffer": {
+    "id": "special-offer",
+    "name": "Asics Gel-Kayano Ultrawave",
+    "price": 130.45,
+    "type": "for men",
+    "sale": 0.4,
+    "stars": 4.9
+  }
 }
