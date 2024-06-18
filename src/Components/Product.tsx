@@ -1,11 +1,12 @@
 import Rating from "@mui/material/Rating/Rating";
 import { Trending } from "./Trending";
 import { useEffect, useState } from "react";
-import { addProduct, toggleCart } from "../features/cartSlice";
+import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
 import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { toast } from "sonner";
 import { running, training, walking } from "../Components/mockData.json";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ImageContainer = ({
   imgUrl,
@@ -16,15 +17,23 @@ const ImageContainer = ({
 }) => {
   return (
     <div className="flex justify-center h-24 w-24 bg-foreground border border-text-variant cursor-pointer">
-      <img
-        loading="lazy"
-        src={imgUrl}
-        className="object-contain"
-        alt=""
-        width="95px"
-        height="95px"
-        onClick={() => handleClick()}
-      />
+      <motion.div
+        key={imgUrl}
+        initial={{ opacity: 0.1 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0.5 }}
+        transition={{ duration: 1 }}
+      >
+        <img
+          loading="lazy"
+          src={imgUrl}
+          className="object-contain"
+          alt=""
+          width="95px"
+          height="95px"
+          onClick={() => handleClick()}
+        />
+      </motion.div>
     </div>
   );
 };
@@ -88,13 +97,12 @@ const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
   }
 };
 
-export function Product() {
+export default function Product() {
   const { id } = useParams();
   if (!id) throw new Error("Unexpected product id");
-  const product = getProductById(parseInt(id));
+  const product: TProducts = getProductById(parseInt(id));
   const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
-  const [loadedImg, setLoadedImg] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const salePrice = () => (150 * (1 - sale)).toFixed(2);
   const dispatch = useAppDispatch();
@@ -119,6 +127,7 @@ export function Product() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const urls: string[] = [];
     for (let i = 1; i <= 3; i++) {
       const url = findImgUrl(storedImgUrls, `${name} - ${i}.png`);
@@ -126,6 +135,7 @@ export function Product() {
         urls.push(url);
       }
     }
+
     setImgUrls(urls);
   }, [name, storedImgUrls]);
 
@@ -137,16 +147,22 @@ export function Product() {
       <div className="grid grid-cols-2 px-4 gap-10">
         <div className="flex flex-col gap-2">
           <div className="flex justify-center h-96 bg-foreground border border-text-variant">
-            <img
-              loading="lazy"
-              src={imgUrls[imgIndex]}
-              className="object-contain"
-              alt=""
-              width="400px"
-              height="400px"
-              style={{ display: loadedImg ? "block" : "none" }}
-              onLoad={() => setLoadedImg(true)}
-            />
+            <motion.div
+              key={"index-" + imgUrls[imgIndex]}
+              initial={{ opacity: 0.1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0.5 }}
+              transition={{ duration: 1 }}
+            >
+              <img
+                loading="lazy"
+                src={imgUrls[imgIndex]}
+                className="object-contain "
+                alt=""
+                width="400px"
+                height="400px"
+              />
+            </motion.div>
           </div>
           <div className="flex gap-2">
             <ImageContainer

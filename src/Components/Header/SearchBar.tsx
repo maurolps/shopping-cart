@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
 import { running, training, walking } from "../../Components/mockData.json";
+import { Link } from "react-router-dom";
 
 export default function SearchBar() {
   type Options = {
@@ -25,6 +26,7 @@ export default function SearchBar() {
   const [options, setOptions] = useState<Options[]>([]);
   const [inputValue, setInputValue] = useState("");
 
+  //yes, we can ignore this linter warning
   const fetchData = useCallback(
     throttle((input: string, callback) => {
       const filteredData = fetchedData.filter((data) =>
@@ -64,12 +66,14 @@ export default function SearchBar() {
         )}
         renderOption={(_, option) => (
           <>
-            <p
-              className="text-text bg-background text-md cursor-pointer hover:font-bold px-4"
-              key={option.id}
-            >
-              {option.name}
-            </p>
+            <Link to={`/product/${option.id}`}>
+              <p
+                className="text-text bg-background text-md cursor-pointer hover:font-bold px-4"
+                key={option.id}
+              >
+                {option.name}
+              </p>
+            </Link>
           </>
         )}
       />
