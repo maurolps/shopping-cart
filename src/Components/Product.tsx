@@ -16,21 +16,19 @@ const ImageContainer = ({
   handleClick: () => void;
 }) => {
   return (
-    <div className="flex justify-center h-24 w-24 bg-foreground border border-text-variant cursor-pointer">
+    <div className="flex justify-center  items-center h-24 w-24 bg-foreground border border-text-variant cursor-pointer">
       <motion.div
         key={imgUrl}
         initial={{ opacity: 0.1 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0.5 }}
         transition={{ duration: 1 }}
+        className="flex justify-center items-center w-[80%] h-[80%]"
       >
         <img
           loading="lazy"
           src={imgUrl}
           className="object-contain"
-          alt=""
-          width="95px"
-          height="95px"
           onClick={() => handleClick()}
         />
       </motion.div>
@@ -104,7 +102,7 @@ export default function Product() {
   const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const [imgIndex, setImgIndex] = useState(0);
-  const salePrice = () => (150 * (1 - sale)).toFixed(2);
+  const salePrice = () => (price * (1 - sale)).toFixed(2);
   const dispatch = useAppDispatch();
   const storedImgUrls = useAppSelector((state) => state.products.imageUrls);
 
@@ -146,21 +144,19 @@ export default function Product() {
       </span>
       <div className="grid grid-cols-2 px-4 gap-10">
         <div className="flex flex-col gap-2">
-          <div className="flex justify-center h-96 bg-foreground border border-text-variant">
+          <div className="flex justify-center items-center h-96 w-96 bg-foreground border border-text-variant">
             <motion.div
               key={"index-" + imgUrls[imgIndex]}
               initial={{ opacity: 0.1 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0.5 }}
               transition={{ duration: 1 }}
+              className="flex justify-center items-center w-[80%] h-[80%]"
             >
               <img
                 loading="lazy"
                 src={imgUrls[imgIndex]}
-                className="object-contain "
-                alt=""
-                width="400px"
-                height="400px"
+                className="object-contain"
               />
             </motion.div>
           </div>
@@ -196,7 +192,7 @@ export default function Product() {
           </div>
           <div>
             <div className="text-text font-bold text-3xl text-start  max-w-36">
-              ${sale === 0 ? "$150.00" : salePrice()}
+              ${sale === 0 ? price : salePrice()}
             </div>
             {sale !== 0 && (
               <div className="flex gap-2 text-lg">
