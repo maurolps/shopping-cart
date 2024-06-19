@@ -4,10 +4,10 @@ import TextField from "@mui/material/TextField/TextField";
 import { useCallback, useEffect, useState } from "react";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
-import { running, training, walking } from "../../Components/mockData.json";
 import { Link } from "react-router-dom";
+import { TProducts } from "../../features/cartSlice";
 
-export default function SearchBar() {
+export default function SearchBar({ searchData }: { searchData: TProducts[] }) {
   type Options = {
     name: string;
     id: string;
@@ -21,20 +21,18 @@ export default function SearchBar() {
     },
   });
 
-  const fetchedData = [...running, ...training, ...walking];
-
   const [options, setOptions] = useState<Options[]>([]);
   const [inputValue, setInputValue] = useState("");
 
-  //yes, we can ignore this linter warning
+  //linter warning here, we can ignore it
   const fetchData = useCallback(
     throttle((input: string, callback) => {
-      const filteredData = fetchedData.filter((data) =>
+      const filteredData = searchData.filter((data) =>
         data.name.toLowerCase().includes(input.toLowerCase())
       );
       callback(filteredData);
     }, 500),
-    []
+    [searchData]
   );
 
   useEffect(() => {
