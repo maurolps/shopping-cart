@@ -6,17 +6,23 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+/* eslint-disable */
 const PageNotFound = lazy(() => import("./Components/PageNotFound"));
 const HomePage = lazy(() => import("./Components/HomePage"));
 const MarketPlace = lazy(() => import("./Components/MarketPlace/MarketPlace"));
 const Product = lazy(() => import("./Components/Product"));
+const Checkout = lazy(() => import("./Components/Checkout/Checkout"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Suspense fallback={""}>
+        <App />
+      </Suspense>
+    ),
     errorElement: (
-      <Suspense>
+      <Suspense fallback={""}>
         <PageNotFound />
       </Suspense>
     ),
@@ -25,7 +31,7 @@ const router = createBrowserRouter([
       {
         path: "/marketplace",
         element: (
-          <Suspense>
+          <Suspense fallback={""}>
             <MarketPlace />
           </Suspense>
         ),
@@ -33,8 +39,16 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: (
-          <Suspense>
+          <Suspense fallback={""}>
             <Product />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/checkout",
+        element: (
+          <Suspense fallback={""}>
+            <Checkout />
           </Suspense>
         ),
       },

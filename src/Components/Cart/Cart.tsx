@@ -2,6 +2,7 @@ import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
 import { toggleCart, updateQuantity } from "../../features/cartSlice";
 import { findImgUrl } from "../../features/findImgUrl";
+import { Link } from "react-router-dom";
 
 type LoadProductProps = {
   product: {
@@ -10,7 +11,7 @@ type LoadProductProps = {
     price: number;
     stars: number;
     id: number;
-    quantity: number;
+    quantity?: number | 0;
   };
   imgUrl?: string;
 };
@@ -19,6 +20,7 @@ function CounterInput({ product }: LoadProductProps) {
   const dispatch = useAppDispatch();
   const handleQuantityChange = (subtract = false) => {
     const newProduct = Object.assign({}, product);
+    if (!newProduct.quantity) newProduct.quantity = 1;
     subtract ? (newProduct.quantity -= 1) : (newProduct.quantity += 1);
     if (newProduct.quantity <= 0) {
       newProduct.quantity = 1;
@@ -57,7 +59,7 @@ function CounterInput({ product }: LoadProductProps) {
 
 function LoadProduct({ product, imgUrl }: LoadProductProps) {
   const salePrice = () =>
-    (product.price * (1 - product.sale) * product.quantity).toFixed(2);
+    (product.price * (1 - product.sale) * (product.quantity || 1)).toFixed(2);
   return (
     <>
       <div className="flex gap-2">
@@ -79,7 +81,7 @@ function LoadProduct({ product, imgUrl }: LoadProductProps) {
               <span className="font-bold text-sm">
                 $
                 {product.sale === 0
-                  ? (product.price * product.quantity).toFixed(2)
+                  ? (product.price * (product.quantity || 1)).toFixed(2)
                   : salePrice()}
               </span>
             </div>
@@ -114,15 +116,15 @@ type Products = {
   price: number;
   sale: number;
   stars: number;
-  quantity: number;
+  quantity?: number | 0;
 };
 
 function Summary({ products }: { products: Products[] }) {
-  const subTotal = products.reduce(
-    (acc, { sale, price, quantity }) =>
-      sale === 0 ? acc + price * quantity : acc + price * (1 - sale) * quantity,
-    0
-  );
+  const subTotal = products.reduce((acc, { sale, price, quantity }) => {
+    return sale === 0
+      ? acc + price * (quantity || 0)
+      : acc + price * (1 - sale) * (quantity || 0);
+  }, 0);
   const discount = subTotal * 0.1;
   const total = subTotal - discount;
 
@@ -148,9 +150,6 @@ function Summary({ products }: { products: Products[] }) {
           <span>Total</span>
           <span>${total.toFixed(2)}</span>
         </div>
-        <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
-          Proceed to checkout
-        </button>
       </div>
     </div>
   );
@@ -177,10 +176,46 @@ function EmptyCart() {
   );
 }
 
+function CartActions({ isCartEmpty }: { isCartEmpty: boolean }): JSX.Element {
+  const dispatch = useAppDispatch();
+  return (
+    <>
+      {!isCartEmpty && (
+        <Link to="/checkout">
+          <button
+            className="bg-primary text-white font-bold text-sm w-full p-2  "
+            onClick={() => dispatch(toggleCart())}
+          >
+            Proceed to checkout
+          </button>
+        </Link>
+      )}
+      <div className="flex justify-center">
+        <div
+          className="flex justify-center cursor-pointer w-fit"
+          onClick={() => {
+            dispatch(toggleCart());
+          }}
+        >
+          {isCartEmpty ? (
+            <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
+              Continue shopping
+            </button>
+          ) : (
+            <span className="text-sm text-text-variant text-center hover:text-text ">
+              Continue Shopping
+            </span>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function Cart() {
   const products = useAppSelector((store) => store.cart.items);
   const imgUrls = useAppSelector((state) => state.products.imageUrls);
-  const dispatch = useAppDispatch();
+  const isCartEmpty = products.length === 0;
 
   const findUrl = (productName: string) => findImgUrl(imgUrls, productName);
 
@@ -190,9 +225,9 @@ export default function Cart() {
         <div className="flex flex-col gap-2">
           <div className="div">
             <span className="text-lg text-text font-bold">Cart</span>
-            {products.length === 0 && <hr />}
+            {isCartEmpty && <hr />}
           </div>
-          {products.length === 0 ? (
+          {isCartEmpty ? (
             <EmptyCart />
           ) : (
             products.map((data) => (
@@ -204,25 +239,8 @@ export default function Cart() {
           )}
         </div>
       </div>
-      {products.length > 0 && <Summary products={products} />}
-      <div className="flex justify-center">
-        <div
-          className="flex justify-center cursor-pointer w-fit"
-          onClick={() => {
-            dispatch(toggleCart());
-          }}
-        >
-          {products.length === 0 ? (
-            <button className="bg-primary text-white font-bold text-sm w-full p-2  ">
-              Continue shopping
-            </button>
-          ) : (
-            <span className="text-sm text-text-variant text-center hover:text-text ">
-              Continue Shopping
-            </span>
-          )}
-        </div>
-      </div>
+      {!isCartEmpty && <Summary products={products} />}
+      <CartActions isCartEmpty={isCartEmpty} />
     </div>
   );
 }
