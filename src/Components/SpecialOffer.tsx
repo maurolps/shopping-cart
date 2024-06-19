@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../features/hooks";
 import { specialOffer } from "./mockData.json";
+import { Link } from "react-router-dom";
+import Rating from "@mui/material/Rating";
 
 type TImageUrl = {
   name: string;
@@ -18,18 +20,48 @@ export function SpecialOffer() {
       }
     };
 
-    setImgUrl(findImgUrl(storedImgUrls, "Special Offer - 2.png"));
+    setImgUrl(findImgUrl(storedImgUrls, "Special Offer - 1.png"));
   }, [storedImgUrls]);
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-20  p-10  min-w-[900px] max-w-screen-lg mx-auto bg-gradient-to-r from-primary via-slate-500 to-slate-500">
-        <div className="p-10 flex flex-col">
+      <div className="  p-4  w-[500px] max-w-screen-lg mx-auto bg-gradient-to-r from-primary via-slate-500 to-slate-500">
+        <div className="p-16 flex flex-col ">
           <div className="text-white text-sm uppercase">Special Offer</div>
-          <div className="text-white text-3xl font-bold p-4 uppercase">
-            NEW <br /> {specialOffer.name}
+          <div className="flex gap-1 ">
+            <div className="text-white text-3xl font-bold p-4 uppercase">
+              NEW <br /> {specialOffer.name}
+            </div>
+            <div className="shadow-sm shadow-primary bg-foreground p-2 flex flex-col justify-center items-center">
+              {imgUrl && (
+                <img
+                  loading="lazy"
+                  src={imgUrl}
+                  className="object-contain  "
+                  alt=""
+                  style={{ scale: "1.1" }}
+                />
+              )}
+              <div className="flex flex-col gap-2 text-sm">
+                <Rating
+                  name="Shoe Stars"
+                  value={specialOffer.stars}
+                  precision={0.5}
+                  readOnly
+                  size="small"
+                />
+                <div className="flex gap-1 ">
+                  <span className="text-text-variant line-through">
+                    ${specialOffer.price}
+                  </span>
+                  <span className="text-call text-xs font-bold bg-red-50 pl-1 pr-1">
+                    {specialOffer.sale * 100}% off
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="text-foreground text-sm  p-4">
+          <div className=" text-text-variant text-sm  p-4">
             <p>
               Get ready! Improve your footwear collection with our exclusive
               offer on ASICS Gel sneakers!
@@ -39,22 +71,13 @@ export function SpecialOffer() {
               the ultimate choice for athletes and fashion enthusiasts alike.
             </p>
           </div>
-          <div className="p-4">
-            <button className="bg-call text-white text-sm px-2 p-2 w-fit uppercase ">
-              see offer
-            </button>
+          <div className="p-4 flex justify-center">
+            <Link to="/product/special-offer">
+              <button className="bg-call text-white text-sm px-2 p-2 w-fit uppercase ">
+                see offer
+              </button>
+            </Link>
           </div>
-        </div>
-        <div className="flex flex-col justify-center items-center border-2 border-primary bg-foreground">
-          {imgUrl && (
-            <img
-              loading="lazy"
-              src={imgUrl}
-              className="object-contain  w-[90%] h-[90%]"
-              alt=""
-              style={{ rotate: "-25deg", scale: "1.2" }}
-            />
-          )}
         </div>
       </div>
     </>
