@@ -20,7 +20,7 @@ export function SpecialOffer() {
       }
     };
 
-    setImgUrl(findImgUrl(storedImgUrls, "Special Offer - 1.png"));
+    setImgUrl(findImgUrl(storedImgUrls, specialOffer.name));
   }, [storedImgUrls]);
 
   return (
@@ -72,7 +72,7 @@ export function SpecialOffer() {
             </p>
           </div>
           <div className="p-4 flex justify-center">
-            <Link to="/product/special-offer">
+            <Link to={`/product/${specialOffer.id}`}>
               <button className="bg-call text-white text-sm px-2 p-2 w-fit uppercase ">
                 see offer
               </button>

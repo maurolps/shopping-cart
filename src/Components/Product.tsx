@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
 import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { toast } from "sonner";
-import { running, training, walking } from "../Components/mockData.json";
+import {
+  running,
+  training,
+  walking,
+  specialOffer,
+} from "../Components/mockData.json";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -78,7 +83,7 @@ function SizeSelector({ sizes }: { sizes: number[] }) {
   );
 }
 function getProductById(id: number) {
-  const products = [...running, ...training, ...walking];
+  const products = [...running, ...training, ...walking, specialOffer];
   const product = products.find((product) => product.id === id);
   if (product) return product;
   else throw new Error("Product not found");
