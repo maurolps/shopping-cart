@@ -4,6 +4,7 @@ import { running, training, walking } from "./mockData.json";
 import { motion } from "framer-motion";
 import { findImgUrl } from "../features/findImgUrl";
 import { useAppSelector } from "../features/hooks";
+import { Link } from "react-router-dom";
 
 function Underline(): JSX.Element {
   return (
@@ -69,6 +70,10 @@ export default function AllShoes() {
           </button>
 
           {displayShoes === running && <Underline />}
+        </div>
+
+        <div className="flex flex-1 p-1 justify-end ">
+          <Link to="/marketplace">View All</Link>
         </div>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
