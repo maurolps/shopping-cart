@@ -1,7 +1,9 @@
 import { useState } from "react";
 import ProductCard from "./ProductCard";
 import { running, training, walking } from "./mockData.json";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { findImgUrl } from "../features/findImgUrl";
+import { useAppSelector } from "../features/hooks";
 
 function Underline(): JSX.Element {
   return (
@@ -12,8 +14,25 @@ function Underline(): JSX.Element {
   );
 }
 
+// function CardSkeleton() {
+//   const cardCounter = 10;
+//   return (
+//     <>
+//       {Array.from({ length: cardCounter }, (_, index) => {
+//         return (
+//           <div
+//             key={"cardSlider" + index}
+//             className="w-[200px] h-[200px] bg-slate-300 animate-pulse"
+//           ></div>
+//         );
+//       })}
+//     </>
+//   );
+// }
+
 export default function AllShoes() {
   const [displayShoes, setDisplayShoes] = useState(training);
+  const imgUrls = useAppSelector((state) => state.products.imageUrls);
   return (
     <div className=" flex flex-col gap-4 w-[900px] m-auto">
       <div className="text-text text-lg px-4 font-bold  uppercase">
@@ -53,11 +72,18 @@ export default function AllShoes() {
         </div>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-        <AnimatePresence>
-          {displayShoes.map((data) => (
-            <ProductCard product={data} />
-          ))}
-        </AnimatePresence>
+        {displayShoes.map((data) => (
+          <motion.div
+            key={"sorted -" + data.name}
+            layout
+            transition={{ duration: 0.5 }}
+          >
+            <ProductCard
+              product={data}
+              imgUrl={findImgUrl(imgUrls, data.name)}
+            />
+          </motion.div>
+        ))}
       </div>
     </div>
   );
