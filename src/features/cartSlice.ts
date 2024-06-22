@@ -6,7 +6,7 @@ export type TProducts = {
   price: number;
   sale: number;
   stars: number;
-  quantity?: number;
+  quantity?: number | 0;
 };
 
 export const cartSlice = createSlice({
@@ -14,6 +14,11 @@ export const cartSlice = createSlice({
   initialState: {
     items: [] as TProducts[],
     toggleCart: false,
+    resume: {
+      quantity: 0,
+      subTotal: 0,
+      discount: 0.1,
+    },
   },
   reducers: {
     addProduct: (state, action: PayloadAction<TProducts>) => {
@@ -25,15 +30,26 @@ export const cartSlice = createSlice({
         product.quantity = 1;
         state.items.push(product);
       }
+      state.resume.subTotal += product.price * (1 - product.sale);
+      state.resume.quantity += 1;
     },
     updateQuantity: (state, action) => {
       const { id, quantity } = action.payload;
       const index = state.items.findIndex((item) => item.id === id);
       if (index !== -1) {
+        state.resume.subTotal =
+          state.resume.subTotal +
+          (quantity - (state.items[index].quantity || 1)) *
+            (state.items[index].price * (1 - state.items[index].sale));
+        state.resume.quantity += quantity - (state.items[index].quantity || 1);
+
         state.items[index].quantity = quantity;
       }
     },
     removeProduct: (state, action) => {
+      // state.resume.subTotal = state.resume.subTotal - (
+      //   state.items.find((item) => item.id === action.payload)?.price || 0
+      // )
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
     toggleCart: (state) => {
