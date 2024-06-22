@@ -1,29 +1,37 @@
 import CreditCardIcon from "@mui/icons-material/CreditCard";
+import { useAppSelector } from "../../features/hooks";
 
 function CartReview() {
+  const resume = useAppSelector((store) => store.cart.resume);
+
+  const quantity = resume.quantity;
+  const subTotal = resume.subTotal;
+  const discount = subTotal * resume.discount;
+  const total = resume.subTotal * (1 - resume.discount);
+
   return (
     <>
       <div className="text-sm flex justify-between gap-2 text-text font-medium">
         <span className=" ">Cart</span>
         <div>
-          <span className="text-text-variant font-normal">(3 Items)</span>
-          <span> $327.98</span>
+          <span className="text-text-variant font-normal">{`(${quantity} Items) `}</span>
+          <span>{`$${subTotal.toFixed(2)}`}</span>
         </div>
       </div>
       <hr />
 
       <div className="flex justify-between text-text-variant">
         <span>Subtotal</span>
-        <span>$364.43</span>
+        <span>{`$${subTotal.toFixed(2)}`}</span>
       </div>
 
       <div className="flex justify-between text-text-variant">
         <span>Discount</span>
-        <span>(10%) $36.44</span>
+        <span>{`(${resume.discount * 100}%) $${discount.toFixed(2)}`}</span>
       </div>
       <div className="flex justify-between text-text-variant">
         <span>Total</span>
-        <span>327.98</span>
+        <span>{`$${total.toFixed(2)}`}</span>
       </div>
     </>
   );
@@ -77,6 +85,8 @@ function PaymentReview() {
 }
 
 export default function Review() {
+  const resume = useAppSelector((store) => store.cart.resume);
+  const total = resume.subTotal * (1 - resume.discount);
   return (
     <>
       <div className="text-xs flex flex-col gap-4">
@@ -93,7 +103,7 @@ export default function Review() {
 
         <div className="flex justify-between font-bold text-base my-2">
           <span>Total</span>
-          <span>$327.98</span>
+          <span>{`$${total.toFixed(2)}`}</span>
         </div>
       </div>
     </>
