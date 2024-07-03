@@ -1,10 +1,10 @@
-import { Discount } from "@mui/icons-material";
+import Discount from "./Discount";
 import AllShoes from "./AllShoes";
 import Banner from "./Banner/Banner";
 import { SpecialOffer } from "./SpecialOffer";
 import { Trending } from "./Trending";
 
-export function HomePage() {
+export default function HomePage() {
   return (
     <div className="flex flex-col gap-4">
       <section>

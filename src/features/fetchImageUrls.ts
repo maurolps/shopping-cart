@@ -6,7 +6,7 @@ type TImageUrl = {
   url: string;
 };
 
-export function fetchImageUrls(): Promise<TImageUrl[]> {
+export async function fetchImageUrls(): Promise<TImageUrl[]> {
   const imageUrls = [] as TImageUrl[];
   const storageRef = ref(storage);
   const imgList = listAll(storageRef);

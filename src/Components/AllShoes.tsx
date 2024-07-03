@@ -15,22 +15,6 @@ function Underline(): JSX.Element {
   );
 }
 
-// function CardSkeleton() {
-//   const cardCounter = 10;
-//   return (
-//     <>
-//       {Array.from({ length: cardCounter }, (_, index) => {
-//         return (
-//           <div
-//             key={"cardSlider" + index}
-//             className="w-[200px] h-[200px] bg-slate-300 animate-pulse"
-//           ></div>
-//         );
-//       })}
-//     </>
-//   );
-// }
-
 export default function AllShoes() {
   const [displayShoes, setDisplayShoes] = useState(training);
   const imgUrls = useAppSelector((state) => state.products.imageUrls);

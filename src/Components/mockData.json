@@ -328,7 +328,7 @@
     }
   ],
   "specialOffer": {
-    "id": "special-offer",
+    "id": 99,
     "name": "Asics Gel-Kayano Ultrawave",
     "price": 130.45,
     "type": "for men",

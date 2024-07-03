@@ -5,11 +5,14 @@ import { running, training, walking } from "../mockData.json";
 import { motion } from "framer-motion";
 import Siderbar from "./Siderbar";
 import sortProducts from "./sortProducts";
+import { useAppSelector } from "../../features/hooks";
+import { findImgUrl } from "../../features/findImgUrl";
 
 export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
   const [products, setProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
+  const imgUrls = useAppSelector((state) => state.products.imageUrls);
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     setSort(e.target.value);
@@ -53,7 +56,10 @@ export default function MarketPlace() {
               layout
               transition={{ duration: 0.5 }}
             >
-              <ProductCard product={data} />
+              <ProductCard
+                product={data}
+                imgUrl={findImgUrl(imgUrls, data.name)}
+              />
             </motion.div>
           ))}
         </div>
