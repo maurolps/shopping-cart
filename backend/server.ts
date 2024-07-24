@@ -2,7 +2,7 @@ import express from "express";
 import shoes from "./mockShoes";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3001;
 const shoesRoute = "/shoes";
 
 app.use(express.json());
