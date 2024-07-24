@@ -1,0 +1,19 @@
+// (prisma docs) If you update schema, run: $ npx prisma db push
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Shoes {
+  id      Int  @id @map("_id")
+  name    String @unique
+  price   Float
+  type    String
+  sale    Float
+  stars   Float
+}
