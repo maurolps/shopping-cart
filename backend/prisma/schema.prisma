@@ -9,7 +9,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Shoes {
+model Running {
+  id      Int  @id @map("_id")
+  name    String @unique
+  price   Float
+  type    String
+  sale    Float
+  stars   Float
+}
+
+model Walking {
+  id      Int  @id @map("_id")
+  name    String @unique
+  price   Float
+  type    String
+  sale    Float
+  stars   Float
+}
+
+model Training {
+  id      Int  @id @map("_id")
+  name    String @unique
+  price   Float
+  type    String
+  sale    Float
+  stars   Float
+}
+
+model Trending {
+  id      Int  @id @map("_id")
+  name    String @unique
+  price   Float
+  type    String
+  sale    Float
+  stars   Float
+}
+
+model SpecialOffer {
   id      Int  @id @map("_id")
   name    String @unique
   price   Float
