@@ -11,7 +11,7 @@ export async function fetchImageUrls(): Promise<TImageUrl[]> {
   const storageRef = ref(storage);
   const imgList = listAll(storageRef);
 
-  return imgList.then((res) => {
+  return imgList.then(async (res) => {
     const urlPromises = res.items.map((item) =>
       getDownloadURL(item).then((url) => {
         imageUrls.push({ name: item.name, url: url });
