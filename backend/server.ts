@@ -16,31 +16,36 @@
 //   );
 // });
 
-import shoes from "./mockShoes";
+// import shoes from "./mockShoes";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+type ShoesData = {
+  id: number;
+  name: string;
+  price: number;
+  type: string;
+  sale: number;
+  stars: number;
+  imgUrl?: string;
+};
+
+type ShoesCategories = {
+  [key: string]: ShoesData[];
+};
+
 async function main() {
-  const categories = [
-    "training",
-    "running",
-    "walking",
-    "trending",
-    "specialOffer",
-  ];
-
-  await Promise.all(
-    categories.map((category) => {
-      if (shoes[category]) {
-        return prisma[category].createMany({
-          data: shoes[category],
-        });
-      }
-    })
-  );
-
-  console.log("data inserted.");
+  const dbCategories: Array<keyof PrismaClient> = ["training", "running"];
+  const shoesData: ShoesCategories = {};
+  const shoesPromises = dbCategories.map(async (category) => {
+    const shoes = await (prisma[category] as any).findMany();
+    return Object.assign(shoesData, { [category]: shoes });
+  });
+  await Promise.all(shoesPromises);
+  if (shoesData.training) {
+    console.log(shoesData.training[1]);
+  }
 }
 
 main()
