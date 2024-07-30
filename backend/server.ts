@@ -18,7 +18,7 @@
 
 // import shoes from "./mockShoes";
 import { PrismaClient } from "@prisma/client";
-import { fetchImageUrls } from "./utils/fetchImageUrls";
+import updateImgUrl from "./utils/updateImgUrl";
 
 const prisma = new PrismaClient();
 
@@ -36,36 +36,10 @@ type ShoesCategories = {
   [key: string]: ShoesData[];
 };
 
-type TImageUrl = {
-  name: string;
-  url: string;
-};
-
-const shoesData: ShoesCategories = {};
-
-async function updateImgUrl() {
-  const imgUrls = await fetchImageUrls();
-  const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
-    if (imgUrls !== undefined) {
-      return imgUrls.find((item) => item.name.includes(productName))?.url;
-    }
-  };
-  for (const category in shoesData) {
-    shoesData[category].forEach((shoe) => {
-      shoe.imgUrl = findImgUrl(imgUrls, shoe.name);
-    });
-  }
-  // shoesData.array.forEach(element => {
-  //   element.imgUrl = findImgUrl(imgUrls, element.name);
-
-  //   if (element.imgUrl) {
-  //     console.log(element.imgUrl);
-  //   }
-
-  // });
-}
+export const shoesData: ShoesCategories = {};
 
 async function main() {
+  console.log("Loading data...");
   const dbCategories: Array<keyof PrismaClient> = ["training", "running"];
   const shoesPromises = dbCategories.map(async (category) => {
     const shoes = await (prisma[category] as any).findMany();
