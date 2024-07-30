@@ -1,8 +1,8 @@
 import { shoesData } from "../server";
-import { Response } from "express";
+import { Response, Request } from "express";
 
 export default function shoesController() {
-  const getAll = (_req, res: Response) => {
+  const getAll = (_req: Request, res: Response) => {
     res.status(200).json(shoesData);
   };
 

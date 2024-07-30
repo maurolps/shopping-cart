@@ -1,25 +1,10 @@
-// import express from "express";
-
-// const app = express();
-// const port = process.env.PORT || 3001;
-// const shoesRoute = "/shoes";
-
-// app.use(express.json());
-
-// app.get(shoesRoute, (req, res) => {
-//   res.status(200).json(shoes);
-// });
-
-// app.listen(port, () => {
-//   console.log(
-//     `GET request server started at http://localhost:${port}${shoesRoute}`
-//   );
-// });
-
-// import shoes from "./mockShoes";
 import { PrismaClient } from "@prisma/client";
 import updateImgUrl from "./utils/updateImgUrl";
+import app from "./app";
 
+const PORT = process.env.PORT || 3001;
+
+export const shoesData: ShoesCategories = {};
 const prisma = new PrismaClient();
 
 type ShoesData = {
@@ -36,8 +21,6 @@ type ShoesCategories = {
   [key: string]: ShoesData[];
 };
 
-export const shoesData: ShoesCategories = {};
-
 async function main() {
   console.log("Loading data...");
   const dbCategories: Array<keyof PrismaClient> = ["training", "running"];
@@ -46,10 +29,12 @@ async function main() {
     return Object.assign(shoesData, { [category]: shoes });
   });
   await Promise.all(shoesPromises);
+  console.log("Updating image urls...");
   await updateImgUrl();
-  if (shoesData.training) {
-    console.log(shoesData.training[1]);
-  }
+  console.log("Running server...");
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}.`);
+  });
 }
 
 main()
