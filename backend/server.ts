@@ -23,7 +23,13 @@ type ShoesCategories = {
 
 async function main() {
   console.log("Loading data...");
-  const dbCategories: Array<keyof PrismaClient> = ["training", "running"];
+  const dbCategories: Array<keyof PrismaClient> = [
+    "training",
+    "running",
+    "walking",
+    "trending",
+    "specialOffer",
+  ];
   const shoesPromises = dbCategories.map(async (category) => {
     const shoes = await (prisma[category] as any).findMany();
     return Object.assign(shoesData, { [category]: shoes });
