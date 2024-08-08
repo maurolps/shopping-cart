@@ -1,14 +1,16 @@
 import ProductCard from "./ProductCard";
-import { trending } from "./mockData.json";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "../Styles/trending.css";
 import { useAppSelector } from "../features/hooks";
-import { findImgUrl } from "../features/findImgUrl";
 
 export function Trending() {
-  const imgUrls = useAppSelector((state) => state.products.imageUrls);
+  const productsCategories = useAppSelector(
+    (state) => state.products.categories
+  );
+  const trending = productsCategories.trending;
+
   const settings = {
     dots: false,
     infinite: false,
@@ -16,8 +18,6 @@ export function Trending() {
     slidesToShow: 5,
     slidesToScroll: 3,
   };
-
-  const findUrl = (productName: string) => findImgUrl(imgUrls, productName);
 
   return (
     <>
@@ -27,7 +27,7 @@ export function Trending() {
         </div>
         <Slider {...settings}>
           {trending.map((data) => {
-            return <ProductCard product={data} imgUrl={findUrl(data.name)} />;
+            return <ProductCard product={data} imgUrl={data.imgUrl} />;
           })}
         </Slider>
       </div>
