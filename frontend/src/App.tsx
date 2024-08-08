@@ -2,12 +2,12 @@ import Footer from "./Components/Footer";
 import Drawer from "@mui/material/Drawer";
 import { useAppSelector, useAppDispatch } from "./features/hooks";
 import { toggleCart } from "./features/cartSlice";
-import { setImageUrls } from "./features/productSlice";
+import { setImageUrls, setProducts } from "./features/productSlice";
 import { Toaster } from "sonner";
 import { useEffect, lazy, Suspense } from "react";
 import { fetchImageUrls } from "./features/fetchImageUrls";
 import { Outlet } from "react-router-dom";
-import axios from "axios";
+import fetchShoesData from "./features/fetchShoesData";
 
 const Cart = lazy(() => import("./Components/Cart/Cart"));
 const Header = lazy(() => import("./Components/Header/Header"));
@@ -15,25 +15,14 @@ const Header = lazy(() => import("./Components/Header/Header"));
 export default function App() {
   const openCart = useAppSelector((store) => store.cart.toggleCart);
   const dispatch = useAppDispatch();
-  const SHOES_ENDPOINT = import.meta.env.VITE_SHOES_ENDPOINT;
-
-  const fetchShoesData = async () => {
-    try {
-      const res = await axios.get(SHOES_ENDPOINT);
-      return res.data;
-    } catch (err) {
-      console.log("Error fetching shoes: ", err);
-    }
-  };
 
   useEffect(() => {
     const storedShoesData = localStorage.getItem("scartShoes");
     if (storedShoesData) {
-      console.log(JSON.parse(storedShoesData));
-      //dispatch(addProduct(JSON.parse(storedShoesData)));
+      dispatch(setProducts(JSON.parse(storedShoesData)));
     } else {
       fetchShoesData().then((res) => {
-        //dispatch(addProduct(res));
+        dispatch(setProducts(res));
         localStorage.setItem("scartShoes", JSON.stringify(res));
       });
     }
