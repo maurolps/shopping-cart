@@ -26,9 +26,16 @@ export function Trending() {
           Trending
         </div>
         <Slider {...settings}>
-          {trending.map((data) => {
-            return <ProductCard product={data} imgUrl={data.imgUrl} />;
-          })}
+          {trending &&
+            trending.map((data) => {
+              const productData = { ...data, quantity: 1 };
+              return (
+                <ProductCard
+                  product={productData}
+                  imgUrl={productData.imgUrl}
+                />
+              );
+            })}
         </Slider>
       </div>
     </>
