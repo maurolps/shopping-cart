@@ -1,27 +1,12 @@
-import { useEffect, useState } from "react";
 import { useAppSelector } from "../features/hooks";
-import { specialOffer } from "./mockData.json";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 
-type TImageUrl = {
-  name: string;
-  url: string;
-};
-
 export function SpecialOffer() {
-  const storedImgUrls = useAppSelector((state) => state.products.imageUrls);
-  const [imgUrl, setImgUrl] = useState<string | undefined>("");
-
-  useEffect(() => {
-    const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
-      if (imgUrls !== undefined) {
-        return imgUrls.find((item) => item.name.includes(productName))?.url;
-      }
-    };
-
-    setImgUrl(findImgUrl(storedImgUrls, specialOffer.name));
-  }, [storedImgUrls]);
+  const productsCategories = useAppSelector(
+    (state) => state.products.categories
+  );
+  const specialOffer = productsCategories.specialOffer[0];
 
   return (
     <>
@@ -30,36 +15,44 @@ export function SpecialOffer() {
           <div className="text-white text-sm uppercase">Special Offer</div>
           <div className="flex gap-1 ">
             <div className="text-white text-3xl font-bold p-4 uppercase">
-              NEW <br /> {specialOffer.name}
-            </div>
-            <div className="shadow-sm shadow-primary bg-foreground p-2 flex flex-col justify-center items-center">
-              {imgUrl && (
-                <img
-                  loading="lazy"
-                  src={imgUrl}
-                  className="object-contain  "
-                  alt=""
-                  style={{ scale: "1.1" }}
-                />
+              {specialOffer && (
+                <>
+                  NEW <br /> {specialOffer.name}
+                </>
               )}
-              <div className="flex flex-col gap-2 text-sm">
-                <Rating
-                  name="Shoe Stars"
-                  value={specialOffer.stars}
-                  precision={0.5}
-                  readOnly
-                  size="small"
-                />
-                <div className="flex gap-1 ">
-                  <span className="text-text-variant line-through">
-                    ${specialOffer.price}
-                  </span>
-                  <span className="text-call text-xs font-bold bg-red-50 pl-1 pr-1">
-                    {specialOffer.sale * 100}% off
-                  </span>
-                </div>
-              </div>
             </div>
+            {specialOffer && (
+              <>
+                <div className="shadow-sm shadow-primary bg-foreground p-2 flex flex-col justify-center items-center">
+                  {specialOffer && (
+                    <img
+                      loading="lazy"
+                      src={specialOffer.imgUrl}
+                      className="object-contain  "
+                      alt=""
+                      style={{ scale: "1.1" }}
+                    />
+                  )}
+                  <div className="flex flex-col gap-2 text-sm">
+                    <Rating
+                      name="Shoe Stars"
+                      value={specialOffer.stars}
+                      precision={0.5}
+                      readOnly
+                      size="small"
+                    />
+                    <div className="flex gap-1 ">
+                      <span className="text-text-variant line-through">
+                        ${specialOffer.price}
+                      </span>
+                      <span className="text-call text-xs font-bold bg-red-50 pl-1 pr-1">
+                        {specialOffer.sale * 100}% off
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <div className=" text-text-variant text-sm  p-4">
             <p>
@@ -72,7 +65,11 @@ export function SpecialOffer() {
             </p>
           </div>
           <div className="p-4 flex justify-center">
-            <Link to={`/product/${specialOffer.id}`}>
+            <Link
+              to={`${
+                specialOffer ? "/product/" + specialOffer.id : "/marketplace"
+              }`}
+            >
               <button className="bg-call text-white text-sm px-2 p-2 w-fit uppercase ">
                 see offer
               </button>
