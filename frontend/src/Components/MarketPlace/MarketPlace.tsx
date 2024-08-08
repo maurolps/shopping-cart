@@ -1,18 +1,19 @@
 import ProductCard from "../ProductCard";
 import { Input, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-import { running, training, walking } from "../mockData.json";
 import { motion } from "framer-motion";
 import Siderbar from "./Siderbar";
 import sortProducts from "./sortProducts";
 import { useAppSelector } from "../../features/hooks";
-import { findImgUrl } from "../../features/findImgUrl";
 
 export default function MarketPlace() {
+  const productsCategories = useAppSelector(
+    (state) => state.products.categories
+  );
+  const { running, training, walking } = productsCategories;
   const allProducts = [...running, ...training, ...walking];
   const [products, setProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
-  const imgUrls = useAppSelector((state) => state.products.imageUrls);
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     setSort(e.target.value);
@@ -56,10 +57,7 @@ export default function MarketPlace() {
               layout
               transition={{ duration: 0.5 }}
             >
-              <ProductCard
-                product={data}
-                imgUrl={findImgUrl(imgUrls, data.name)}
-              />
+              <ProductCard product={data} imgUrl={data.imgUrl} />
             </motion.div>
           ))}
         </div>
