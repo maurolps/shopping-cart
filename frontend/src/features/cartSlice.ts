@@ -7,6 +7,7 @@ export type TProducts = {
   sale: number;
   stars: number;
   quantity?: number | 0;
+  imgUrl?: string;
 };
 
 export const cartSlice = createSlice({
