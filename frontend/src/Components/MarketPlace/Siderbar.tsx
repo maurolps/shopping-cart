@@ -1,21 +1,13 @@
 import Slider from "@mui/material/Slider";
-import { running, training, walking } from "../mockData.json";
 import { useState } from "react";
 import sortProducts from "./sortProducts";
 import createTheme from "@mui/material/styles/createTheme";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
-
-type TProducts = {
-  id: number;
-  name: string;
-  price: number;
-  type: string;
-  sale: number;
-  stars: number;
-}[];
+import { useAppSelector } from "../../features/hooks";
+import { TProducts } from "../../features/cartSlice";
 
 type TSidebarProps = {
-  setProducts: React.Dispatch<React.SetStateAction<TProducts>>;
+  setProducts: React.Dispatch<React.SetStateAction<TProducts[]>>;
   sort: string;
 };
 
@@ -27,23 +19,27 @@ const theme = createTheme({
   },
 });
 
-function getCategoryProducts(category: string): TProducts {
-  switch (category) {
-    case "Running":
-      return running;
-    case "Training":
-      return training;
-    case "Walking":
-      return walking;
-    default:
-      return [...running, ...training, ...walking];
-  }
-}
-
 export default function Siderbar({ setProducts, sort }: TSidebarProps) {
+  const { running, training, walking } = useAppSelector(
+    (state) => state.products.categories
+  );
+
   const [priceRange, setPriceRange] = useState<number[]>([100, 400]);
   const [category, setCategory] = useState("All");
   const salePrice = (price: number, sale: number) => price * (1 - sale);
+
+  function getCategoryProducts(category: string) {
+    switch (category) {
+      case "Running":
+        return running;
+      case "Training":
+        return training;
+      case "Walking":
+        return walking;
+      default:
+        return [...running, ...training, ...walking];
+    }
+  }
 
   const filterByPrice = (range: number[], category: string) => {
     const products = getCategoryProducts(category);
