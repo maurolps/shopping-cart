@@ -6,7 +6,9 @@ export function SpecialOffer() {
   const productsCategories = useAppSelector(
     (state) => state.products.categories
   );
-  const specialOffer = productsCategories.specialOffer[0];
+
+  const length = Object.keys(productsCategories).length;
+  const specialOffer = length > 0 && productsCategories.specialOffer[0];
 
   return (
     <>
