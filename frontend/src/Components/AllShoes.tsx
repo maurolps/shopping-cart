@@ -1,8 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { running, training, walking } from "./mockData.json";
 import { motion } from "framer-motion";
-import { findImgUrl } from "../features/findImgUrl";
 import { useAppSelector } from "../features/hooks";
 import { Link } from "react-router-dom";
 
@@ -16,8 +14,17 @@ function Underline(): JSX.Element {
 }
 
 export default function AllShoes() {
-  const [displayShoes, setDisplayShoes] = useState(training);
-  const imgUrls = useAppSelector((state) => state.products.imageUrls);
+  const productsCategories = useAppSelector(
+    (state) => state.products.categories
+  );
+
+  const { running = [], training = [], walking = [] } = productsCategories;
+  const [displayShoes, setDisplayShoes] = useState([] as typeof walking);
+
+  useEffect(() => {
+    if (!displayShoes.length) setDisplayShoes(walking);
+  }, [displayShoes, walking]);
+
   return (
     <div className=" flex flex-col gap-4 w-[900px] m-auto">
       <div className="text-text text-lg px-4 font-bold  uppercase">
@@ -61,18 +68,18 @@ export default function AllShoes() {
         </div>
       </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-        {displayShoes.map((data) => (
-          <motion.div
-            key={"sorted -" + data.name}
-            layout
-            transition={{ duration: 0.5 }}
-          >
-            <ProductCard
-              product={data}
-              imgUrl={findImgUrl(imgUrls, data.name)}
-            />
-          </motion.div>
-        ))}
+        {displayShoes.map((data) => {
+          const productData = { ...data, quantity: 1 };
+          return (
+            <motion.div
+              key={"sorted -" + productData.name}
+              layout
+              transition={{ duration: 0.5 }}
+            >
+              <ProductCard product={productData} imgUrl={productData.imgUrl} />
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
