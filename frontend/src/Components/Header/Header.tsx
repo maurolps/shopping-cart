@@ -3,19 +3,21 @@ import SearchBar from "./SearchBar";
 import SearchCategories from "./SearchCategories";
 import { Badge } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
-import { toggleCart } from "../../features/cartSlice";
+import { toggleCart, TProducts } from "../../features/cartSlice";
 import { Link } from "react-router-dom";
-import { running, training, walking } from "../mockData.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const productsCategories = useAppSelector(
+    (state) => state.products.categories
+  );
+  const { running = [], training = [], walking = [] } = productsCategories;
+  const allProducts = [running, training, walking].flat();
+
   const productsCount = useAppSelector((store) => store.cart.items.length);
   const dispatch = useAppDispatch();
-  const [searchData, setSearchData] = useState([
-    ...running,
-    ...training,
-    ...walking,
-  ]);
+  const [searchData, setSearchData] = useState([] as TProducts[]);
+
   const toggleCartHandler = () => {
     dispatch(toggleCart());
   };
@@ -23,18 +25,22 @@ export default function Header() {
   const handleCategorieChange = (categorie: string) => {
     switch (categorie) {
       case "Running":
-        setSearchData([...running]);
+        setSearchData(running);
         break;
       case "Training":
-        setSearchData([...training]);
+        setSearchData(training);
         break;
       case "Walking":
-        setSearchData([...walking]);
+        setSearchData(walking);
         break;
       default:
-        setSearchData([...running, ...training, ...walking]);
+        setSearchData(allProducts);
     }
   };
+
+  useEffect(() => {
+    if (!searchData.length) setSearchData(allProducts);
+  }, [searchData, allProducts]);
 
   return (
     <>
