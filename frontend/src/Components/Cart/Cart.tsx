@@ -1,7 +1,6 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
 import { toggleCart, updateQuantity } from "../../features/cartSlice";
-import { findImgUrl } from "../../features/findImgUrl";
 import { Link } from "react-router-dom";
 
 type LoadProductProps = {
@@ -11,7 +10,7 @@ type LoadProductProps = {
     price: number;
     stars: number;
     id: number;
-    quantity?: number | 0;
+    quantity?: number;
   };
   imgUrl?: string;
 };
@@ -214,10 +213,7 @@ function CartActions({ isCartEmpty }: { isCartEmpty: boolean }): JSX.Element {
 
 export default function Cart() {
   const products = useAppSelector((store) => store.cart.items);
-  const imgUrls = useAppSelector((state) => state.products.imageUrls);
   const isCartEmpty = products.length === 0;
-
-  const findUrl = (productName: string) => findImgUrl(imgUrls, productName);
 
   return (
     <div className="flex gap-2 flex-col">
@@ -233,7 +229,7 @@ export default function Cart() {
             products.map((data) => (
               <>
                 <hr />
-                <LoadProduct product={data} imgUrl={findUrl(data.name)} />
+                <LoadProduct product={data} imgUrl={data.imgUrl} />
               </>
             ))
           )}
