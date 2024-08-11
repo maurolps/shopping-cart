@@ -4,6 +4,16 @@ import { Suspense, lazy } from "react";
 
 const Shoe3d = lazy(() => import("./Shoe3d"));
 
+// Prevent THREE warnings, adapted from mrdoob
+// discussion: https://github.com/mrdoob/three.js/pull/5791
+const _consoleLog = console.log;
+console.log = function (...args) {
+  if (typeof args[0] === "string" && args[0].substring(0, 5) === "THREE") {
+    return;
+  }
+  _consoleLog(...args);
+};
+
 export default function Banner() {
   return (
     <>
