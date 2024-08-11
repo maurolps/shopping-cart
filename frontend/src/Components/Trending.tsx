@@ -31,6 +31,7 @@ export function Trending() {
               const productData = { ...data, quantity: 1 };
               return (
                 <ProductCard
+                  key={productData.id}
                   product={productData}
                   imgUrl={productData.imgUrl}
                 />

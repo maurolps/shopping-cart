@@ -6,7 +6,8 @@ export type TProducts = {
   price: number;
   sale: number;
   stars: number;
-  quantity?: number | 0;
+  type: string;
+  quantity?: number;
   imgUrl?: string;
 };
 

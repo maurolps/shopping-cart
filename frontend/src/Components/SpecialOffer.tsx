@@ -7,8 +7,7 @@ export function SpecialOffer() {
     (state) => state.products.categories
   );
 
-  const length = Object.keys(productsCategories).length;
-  const specialOffer = length > 0 && productsCategories.specialOffer[0];
+  const specialOffer = productsCategories.specialOffer?.[0];
 
   return (
     <>

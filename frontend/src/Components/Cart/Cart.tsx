@@ -2,6 +2,7 @@ import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
 import { toggleCart, updateQuantity } from "../../features/cartSlice";
 import { Link } from "react-router-dom";
+import React from "react";
 
 type LoadProductProps = {
   product: {
@@ -227,10 +228,10 @@ export default function Cart() {
             <EmptyCart />
           ) : (
             products.map((data) => (
-              <>
+              <React.Fragment key={data.id}>
                 <hr />
                 <LoadProduct product={data} imgUrl={data.imgUrl} />
-              </>
+              </React.Fragment>
             ))
           )}
         </div>
