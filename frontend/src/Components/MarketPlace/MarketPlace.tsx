@@ -51,15 +51,18 @@ export default function MarketPlace() {
         </div>
 
         <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
-          {products.map((data) => (
-            <motion.div
-              key={"sorted -" + data.name}
-              layout
-              transition={{ duration: 0.5 }}
-            >
-              <ProductCard product={data} imgUrl={data.imgUrl} />
-            </motion.div>
-          ))}
+          {products.map((data) => {
+            const productData = { ...data, quantity: 1 };
+            return (
+              <motion.div
+                key={"sorted -" + data.id}
+                layout
+                transition={{ duration: 0.5 }}
+              >
+                <ProductCard product={productData} imgUrl={data.imgUrl} />
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>
