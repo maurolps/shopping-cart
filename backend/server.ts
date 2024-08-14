@@ -15,6 +15,10 @@ type ShoesData = {
   sale: number;
   stars: number;
   imgUrl?: string;
+  imgUrlVariants?: {
+    name: string;
+    url: string;
+  }[];
 };
 
 type ShoesCategories = {
