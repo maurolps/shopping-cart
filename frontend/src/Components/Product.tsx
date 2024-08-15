@@ -4,12 +4,6 @@ import { useEffect, useState } from "react";
 import { TProducts, addProduct, toggleCart } from "../features/cartSlice";
 import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { toast } from "sonner";
-import {
-  running,
-  training,
-  walking,
-  specialOffer,
-} from "../Components/mockData.json";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -82,8 +76,7 @@ function SizeSelector({ sizes }: { sizes: number[] }) {
     </div>
   );
 }
-function getProductById(id: number) {
-  const products = [...running, ...training, ...walking, specialOffer];
+function getProductById(id: number, products: TProducts[]) {
   const product = products.find((product) => product.id === id);
   if (product) return product;
   else throw new Error("Product not found");
@@ -103,7 +96,19 @@ const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
 export default function Product() {
   const { id } = useParams();
   if (!id) throw new Error("Unexpected product id");
-  const product: TProducts = getProductById(parseInt(id));
+  const productsCategories = useAppSelector(
+    (state) => state.products.categories
+  );
+  const { running, training, walking, specialOffer, trending } =
+    productsCategories;
+  const allProducts = [
+    ...running,
+    ...training,
+    ...walking,
+    ...specialOffer,
+    ...trending,
+  ];
+  const product: TProducts = getProductById(parseInt(id), allProducts);
   const { name, price, sale, stars } = product;
   const [imgUrls, setImgUrls] = useState<string[]>([]);
   const [imgIndex, setImgIndex] = useState(0);
