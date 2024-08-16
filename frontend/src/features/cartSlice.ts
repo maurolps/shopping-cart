@@ -9,6 +9,10 @@ export type TProducts = {
   type: string;
   quantity?: number;
   imgUrl?: string;
+  imgUrlVariants?: {
+    name: string;
+    url: string;
+  }[];
 };
 
 export const cartSlice = createSlice({

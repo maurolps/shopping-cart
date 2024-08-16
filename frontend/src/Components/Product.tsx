@@ -82,17 +82,6 @@ function getProductById(id: number, products: TProducts[]) {
   else throw new Error("Product not found");
 }
 
-type TImageUrl = {
-  name: string;
-  url: string;
-};
-
-const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
-  if (imgUrls !== undefined) {
-    return imgUrls.find((item) => item.name.includes(productName))?.url;
-  }
-};
-
 export default function Product() {
   const { id } = useParams();
   if (!id) throw new Error("Unexpected product id");
@@ -110,18 +99,18 @@ export default function Product() {
   ];
   const product: TProducts = getProductById(parseInt(id), allProducts);
   const { name, price, sale, stars } = product;
-  const [imgUrls, setImgUrls] = useState<string[]>([]);
+  const imgUrls = product?.imgUrlVariants;
   const [imgIndex, setImgIndex] = useState(0);
   const salePrice = () => (price * (1 - sale)).toFixed(2);
   const dispatch = useAppDispatch();
-  const storedImgUrls = useAppSelector((state) => state.products.imageUrls);
 
   const handleImgClick = (index: number) => {
     setImgIndex(index);
   };
 
   const handleAddToCart = () => {
-    dispatch(addProduct(product));
+    const productData = { ...product, quantity: 1 };
+    dispatch(addProduct(productData));
     const productNameParts = product.name.split(" ");
     const productName = productNameParts.slice(0, 2).join(" ");
     toast.success(productName + " successfully added to cart.", {
@@ -136,16 +125,7 @@ export default function Product() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const urls: string[] = [];
-    for (let i = 1; i <= 3; i++) {
-      const url = findImgUrl(storedImgUrls, `${name} - ${i}.png`);
-      if (url) {
-        urls.push(url);
-      }
-    }
-
-    setImgUrls(urls);
-  }, [name, storedImgUrls]);
+  }, [name]);
 
   return (
     <div className="flex flex-col gap-1 my-10 ">
@@ -156,7 +136,7 @@ export default function Product() {
         <div className="flex flex-col gap-2">
           <div className="flex justify-center items-center h-96 w-96 bg-foreground border border-text-variant">
             <motion.div
-              key={"index-" + imgUrls[imgIndex]}
+              key={"index-" + imgIndex}
               initial={{ opacity: 0.1 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0.5 }}
@@ -165,22 +145,22 @@ export default function Product() {
             >
               <img
                 loading="lazy"
-                src={imgUrls[imgIndex]}
+                src={imgUrls ? imgUrls[imgIndex].url : ""}
                 className="object-contain"
               />
             </motion.div>
           </div>
           <div className="flex gap-2">
             <ImageContainer
-              imgUrl={imgUrls[0]}
+              imgUrl={imgUrls ? imgUrls[0].url : ""}
               handleClick={() => handleImgClick(0)}
             />
             <ImageContainer
-              imgUrl={imgUrls[1]}
+              imgUrl={imgUrls ? imgUrls[1].url : ""}
               handleClick={() => handleImgClick(1)}
             />
             <ImageContainer
-              imgUrl={imgUrls[2]}
+              imgUrl={imgUrls ? imgUrls[2].url : ""}
               handleClick={() => handleImgClick(2)}
             />
           </div>
