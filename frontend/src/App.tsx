@@ -2,10 +2,10 @@ import Footer from "./Components/Footer";
 import Drawer from "@mui/material/Drawer";
 import { useAppSelector, useAppDispatch } from "./features/hooks";
 import { toggleCart } from "./features/cartSlice";
-import { setImageUrls, setProducts } from "./features/productSlice";
+import { setProducts } from "./features/productSlice";
 import { Toaster } from "sonner";
 import { useEffect, lazy, Suspense } from "react";
-import { fetchImageUrls } from "./features/fetchImageUrls";
+// import { fetchImageUrls } from "./features/fetchImageUrls";
 import { Outlet } from "react-router-dom";
 import fetchShoesData from "./features/fetchShoesData";
 
@@ -24,16 +24,6 @@ export default function App() {
       fetchShoesData().then((res) => {
         dispatch(setProducts(res));
         localStorage.setItem("scartShoes", JSON.stringify(res));
-      });
-    }
-
-    const storedImageUrls = localStorage.getItem("scartImages");
-    if (storedImageUrls) {
-      dispatch(setImageUrls(JSON.parse(storedImageUrls)));
-    } else {
-      fetchImageUrls().then((res) => {
-        dispatch(setImageUrls(res));
-        localStorage.setItem("scartImages", JSON.stringify(res));
       });
     }
   }, [dispatch]);
