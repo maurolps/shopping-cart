@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../features/hooks";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const ImageContainer = ({
   imgUrl,
@@ -46,9 +47,8 @@ function SizeContainer({
 }): JSX.Element {
   return (
     <button
-      className={`flex justify-center items-center h-8 w-8 bg-foreground border border-text-variant ${
-        selected ? "bg-primary text-white border-none" : ""
-      }`}
+      className={`flex justify-center items-center h-8 w-8 bg-foreground border border-text-variant ${selected ? "bg-primary text-white border-none" : ""
+        }`}
       onClick={() => handleClick()}
     >
       <span className="text-xs">{size}</span>
@@ -130,7 +130,9 @@ export default function Product() {
   return (
     <div className="flex flex-col gap-1 my-10 ">
       <span className="px-4 text-xs text-text-variant">
-        Home {">"} Products {">"} {name}
+        <Link to="/"> Home </Link> {">"}
+        <Link to="/marketplace"> Products </Link>
+        {">"} {name}
       </span>
       <div className="grid grid-cols-2 px-4 gap-10">
         <div className="flex flex-col gap-2">
