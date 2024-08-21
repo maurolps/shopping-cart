@@ -1,6 +1,6 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/hooks";
-import { toggleCart, updateQuantity } from "../../features/cartSlice";
+import { toggleCart, updateQuantity, removeProduct } from "../../features/cartSlice";
 import { Link } from "react-router-dom";
 import React from "react";
 
@@ -58,8 +58,15 @@ function CounterInput({ product }: LoadProductProps) {
 }
 
 function LoadProduct({ product, imgUrl }: LoadProductProps) {
+  const dispatch = useAppDispatch();
+
   const salePrice = () =>
     (product.price * (1 - product.sale) * (product.quantity || 1)).toFixed(2);
+
+  const handleRemove = () => {
+    dispatch(removeProduct(product.id));
+
+  }
   return (
     <>
       <div className="flex gap-2">
@@ -100,7 +107,8 @@ function LoadProduct({ product, imgUrl }: LoadProductProps) {
           </div>
           <div className="flex justify-between">
             <CounterInput product={product} />
-            <span className="text-text-variant hover:text-text hover:bg-foreground  cursor-pointer px-1 flex items-center shadow-sm">
+            <span className="text-text-variant hover:text-text hover:bg-foreground  cursor-pointer px-1 flex items-center shadow-sm"
+              onClick={handleRemove}>
               X
             </span>
           </div>

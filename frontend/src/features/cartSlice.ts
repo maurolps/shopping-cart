@@ -46,16 +46,16 @@ export const cartSlice = createSlice({
         state.resume.subTotal =
           state.resume.subTotal +
           (quantity - (state.items[index].quantity || 1)) *
-            (state.items[index].price * (1 - state.items[index].sale));
+          (state.items[index].price * (1 - state.items[index].sale));
         state.resume.quantity += quantity - (state.items[index].quantity || 1);
 
         state.items[index].quantity = quantity;
       }
     },
     removeProduct: (state, action) => {
-      // state.resume.subTotal = state.resume.subTotal - (
-      //   state.items.find((item) => item.id === action.payload)?.price || 0
-      // )
+      state.resume.subTotal = state.resume.subTotal - (
+        state.items.find((item) => item.id === action.payload)?.price || 0
+      )
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
     toggleCart: (state) => {
