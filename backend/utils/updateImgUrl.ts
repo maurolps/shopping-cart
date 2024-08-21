@@ -10,7 +10,7 @@ export default async function updateImgUrl() {
   const imgUrls = await fetchImageUrls();
   const findImgUrl = (imgUrls: TImageUrl[], productName: string) => {
     if (imgUrls !== undefined) {
-      return imgUrls.filter((item) => item.name.includes(productName));
+      return imgUrls.filter((item) => item.name.includes(productName + ' -'));
     }
   };
   for (const category in shoesData) {
