@@ -66,7 +66,7 @@ export default function SearchBar({ searchData }: { searchData: TProducts[] }) {
           <>
             <Link to={`/product/${option.id}`}>
               <p
-                className="text-text bg-background text-md cursor-pointer hover:font-bold px-4"
+                className="text-text bg-background text-sm sm:text-md cursor-pointer hover:font-bold px-2 sm:px-4"
                 key={option.id}
               >
                 {option.name}

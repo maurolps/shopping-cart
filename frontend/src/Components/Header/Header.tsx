@@ -44,26 +44,26 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex justify-center py-6 px-4 max-w-screen-lg mx-auto">
-        <div className="flex justify-start w-1/5 items-center">
-          <h1 className="text-2xl font-bold text-text">
+      <div className="flex justify-center max-w-screen-lg mx-auto">
+        <div className="flex justify-start w-1/6 items-center">
+          <h1 className="text-sm sm:text-2xl font-bold text-text">
             <Link to="/">
               S<span className="text-white bg-text px-1">C</span>ART
             </Link>
           </h1>
         </div>
         <div className="flex flex-grow bg-background shadow-text-variant  ">
-          <div className="flex flex-grow justify-center items-center gap-3 text-sm text-text-variant ">
-            <div className="flex-grow">
+          <div className="flex flex-grow justify-between gap-1 sm:gap-3 items-center text-sm text-text-variant ">
+            <div className="flex-grow ">
               <SearchBar searchData={searchData} />
             </div>
-            <div className="border-l-2 border-text-variant h-1/2"></div>
-            <div className="flex justify-center items-center px-4 cursor-pointer w-1/4">
+            <div className="hidden sm:block border-l-2 border-text-variant h-1/2"></div>
+            <div className="flex justify-center items-center cursor-pointer">
               <SearchCategories categorieChange={handleCategorieChange} />
             </div>
           </div>
         </div>
-        <div className="flex justify-end items-center w-1/5 gap-3 text-base">
+        <div className="flex justify-end items-center w-1/6 gap-3 text-base">
           <a href="https://github.com/maurolps/shopping-cart">
             <GitHub sx={{ color: "rgba(var(--text-variant-color))" }} />
           </a>

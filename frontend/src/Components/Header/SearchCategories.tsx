@@ -14,7 +14,11 @@ export default function SearchCategories({
   return (
     <>
       <Select
-        input={<Input disableUnderline={true} />}
+        input={<Input disableUnderline={true}
+          sx={{
+            fontSize: { xs: '0.9rem', md: '1rem' },
+          }}
+        />}
         value={categorie}
         onChange={handleCategorieChange}
       >
