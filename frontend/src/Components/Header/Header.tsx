@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <>
       <div className="flex justify-center max-w-screen-lg mx-auto">
-        <div className="flex justify-start w-1/6 items-center">
+        <div className="flex justify-center sm:justify-start w-1/6 items-center">
           <h1 className="text-sm sm:text-2xl font-bold text-text">
             <Link to="/">
               S<span className="text-white bg-text px-1">C</span>ART
@@ -58,7 +58,7 @@ export default function Header() {
               <SearchBar searchData={searchData} />
             </div>
             <div className="hidden sm:block border-l-2 border-text-variant h-1/2"></div>
-            <div className="flex justify-center items-center cursor-pointer">
+            <div className="hidden sm:flex justify-center items-center cursor-pointer">
               <SearchCategories categorieChange={handleCategorieChange} />
             </div>
           </div>
