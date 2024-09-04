@@ -26,14 +26,14 @@ export default function AllShoes() {
   }, [displayShoes, walking]);
 
   return (
-    <div className=" flex flex-col gap-4 w-[900px] m-auto">
-      <div className="text-text text-lg px-4 font-bold  uppercase">
+    <div className=" flex flex-col gap-2 sm:gap-4 m-auto">
+      <div className="text-text text-base sm:text-lg font-bold  uppercase">
         All Shoes
       </div>
-      <div className="flex">
+      <div className="flex gap-1 sm:gap-2 text-sm sm:text-base">
         <div className=" relative">
           <button
-            className="text-text p-1 px-4 border-b-[1px]"
+            className="text-text p-1 border-b-[1px]"
             onClick={() => setDisplayShoes(walking)}
           >
             Walking
@@ -43,7 +43,7 @@ export default function AllShoes() {
 
         <div className="relative">
           <button
-            className={"border-b-[1px] text-text p-1 px-2"}
+            className={"border-b-[1px] text-text p-1 "}
             onClick={() => setDisplayShoes(training)}
           >
             Training
@@ -54,7 +54,7 @@ export default function AllShoes() {
 
         <div className="relative">
           <button
-            className={"border-b-[1px] text-text p-1 px-2"}
+            className={"border-b-[1px] text-text p-1 "}
             onClick={() => setDisplayShoes(running)}
           >
             Running
@@ -67,7 +67,7 @@ export default function AllShoes() {
           <Link to="/marketplace">View All</Link>
         </div>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
+      <div className="grid justify-center grid-cols-[repeat(auto-fit,minmax(145px,max-content))] sm:grid-cols-[repeat(auto-fit,minmax(165px,max-content))]  gap-1">
         {displayShoes.map((data) => {
           const productData = { ...data, quantity: 1 };
           return (
