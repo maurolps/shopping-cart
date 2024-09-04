@@ -26,7 +26,8 @@ export default function Footer() {
         <div className="max-w-40 flex flex-col gap-2">
           <span className=" font-bold">Contact</span>
           <span className="italic">
-            See more on{" "}
+            See more on
+            <br />
             <a
               className="text-blue-500"
               href="https://github.com/maurolps/shopping-cart"
