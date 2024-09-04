@@ -2,3 +2,6 @@
 .trending-slider .slick-next:before {
   color: rgb(var(--text-color));
 }
+.trending-slider .slick-slide {
+  padding: 0 2px;
+}

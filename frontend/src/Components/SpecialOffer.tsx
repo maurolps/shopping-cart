@@ -11,11 +11,11 @@ export function SpecialOffer() {
 
   return (
     <>
-      <div className="  p-4  w-[500px] max-w-screen-lg mx-auto bg-gradient-to-r from-primary via-slate-500 to-slate-500">
-        <div className="p-16 flex flex-col ">
-          <div className="text-white text-sm uppercase">Special Offer</div>
+      <div className="  p-4 w-[310px] sm:w-[500px] mx-auto bg-gradient-to-r from-primary via-slate-500 to-slate-500">
+        <div className="sm:p-16 flex flex-col ">
+          <div className="text-white text-xs sm:text-sm uppercase">Special Offer</div>
           <div className="flex gap-1 ">
-            <div className="text-white text-3xl font-bold p-4 uppercase">
+            <div className="text-white sm:text-3xl text-2xl font-bold p-4 uppercase">
               {specialOffer && (
                 <>
                   NEW <br /> {specialOffer.name}
@@ -67,9 +67,8 @@ export function SpecialOffer() {
           </div>
           <div className="p-4 flex justify-center">
             <Link
-              to={`${
-                specialOffer ? "/product/" + specialOffer.id : "/marketplace"
-              }`}
+              to={`${specialOffer ? "/product/" + specialOffer.id : "/marketplace"
+                }`}
             >
               <button className="bg-call text-white text-sm px-2 p-2 w-fit uppercase ">
                 see offer
