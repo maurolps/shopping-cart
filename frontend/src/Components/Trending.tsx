@@ -48,10 +48,10 @@ export function Trending() {
 
   return (
     <>
-      <div className="trending-slider m-auto max-w-4xl mx-1 sm:mx-10 ">
-        <div className="text-text text-lg font-bold p-4 uppercase">
-          Trending
-        </div>
+      <div className="text-text text-base sm:text-lg font-bold py-4 uppercase">
+        Trending
+      </div>
+      <div className="trending-slider m-auto max-w-4xl sm:mx-10 ">
         <Slider {...settings}>
           {trending &&
             trending.map((data) => {
