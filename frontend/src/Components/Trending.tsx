@@ -17,11 +17,38 @@ export function Trending() {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 3,
+    variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 980,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 3,
+        }
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          dots: true,
+          arrows: false,
+        }
+      },
+
+    ]
   };
 
   return (
     <>
-      <div className="trending-slider w-[900px] m-auto">
+      <div className="trending-slider m-auto max-w-4xl mx-1 sm:mx-10 ">
         <div className="text-text text-lg font-bold p-4 uppercase">
           Trending
         </div>
