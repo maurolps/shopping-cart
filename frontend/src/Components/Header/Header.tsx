@@ -44,7 +44,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex justify-center max-w-screen-lg mx-auto">
+      <div className="flex justify-center max-w-screen-lg mx-auto gap-2">
         <div className="flex justify-center sm:justify-start w-1/6 items-center">
           <h1 className="text-sm sm:text-2xl font-bold text-text">
             <Link to="/">
@@ -63,7 +63,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="flex justify-end items-center w-1/6 gap-3 text-base">
+        <div className="flex justify-end items-center w-1/6 gap-1 sm:gap-3 text-base">
           <a href="https://github.com/maurolps/shopping-cart">
             <GitHub sx={{ color: "rgba(var(--text-variant-color))" }} />
           </a>
