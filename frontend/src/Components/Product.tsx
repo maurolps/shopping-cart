@@ -85,19 +85,43 @@ function getProductById(id: number, products: TProducts[]) {
 export default function Product() {
   const { id } = useParams();
   if (!id) throw new Error("Unexpected product id");
-  const productsCategories = useAppSelector(
-    (state) => state.products.categories
-  );
-  const { running, training, walking, specialOffer, trending } =
-    productsCategories;
-  const allProducts = [
-    ...running,
-    ...training,
-    ...walking,
-    ...specialOffer,
-    ...trending,
-  ];
-  const product: TProducts = getProductById(parseInt(id), allProducts);
+  // const productsCategories = useAppSelector(
+  //   (state) => state.products.categories
+  // );
+  // const { running, training, walking, specialOffer, trending } =
+  //   productsCategories;
+  // const allProducts = [
+  //   ...running,
+  //   ...training,
+  //   ...walking,
+  //   ...specialOffer,
+  //   ...trending,
+  // ];
+  // const product: TProducts = getProductById(parseInt(id), allProducts);
+  const product: TProducts =
+  {
+    "id": 1,
+    "name": "Nike Air Zoom Pegasus 38",
+    "price": 120.55,
+    "type": "for men",
+    "sale": 0.2,
+    "stars": 4.5,
+    "imgUrl": "https://firebasestorage.googleapis.com/v0/b/shopping-cart-d8714.appspot.com/o/Nike%20Air%20Zoom%20Pegasus%2038%20-%203.png?alt=media&token=e826749b-6341-4934-8893-05a657f463a8",
+    "imgUrlVariants": [
+      {
+        "name": "Nike Air Zoom Pegasus 38 - 3.png",
+        "url": "https://firebasestorage.googleapis.com/v0/b/shopping-cart-d8714.appspot.com/o/Nike%20Air%20Zoom%20Pegasus%2038%20-%203.png?alt=media&token=e826749b-6341-4934-8893-05a657f463a8"
+      },
+      {
+        "name": "Nike Air Zoom Pegasus 38 - 2.png",
+        "url": "https://firebasestorage.googleapis.com/v0/b/shopping-cart-d8714.appspot.com/o/Nike%20Air%20Zoom%20Pegasus%2038%20-%202.png?alt=media&token=8c78f7e7-8a79-43d1-ae56-66609e2d92fa"
+      },
+      {
+        "name": "Nike Air Zoom Pegasus 38 - 1.png",
+        "url": "https://firebasestorage.googleapis.com/v0/b/shopping-cart-d8714.appspot.com/o/Nike%20Air%20Zoom%20Pegasus%2038%20-%201.png?alt=media&token=85f83c49-26e0-4d34-98d8-aa95f8f1e589"
+      }
+    ]
+  }
   const { name, price, sale, stars } = product;
   const imgUrls = product?.imgUrlVariants;
   const [imgIndex, setImgIndex] = useState(0);
@@ -129,14 +153,14 @@ export default function Product() {
 
   return (
     <div className="flex flex-col gap-1 my-10 ">
-      <span className="px-4 text-xs text-text-variant">
+      <span className="text-xs text-text-variant">
         <Link to="/"> Home </Link> {">"}
         <Link to="/marketplace"> Products </Link>
         {">"} {name}
       </span>
-      <div className="grid grid-cols-2 px-4 gap-10">
+      <div className="flex flex-col sm:flex-row gap-10">
         <div className="flex flex-col gap-2">
-          <div className="flex justify-center items-center h-96 w-96 bg-foreground border border-text-variant">
+          <div className="flex justify-center items-center w-full aspect-square sm:h-96 sm:w-96 bg-foreground border border-text-variant">
             <motion.div
               key={"index-" + imgIndex}
               initial={{ opacity: 0.1 }}
@@ -212,7 +236,7 @@ export default function Product() {
           </button>
         </div>
       </div>
-      <div className="mt-10">
+      <div className="w-dvw mt-10">
         <Trending />
       </div>
     </div>
