@@ -6,7 +6,7 @@ import { Trending } from "./Trending";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex w-full flex-col gap-14">
       <section>
         <Banner />
       </section>
