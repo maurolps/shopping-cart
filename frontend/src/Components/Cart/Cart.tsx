@@ -137,7 +137,7 @@ function Summary({ products }: { products: Products[] }) {
   const total = subTotal - discount;
 
   return (
-    <div className="w-80 p-3">
+    <div className="p-3">
       <div className="flex flex-col gap-2 text-xs">
         <span className="text-base text-text-variant ">Summary</span>
         <hr />
@@ -225,8 +225,8 @@ export default function Cart() {
   const isCartEmpty = products.length === 0;
 
   return (
-    <div className="flex gap-2 flex-col">
-      <div className="w-80 p-3 ">
+    <div className="flex gap-2 flex-col ">
+      <div className="p-3 ">
         <div className="flex flex-col gap-2">
           <div className="div">
             <span className="text-lg text-text font-bold">Cart</span>

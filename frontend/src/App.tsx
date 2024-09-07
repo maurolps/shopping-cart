@@ -5,7 +5,6 @@ import { toggleCart } from "./features/cartSlice";
 import { setProducts } from "./features/productSlice";
 import { Toaster } from "sonner";
 import { useEffect, lazy, Suspense } from "react";
-// import { fetchImageUrls } from "./features/fetchImageUrls";
 import { Outlet } from "react-router-dom";
 import fetchShoesData from "./features/fetchShoesData";
 
@@ -38,11 +37,14 @@ export default function App() {
           },
         }}
       />
-      <header className="bg-background shadow-sm min-w-[900px] max-w-screen-lg mx-auto px-4">
+      <header className="bg-background shadow-sm max-w-screen-lg mx-auto px-2 py-1 sm:py-6 sm:px-4">
         <Header />
         <section>
           <Drawer
             anchor="right"
+            PaperProps={{
+              sx: { width: '70%', maxWidth: '320px' }
+            }}
             open={openCart}
             onClose={() => {
               dispatch(toggleCart());
@@ -56,10 +58,10 @@ export default function App() {
           </Drawer>
         </section>
       </header>
-      <main className="flex justify-center min-w-[900px] max-w-screen-lg mx-auto my-10">
+      <main className="flex justify-center p-2 sm:p-4 max-w-screen-lg mx-auto my-10">
         <Outlet />
       </main>
-      <footer className="bg-primary w-full min-h-40 my-7 min-w-[900px] max-w-screen-lg mx-auto">
+      <footer className="bg-primary w-full min-h-40 my-7 max-w-screen-lg mx-auto">
         <Footer />
       </footer>
     </>
