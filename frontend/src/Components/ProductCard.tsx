@@ -41,14 +41,13 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="  border-2 border-foreground p-3 w-fit flex flex-col min-h-[320px] "
+      className="  border-2 border-foreground p-1 sm:p-3 w-fit flex flex-col min-h-[320px] "
     >
       <Link to={`/product/${product.id}`}>
         <div className="flex flex-col ">
           <div
-            className={`flex justify-center bg-foreground w-36 h-36 ${
-              imageLoaded ? "" : "animate-pulse"
-            }`}
+            className={`flex justify-center bg-foreground w-[140px] sm:w-36 aspect-square ${imageLoaded ? "" : "animate-pulse"
+              }`}
           >
             {imgUrl && (
               <img
