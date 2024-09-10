@@ -8,6 +8,11 @@ import { TProducts } from "../../features/cartSlice";
 
 type TSidebarProps = {
   setProducts: React.Dispatch<React.SetStateAction<TProducts[]>>;
+  setFilters: React.Dispatch<React.SetStateAction<{
+    category: string;
+    priceMin: number;
+    priceMax: number;
+  }>>
   sort: string;
 };
 
@@ -19,7 +24,7 @@ const theme = createTheme({
   },
 });
 
-export default function Siderbar({ setProducts, sort }: TSidebarProps) {
+export default function Siderbar({ setProducts, sort, setFilters }: TSidebarProps) {
   const { running, training, walking } = useAppSelector(
     (state) => state.products.categories
   );
@@ -48,6 +53,11 @@ export default function Siderbar({ setProducts, sort }: TSidebarProps) {
       return price >= range[0] && price <= range[1];
     });
     const sortedProducts = sortProducts(filteredProducts, sort);
+    setFilters({
+      category: category,
+      priceMin: range[0],
+      priceMax: range[1],
+    })
     setProducts(sortedProducts);
   };
 
@@ -83,36 +93,32 @@ export default function Siderbar({ setProducts, sort }: TSidebarProps) {
           <div className="flex flex-col text-sm gap-1 ">
             <ul>
               <li
-                className={`flex justify-between cursor-pointer ${
-                  category === "All" ? "font-bold" : ""
-                }`}
+                className={`flex justify-between cursor-pointer ${category === "All" ? "font-bold" : ""
+                  }`}
                 onClick={() => handleCategoryClick("All")}
               >
                 <span>All</span>
                 <span className="text-text-variant">30</span>
               </li>
               <li
-                className={`flex justify-between cursor-pointer ${
-                  category === "Running" ? "font-bold" : ""
-                }`}
+                className={`flex justify-between cursor-pointer ${category === "Running" ? "font-bold" : ""
+                  }`}
                 onClick={() => handleCategoryClick("Running")}
               >
                 <span>Running</span>
                 <span className="text-text-variant">10</span>
               </li>
               <li
-                className={`flex justify-between cursor-pointer ${
-                  category === "Training" ? "font-bold" : ""
-                }`}
+                className={`flex justify-between cursor-pointer ${category === "Training" ? "font-bold" : ""
+                  }`}
                 onClick={() => handleCategoryClick("Training")}
               >
                 <span>Trainning</span>
                 <span className="text-text-variant">10</span>
               </li>
               <li
-                className={`flex justify-between cursor-pointer ${
-                  category === "Walking" ? "font-bold" : ""
-                }`}
+                className={`flex justify-between cursor-pointer ${category === "Walking" ? "font-bold" : ""
+                  }`}
                 onClick={() => handleCategoryClick("Walking")}
               >
                 <span>Walking</span>

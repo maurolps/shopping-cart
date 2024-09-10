@@ -6,6 +6,7 @@ import Siderbar from "./Siderbar";
 import sortProducts from "./sortProducts";
 import { useAppSelector } from "../../features/hooks";
 import _ from 'lodash';
+import FiltersBar from "./FiltersBar";
 
 export default function MarketPlace() {
   const productsCategories = useAppSelector(
@@ -16,6 +17,7 @@ export default function MarketPlace() {
   const [products, setProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filters, setFilters] = useState({ category: 'All', priceMin: 0, priceMax: 500 })
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     setSort(e.target.value);
@@ -23,14 +25,15 @@ export default function MarketPlace() {
     setProducts(sortedProducts);
   };
 
-  const toggleDrawer = (status: boolean) => () => {
+  const toggleDrawer = (status: boolean) => {
+    console.log('toggle: ', status);
     setFiltersOpen(status);
   }
 
   return (
     <div className="flex gap-4 w-full relative">
       <div className="hidden sm:flex justify-center min-w-[200px] ">
-        <Siderbar setProducts={setProducts} sort={sort} />
+        <Siderbar setProducts={setProducts} sort={sort} setFilters={setFilters} />
       </div>
 
       <SwipeableDrawer
@@ -39,11 +42,11 @@ export default function MarketPlace() {
         PaperProps={{
           sx: { width: '70%', maxWidth: '320px' }
         }}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
+        onClose={() => toggleDrawer(false)}
+        onOpen={() => toggleDrawer(true)}
       >
         <div className="flex justify-center p-2 sm:p-4 mt-12 ">
-          <Siderbar setProducts={setProducts} sort={sort} />
+          <Siderbar setProducts={setProducts} sort={sort} setFilters={setFilters} />
         </div>
 
       </SwipeableDrawer>
@@ -52,7 +55,7 @@ export default function MarketPlace() {
           <div className="flex justify-between ">
 
             <div className="text-lg font-semibold uppercase">
-              <span className="text-blue-400 capitalize" onClick={toggleDrawer(true)}>Filters</span>  MarketPlace
+              MarketPlace
             </div>
             <div className="text-xs self-end">
               <Select
@@ -72,10 +75,9 @@ export default function MarketPlace() {
             </div>
           </div>
           <hr />
-          <span className="text-text-variant text-xs"><em>Filters: All, 0 ~ 500 USD</em></span>
+          <FiltersBar filters={filters} toggleDrawer={toggleDrawer} />
         </div>
 
-        {/* <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2"> */}
         <div className="grid justify-center grid-cols-[repeat(auto-fit,minmax(145px,max-content))] sm:grid-cols-[repeat(auto-fit,minmax(165px,max-content))]  gap-1">
           {products.map((data) => {
             const productData = { ...data, quantity: 1 };
