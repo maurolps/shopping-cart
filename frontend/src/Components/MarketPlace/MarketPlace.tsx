@@ -1,10 +1,11 @@
 import ProductCard from "../ProductCard";
-import { Input, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Input, MenuItem, Select, SelectChangeEvent, SwipeableDrawer } from "@mui/material";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Siderbar from "./Siderbar";
 import sortProducts from "./sortProducts";
 import { useAppSelector } from "../../features/hooks";
+import _ from 'lodash';
 
 export default function MarketPlace() {
   const productsCategories = useAppSelector(
@@ -14,6 +15,7 @@ export default function MarketPlace() {
   const allProducts = [...running, ...training, ...walking];
   const [products, setProducts] = useState(allProducts);
   const [sort, setSort] = useState(" ");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const handleSortChange = (e: SelectChangeEvent<string>) => {
     setSort(e.target.value);
@@ -21,15 +23,37 @@ export default function MarketPlace() {
     setProducts(sortedProducts);
   };
 
+  const toggleDrawer = (status: boolean) => () => {
+    setFiltersOpen(status);
+  }
+
   return (
-    <div className="flex gap-4">
-      <div className="flex justify-center min-w-[200px] ">
+    <div className="flex gap-4 w-full relative">
+      <div className="hidden sm:flex justify-center min-w-[200px] ">
         <Siderbar setProducts={setProducts} sort={sort} />
       </div>
-      <div className="flex flex-col gap-4 min-w-[700px]">
+
+      <SwipeableDrawer
+        anchor="left"
+        open={filtersOpen}
+        PaperProps={{
+          sx: { width: '70%', maxWidth: '320px' }
+        }}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+      >
+        <div className="flex justify-center p-2 sm:p-4 mt-12 ">
+          <Siderbar setProducts={setProducts} sort={sort} />
+        </div>
+
+      </SwipeableDrawer>
+      <div className="flex flex-col gap-4 w-full">
         <div className="div">
-          <div className="flex justify-between w-full">
-            <div className="text-lg font-semibold uppercase">MarketPlace</div>
+          <div className="flex justify-between ">
+
+            <div className="text-lg font-semibold uppercase">
+              <span className="text-blue-400 capitalize" onClick={toggleDrawer(true)}>Filters</span>  MarketPlace
+            </div>
             <div className="text-xs self-end">
               <Select
                 input={<Input disableUnderline={true} />}
@@ -48,9 +72,11 @@ export default function MarketPlace() {
             </div>
           </div>
           <hr />
+          <span className="text-text-variant text-xs"><em>Filters: All, 0 ~ 500 USD</em></span>
         </div>
 
-        <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2">
+        {/* <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(155px,1fr))] gap-2"> */}
+        <div className="grid justify-center grid-cols-[repeat(auto-fit,minmax(145px,max-content))] sm:grid-cols-[repeat(auto-fit,minmax(165px,max-content))]  gap-1">
           {products.map((data) => {
             const productData = { ...data, quantity: 1 };
             return (
