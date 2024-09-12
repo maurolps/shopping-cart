@@ -1,6 +1,17 @@
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { useAppSelector } from "../../features/hooks";
 
+type ReviewProps = {
+  shipInfo: {
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
+    state: string,
+    zip: string,
+  },
+}
+
 function CartReview() {
   const resume = useAppSelector((store) => store.cart.resume);
 
@@ -37,7 +48,8 @@ function CartReview() {
   );
 }
 
-function ShippingReview() {
+function ShippingReview({ shipInfo }: ReviewProps) {
+  const { firstName, lastName, address, zip, state } = shipInfo;
   return (
     <>
       <div className="text-sm flex justify-between gap-2 text-text font-medium">
@@ -52,11 +64,11 @@ function ShippingReview() {
       <hr />
       <div className="flex justify-between text-text-variant">
         <span>Name</span>
-        <span>John Doe</span>
+        <span>{firstName} {lastName}</span>
       </div>
       <div className="flex justify-between text-text-variant">
         <span>Address</span>
-        <span>123 Main St, New York - NY (10001)</span>
+        <span>{address} - {state} ({zip})</span>
       </div>
     </>
   );
@@ -84,7 +96,9 @@ function PaymentReview() {
   );
 }
 
-export default function Review() {
+export default function Review(props: ReviewProps) {
+  const { shipInfo } = props;
+  console.log(shipInfo);
   const resume = useAppSelector((store) => store.cart.resume);
   const total = resume.subTotal * (1 - resume.discount);
   return (
@@ -95,7 +109,7 @@ export default function Review() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <ShippingReview />
+          <ShippingReview shipInfo={shipInfo} />
         </div>
         <div className="flex flex-col gap-1">
           <PaymentReview />

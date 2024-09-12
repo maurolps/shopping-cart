@@ -6,9 +6,24 @@ import { StepContent } from "@mui/material";
 import Shipping from "./Shipping";
 import Payment from "./Payment";
 import Review from "./Review";
+
 export default function Checkout() {
   const steps = ["Shipping address", "Payment details", "Review"];
   const [activeStep, setActiveStep] = useState(0);
+
+  const [shipInfo, setShipInfo] = useState({
+    firstName: 'John',
+    lastName: 'Doe',
+    address: '123 Main St',
+    city: 'New York',
+    state: 'NY',
+    zip: '10001',
+  })
+
+  const handleShipInfo = (data: { [index: string]: string }) => {
+    const newShipInfo = { ...shipInfo, ...data }
+    setShipInfo(newShipInfo);
+  }
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -20,8 +35,8 @@ export default function Checkout() {
 
   return (
     <>
-      <div className="flex gap-2 flex-col">
-        <div className="w-[500px] p-3 shadow">
+      <div className="flex gap-2 flex-col w-full max-w-[500px] ">
+        <div className="p-3 shadow">
           <div className="flex flex-col gap-2">
             <span className="text-lg text-text font-semibold">Checkout</span>
             <hr />
@@ -40,9 +55,9 @@ export default function Checkout() {
                     </StepLabel>
                     <StepContent>
                       <div className="min-h-60 p-2 mb-4">
-                        {index === 0 && <Shipping />}
+                        {index === 0 && <Shipping shipInfo={shipInfo} handleShipInfo={handleShipInfo} />}
                         {index === 1 && <Payment />}
-                        {index === 2 && <Review />}
+                        {index === 2 && <Review shipInfo={shipInfo} />}
                       </div>
 
                       <div className="flex gap-2 justify-end w-full">
