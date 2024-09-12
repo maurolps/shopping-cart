@@ -11,10 +11,24 @@ const theme = createTheme({
   },
 });
 
-export default function Shipping() {
+type ShippingProps = {
+  shipInfo: {
+    firstName: string,
+    lastName: string,
+    address: string,
+    city: string,
+    state: string,
+    zip: string,
+  },
+  handleShipInfo: (data: { [index: string]: string }) => void,
+}
+
+export default function Shipping(props: ShippingProps) {
+  const { shipInfo, handleShipInfo } = props;
   const styles = {
     variant: "filled" as TextFieldVariants,
   };
+
   return (
     <ThemeProvider theme={theme}>
       <div className="flex flex-col gap-2">
@@ -22,14 +36,16 @@ export default function Shipping() {
           <CustomTextField
             label="First Name"
             variant={styles.variant}
-            defaultValue="John"
+            value={shipInfo.firstName}
+            onChange={(e) => { handleShipInfo({ firstName: e.target.value }) }}
             size="small"
           />
 
           <CustomTextField
             label="Last Name"
             variant={styles.variant}
-            defaultValue="Doe"
+            value={shipInfo.lastName}
+            onChange={(e) => { handleShipInfo({ lastName: e.target.value }) }}
             size="small"
           />
         </div>
@@ -37,13 +53,15 @@ export default function Shipping() {
           <CustomTextField
             label="Address"
             variant={styles.variant}
-            defaultValue="123 Main St"
+            value={shipInfo.address}
+            onChange={(e) => { handleShipInfo({ address: e.target.value }) }}
             size="small"
           />
           <CustomTextField
             label="City"
             variant={styles.variant}
-            defaultValue="New York"
+            value={shipInfo.city}
+            onChange={(e) => { handleShipInfo({ city: e.target.value }) }}
             size="small"
           />
         </div>
@@ -51,13 +69,15 @@ export default function Shipping() {
           <CustomTextField
             label="State"
             variant={styles.variant}
-            defaultValue="NY"
+            value={shipInfo.state}
+            onChange={(e) => { handleShipInfo({ state: e.target.value }) }}
             size="small"
           />
           <CustomTextField
             label="Zip Code"
             variant={styles.variant}
-            defaultValue="10001"
+            value={shipInfo.zip}
+            onChange={(e) => { handleShipInfo({ zip: e.target.value }) }}
             size="small"
           />
         </div>
