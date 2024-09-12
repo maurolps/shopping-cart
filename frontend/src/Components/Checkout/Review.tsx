@@ -10,6 +10,10 @@ type ReviewProps = {
     state: string,
     zip: string,
   },
+  payInfo: {
+    cardNumber: string,
+    cardName: string,
+  },
 }
 
 function CartReview() {
@@ -48,7 +52,11 @@ function CartReview() {
   );
 }
 
-function ShippingReview({ shipInfo }: ReviewProps) {
+type ShippingReviewProps = {
+  shipInfo: ReviewProps['shipInfo'],
+}
+
+function ShippingReview({ shipInfo }: ShippingReviewProps) {
   const { firstName, lastName, address, zip, state } = shipInfo;
   return (
     <>
@@ -74,7 +82,14 @@ function ShippingReview({ shipInfo }: ReviewProps) {
   );
 }
 
-function PaymentReview() {
+type PaymentReviewProps = {
+  payInfo: ReviewProps['payInfo'],
+}
+
+function PaymentReview({ payInfo }: PaymentReviewProps) {
+
+  const { cardNumber, cardName } = payInfo;
+  const newCardNumber = '... ' + cardNumber.slice(-4);
   return (
     <>
       <div className="text-sm flex justify-between gap-2 text-text font-medium">
@@ -86,19 +101,18 @@ function PaymentReview() {
       <hr />
       <div className="flex justify-between text-text-variant">
         <span>Name</span>
-        <span>John Doe</span>
+        <span>{cardName}</span>
       </div>
       <div className="flex justify-between text-text-variant">
         <span>Card number</span>
-        <span>... 3456</span>
+        <span>{newCardNumber}</span>
       </div>
     </>
   );
 }
 
 export default function Review(props: ReviewProps) {
-  const { shipInfo } = props;
-  console.log(shipInfo);
+  const { shipInfo, payInfo } = props;
   const resume = useAppSelector((store) => store.cart.resume);
   const total = resume.subTotal * (1 - resume.discount);
   return (
@@ -112,7 +126,7 @@ export default function Review(props: ReviewProps) {
           <ShippingReview shipInfo={shipInfo} />
         </div>
         <div className="flex flex-col gap-1">
-          <PaymentReview />
+          <PaymentReview payInfo={payInfo} />
         </div>
 
         <div className="flex justify-between font-bold text-base my-2">
