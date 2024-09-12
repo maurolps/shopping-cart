@@ -20,6 +20,18 @@ export default function Checkout() {
     zip: '10001',
   })
 
+  const [payInfo, setPayInfo] = useState({
+    cardNumber: '5324 5678 9012 3456',
+    cardName: 'Jane Doe',
+    expires: '03/28',
+    cvc: '527',
+  })
+
+  const handlePayInfo = (data: { [index: string]: string }) => {
+    const newPayInfo = { ...payInfo, ...data }
+    setPayInfo(newPayInfo);
+  }
+
   const handleShipInfo = (data: { [index: string]: string }) => {
     const newShipInfo = { ...shipInfo, ...data }
     setShipInfo(newShipInfo);
@@ -56,8 +68,8 @@ export default function Checkout() {
                     <StepContent>
                       <div className="min-h-60 p-2 mb-4">
                         {index === 0 && <Shipping shipInfo={shipInfo} handleShipInfo={handleShipInfo} />}
-                        {index === 1 && <Payment />}
-                        {index === 2 && <Review shipInfo={shipInfo} />}
+                        {index === 1 && <Payment payInfo={payInfo} handlePayInfo={handlePayInfo} />}
+                        {index === 2 && <Review shipInfo={shipInfo} payInfo={payInfo} />}
                       </div>
 
                       <div className="flex gap-2 justify-end w-full">

@@ -12,7 +12,16 @@ const theme = createTheme({
   },
 });
 
-export default function Payment() {
+type PaymentProps = {
+  payInfo: {
+    cardNumber: string,
+    cardName: string,
+  },
+  handlePayInfo: (data: { [index: string]: string }) => void,
+}
+
+export default function Payment(props: PaymentProps) {
+  const { payInfo, handlePayInfo } = props;
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -20,7 +29,8 @@ export default function Payment() {
           <CustomTextField
             label="Card Number"
             variant="filled"
-            defaultValue="5324 5678 9012 3456"
+            value={payInfo.cardNumber}
+            onChange={(e) => { handlePayInfo({ cardNumber: e.target.value }) }}
             size="small"
             InputProps={{
               endAdornment: (
@@ -34,7 +44,8 @@ export default function Payment() {
           <CustomTextField
             label="Name on Card"
             variant="filled"
-            defaultValue="John Doe"
+            value={payInfo.cardName}
+            onChange={(e) => { handlePayInfo({ cardName: e.target.value }) }}
             size="small"
           />
           <div className="flex gap-2">
