@@ -118,22 +118,11 @@ function LoadProduct({ product, imgUrl }: LoadProductProps) {
   );
 }
 
-type Products = {
-  id: number;
-  name: string;
-  price: number;
-  sale: number;
-  stars: number;
-  quantity?: number | 0;
-};
-
-function Summary({ products }: { products: Products[] }) {
-  const subTotal = products.reduce((acc, { sale, price, quantity }) => {
-    return sale === 0
-      ? acc + price * (quantity || 0)
-      : acc + price * (1 - sale) * (quantity || 0);
-  }, 0);
-  const discount = subTotal * 0.1;
+function Summary() {
+  const subTotal = useAppSelector((store) => store.cart.resume.subTotal);
+  const discountFactor = useAppSelector((store) => store.cart.resume.discount);
+  const userName = useAppSelector((store) => store.cart.resume.userName);
+  const discount = subTotal * discountFactor;
   const total = subTotal - discount;
 
   return (
@@ -151,7 +140,7 @@ function Summary({ products }: { products: Products[] }) {
         </div>
         <div className="flex justify-between text-text-variant">
           <span>Discount</span>
-          <span>(10%) ${discount.toFixed(2)}</span>
+          <span>({userName} {discountFactor * 100}%) ${discount.toFixed(2)}</span>
         </div>
         <hr />
         <div className="flex justify-between font-bold text-base my-2">
@@ -244,7 +233,7 @@ export default function Cart() {
           )}
         </div>
       </div>
-      {!isCartEmpty && <Summary products={products} />}
+      {!isCartEmpty && <Summary />}
       <CartActions isCartEmpty={isCartEmpty} />
     </div>
   );
