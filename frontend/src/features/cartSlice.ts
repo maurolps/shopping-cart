@@ -23,7 +23,8 @@ export const cartSlice = createSlice({
     resume: {
       quantity: 0,
       subTotal: 0,
-      discount: 0.1,
+      discount: 0.05,
+      userName: 'johndoe',
     },
   },
   reducers: {
@@ -53,17 +54,24 @@ export const cartSlice = createSlice({
       }
     },
     removeProduct: (state, action) => {
+      const item = state.items.find((item) => item.id === action.payload);
+      if (!item) return;
+      state.resume.quantity -= 1;
       state.resume.subTotal = state.resume.subTotal - (
-        state.items.find((item) => item.id === action.payload)?.price || 0
-      )
+        item.price * (1 - item.sale)
+      );
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
     toggleCart: (state) => {
       state.toggleCart = !state.toggleCart;
     },
+    applyDiscount: (state, action) => {
+      state.resume.userName = action.payload;
+      state.resume.discount = 0.2;
+    }
   },
 });
 
-export const { addProduct, removeProduct, toggleCart, updateQuantity } =
+export const { addProduct, removeProduct, toggleCart, updateQuantity, applyDiscount } =
   cartSlice.actions;
 export default cartSlice.reducer;
