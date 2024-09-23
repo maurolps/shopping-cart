@@ -98,7 +98,7 @@ export default function Product() {
     ...trending,
   ];
   const product: TProducts = getProductById(parseInt(id), allProducts);
-  const { name, price, sale, stars } = product;
+  const { name, price, sale, stars, type } = product;
   const imgUrls = product?.imgUrlVariants;
   const [imgIndex, setImgIndex] = useState(0);
   const salePrice = () => (price * (1 - sale)).toFixed(2);
@@ -200,8 +200,7 @@ export default function Product() {
 
           <div className="div">
             <span className="text-text font-bold text-sm">Size</span>
-
-            <SizeSelector sizes={[41, 42, 43, 44, 45]} />
+            {type === "for women" ? <SizeSelector sizes={[36, 37, 38, 39, 40, 41, 42, 43, 44]} /> : <SizeSelector sizes={[39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]} />}
           </div>
 
           <button
