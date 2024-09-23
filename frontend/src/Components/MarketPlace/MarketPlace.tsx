@@ -26,7 +26,6 @@ export default function MarketPlace() {
   };
 
   const toggleDrawer = (status: boolean) => {
-    console.log('toggle: ', status);
     setFiltersOpen(status);
   }
 
