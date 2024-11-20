@@ -19,6 +19,7 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
   const salePrice = () => (product.price * (1 - product.sale)).toFixed(2);
   const dispatch = useAppDispatch();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const isSkeleton = product.name === "skeleton";
 
   const handleAddToCart = () => {
     dispatch(addProduct(product));
@@ -46,7 +47,7 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
       <Link to={`/product/${product.id}`}>
         <div className="flex flex-col ">
           <div
-            className={`flex justify-center bg-foreground w-[140px] sm:w-36 aspect-square ${imageLoaded ? "" : "animate-pulse"
+            className={`flex justify-center bg-foreground w-[140px] sm:w-36 aspect-square ${imageLoaded && !isSkeleton ? "" : "animate-pulse"
               }`}
           >
             {imgUrl && (
@@ -54,7 +55,7 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
                 src={imgUrl}
                 alt=""
                 loading="lazy"
-                style={{ opacity: imageLoaded ? 1 : 0 }}
+                style={{ opacity: imageLoaded && !isSkeleton ? 1 : 0 }}
                 width={"90%"}
                 className="object-contain transition-opacity duration-500"
                 onLoad={() => setImageLoaded(true)}
@@ -62,12 +63,12 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
             )}
           </div>
           <div className="text-text text-sm text-start font-bold max-w-36">
-            {imageLoaded ? product.name : <Skeleton />}
+            {imageLoaded && !isSkeleton ? product.name : <Skeleton />}
           </div>
         </div>
       </Link>
       <div>
-        {imageLoaded ? (
+        {imageLoaded && !isSkeleton ? (
           <Rating
             name="Shoe Stars"
             value={product.stars}
@@ -80,7 +81,7 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
         )}
       </div>
       <div className="text-text font-bold text-md text-start  max-w-36">
-        {imageLoaded ? (
+        {imageLoaded && !isSkeleton ? (
           product.sale === 0 ? (
             product.price
           ) : (
@@ -91,7 +92,7 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
         )}
       </div>
       {}
-      {imageLoaded && product.sale !== 0 && (
+      {imageLoaded && !isSkeleton && product.sale !== 0 && (
         <div className="flex gap-2 text-sm">
           <span className="text-text-variant line-through">
             ${product.price}
@@ -102,7 +103,7 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
         </div>
       )}
       <div className="w-full my-2  flex-grow flex flex-col justify-end">
-        {imageLoaded ? (
+        {imageLoaded && !isSkeleton ? (
           <button
             onClick={() => handleAddToCart()}
             className="bg-white text-primary text-xs px-2  border-primary border"
@@ -115,4 +116,20 @@ export default function ProductCard({ product, imgUrl }: ProductCardProps) {
       </div>
     </motion.div>
   );
+}
+
+export function ProductCardSkeleton({ count }: { count: number }) {
+
+  const skeletonCount = Array(count).fill(1);
+
+  return skeletonCount.map((_, index: number) => (
+    <ProductCard
+      key={index}
+      product={{ id: index, name: "skeleton", price: 0, sale: 0, stars: 0, type: "none" }}
+      imgUrl={""}
+    />
+  )
+  )
+
+
 }
