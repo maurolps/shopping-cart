@@ -10,7 +10,9 @@ export function Trending() {
     (state) => state.products.categories
   );
   const trending = productsCategories.trending;
-
+  const skeletonCount = Array(10).fill(1);
+  console.log('trendnig init');
+  console.log('trending: ', trending);
   const settings = {
     dots: false,
     infinite: false,
@@ -53,7 +55,7 @@ export function Trending() {
       </div>
       <div className="trending-slider m-auto max-w-4xl sm:mx-10 ">
         <Slider {...settings}>
-          {trending &&
+          {trending !== undefined ?
             trending.map((data) => {
               const productData = { ...data, quantity: 1 };
               return (
@@ -63,7 +65,21 @@ export function Trending() {
                   imgUrl={productData.imgUrl}
                 />
               );
-            })}
+            })
+            : (
+              skeletonCount.map((_, index: number) => {
+                console.log('skeleton indexx', index);
+                return (
+
+                  <ProductCard
+                    key={index}
+                    product={{ id: index, name: "skeleton", price: 0, sale: 0, stars: 0, type: "none" }}
+                    imgUrl={""}
+                  />
+                )
+              }
+              ))
+          }
         </Slider>
       </div>
     </>
