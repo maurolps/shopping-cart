@@ -11,8 +11,6 @@ export function Trending() {
   );
   const trending = productsCategories.trending;
   const skeletonCount = Array(10).fill(1);
-  console.log('trendnig init');
-  console.log('trending: ', trending);
   const settings = {
     dots: false,
     infinite: false,
@@ -68,7 +66,6 @@ export function Trending() {
             })
             : (
               skeletonCount.map((_, index: number) => {
-                console.log('skeleton indexx', index);
                 return (
 
                   <ProductCard
