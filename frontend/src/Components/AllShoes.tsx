@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
+import ProductCard, { ProductCardSkeleton } from "./ProductCard";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../features/hooks";
 import { Link } from "react-router-dom";
@@ -20,6 +20,7 @@ export default function AllShoes() {
 
   const { running = [], training = [], walking = [] } = productsCategories;
   const [displayShoes, setDisplayShoes] = useState([] as typeof walking);
+  const isLoading = displayShoes.length === 0;
 
   useEffect(() => {
     if (!displayShoes.length) setDisplayShoes(walking);
@@ -68,7 +69,7 @@ export default function AllShoes() {
         </div>
       </div>
       <div className="grid justify-center grid-cols-[repeat(auto-fit,minmax(145px,max-content))] sm:grid-cols-[repeat(auto-fit,minmax(165px,max-content))]  gap-1">
-        {displayShoes.map((data) => {
+        {isLoading ? <ProductCardSkeleton count={10} /> : displayShoes.map((data) => {
           const productData = { ...data, quantity: 1 };
           return (
             <motion.div
