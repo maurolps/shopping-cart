@@ -1,6 +1,6 @@
 # Shopping Cart Application
 
-Shopping Cart Application is a full-stack project with a **React** frontend and a **Node.js + TypeScript**. The app is designed to showcase e-commerce functionalities, including dynamic item display, cart management, and integration with a database.
+Shopping Cart Application is a full-stack project with a **React** frontend and a **Node.js + TypeScript**. The app is designed to showcase e-commerce functionalities, including dynamic item display, cart management, and integration with a NoSQL database.
 
 ##  Live: 
 
@@ -20,7 +20,7 @@ https://shopscart.onrender.com/
 ### Backend:
 
 - **RESTful API:** Built with Express and TypeScript.
-- **Database Management:** Powered by Prisma and integrated with a relational database.
+- **Database Management:** Powered by Prisma and integrated with a NoSQL database.
 - **Secure Configuration:** Environment variables managed with Dotenv.
 - **Cross-Origin Resource Sharing (CORS):** Enabled for frontend-backend communication.
 
