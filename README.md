@@ -4,6 +4,8 @@ Shopping Cart Application is a full-stack project with a **React** frontend and 
 
 ## Live:
 
+https://shopscart.onrender.com/
+
 ![Preview Image](./frontend/public/scart.png)
 
 _Backend service may shut down due to inactivity. Please note that in such cases, the server might take around 1min to restart and respond._
