@@ -2,11 +2,11 @@
 
 Shopping Cart Application is a full-stack project with a **React** frontend and a **Node.js + TypeScript**. The app is designed to showcase e-commerce functionalities, including dynamic item display, cart management, and integration with a NoSQL database.
 
-##  Live: 
+## Live:
 
-https://shopscart.onrender.com/
+![Preview Image](./frontend/public/scart.png)
 
-*Backend service may shut down due to inactivity. Please note that in such cases, the server might take around 1min to restart and respond.*
+_Backend service may shut down due to inactivity. Please note that in such cases, the server might take around 1min to restart and respond._
 
 ## 💡 Features
 
@@ -48,7 +48,5 @@ https://shopscart.onrender.com/
 - Firebase
 - Dotenv
 - Cors
-
-
 
 This project is part of The Odin Project Curriculum: [https://www.theodinproject.com/](https://www.theodinproject.com/)
