@@ -4,7 +4,7 @@ Shopping Cart Application is a full-stack project with a **React** frontend and 
 
 ## Live:
 
-https://shopscart.onrender.com/
+https://maurolps.dev/shopping-cart
 
 ![Preview Image](./frontend/public/scart.png)
 
